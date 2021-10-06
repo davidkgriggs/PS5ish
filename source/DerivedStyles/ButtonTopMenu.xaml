@@ -1,0 +1,83 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="ButtonTopMenu" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Height" Value="60" />
+        <Setter Property="Width" Value="60" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}" >
+                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                   Margin="0">                            
+                                <ContentPresenter />
+                        </TextBlock>
+
+                        <Border Background="{DynamicResource Background}"
+							BorderThickness="0" CornerRadius="500"
+                            BorderBrush="#5A5A5A"
+                            Margin="0,0,0,0"    
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Width="55" Height="55"   
+                            x:Name="MainBorder"/>
+
+                        <Border x:Name="BorderStandard"
+                                BorderThickness="3" CornerRadius="500"
+                                BorderBrush="#5A5A5A"
+                                Margin="0,0,0,0"    
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Width="60" Height="60"   />
+
+                        <Border x:Name="BorderFocus" Margin="-3"
+                                BorderBrush="White" CornerRadius="5"
+                                BorderThickness="0" Visibility="Hidden" />
+
+                        <ContentPresenter />
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=DKGThemeModifier_PS5ish_StoreButton, Path=IsKeyboardFocusWithin}" Value="True">
+                            <Setter Property="Focusable" Value="False"/>
+                        </DataTrigger>
+
+                        <Trigger Property="IsFocused" Value="False">
+                            <Setter Property="Foreground" Value="Transparent"/>
+                            <!--Setter Property="Background" Value="#CC303030" TargetName="MainBorder"/-->
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+                            <Setter Property="Visibility" Value="Hidden" TargetName="BorderStandard" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+                            <Setter Property="Background" Value="White" TargetName="MainBorder"/>
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderStandard" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+                            <Setter Property="Background" Value="White" TargetName="MainBorder"/>
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderStandard" />
+                        </Trigger>
+                        <EventTrigger RoutedEvent="Button.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever">
+                                    <ColorAnimation From="#33FFFFFF"
+                                        To="#BFFFFFFF" 
+                                    Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)" 
+                                                    Storyboard.TargetName="BorderStandard"
+                                    Duration="0:0:1.50"
+                                                    AutoReverse="True"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

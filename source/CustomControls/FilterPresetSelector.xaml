@@ -1,0 +1,102 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="ItemFilterQuickPreset" TargetType="CheckBoxEx">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBoxEx">
+                    <Border x:Name="BorderFocus" Background="{TemplateBinding Background}" CornerRadius="2.5" BorderThickness="2.5" BorderBrush="Transparent"
+                            Margin="10,0,0,10">
+                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="35"
+                                   x:Name="TextContent">
+                            <Grid Margin="5">
+                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Visibility="Hidden"/>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
+                                </StackPanel>                                
+                            </Grid>
+                        </TextBlock>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="White" TargetName="BorderFocus" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard x:Name="SelectedAnim">
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <ColorAnimation From="#33FFFFFF" To="#BFEAD3CF" Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="BorderFocus" Duration="0:0:2.00" AutoReverse="True"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="FontFamily" Value="Lato" TargetName="TextContent" />
+                            <Setter Property="FontWeight" Value="Bold" TargetName="TextContent" />
+                            <Setter Property="FontSize" Value="40" TargetName="TextContent" />
+                            <Setter Property="Margin" Value="0,5,0,0" TargetName="TextContent" />
+                        </Trigger>
+
+                        <Trigger Property="ListBox.AlternationIndex" Value="0">
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="1">
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Margin" Value="0,0,60,0" />
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Focusable" Value="True" />
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type FilterPresetSelector}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type FilterPresetSelector}">
+                    <ItemsControlEx x:Name="PART_ItemsFilterPresets" Focusable="False" AlternationCount="{Binding Items.Count, RelativeSource={RelativeSource Self}}"
+                                    KeyboardNavigation.DirectionalNavigation="Once"
+                                    HorizontalLayout="True">
+                        <ItemsControl.ItemsPanel>                            
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <ScrollViewer Focusable="False"
+                                              HorizontalScrollBarVisibility="Hidden"
+                                              VerticalScrollBarVisibility="Disabled"
+                                              CanContentScroll="True">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                    </ItemsControlEx>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

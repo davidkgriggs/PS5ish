@@ -1,0 +1,914 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    mc:Ignorable="d">
+
+    <Style x:Key="ListGameItemStyle" TargetType="ListBoxItem">        
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="Tag" Value="{DynamicResource SingleRowMode}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="FocusedOn">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="1" To="1.06" Duration="0:0:0.1"/>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="1" To="1.06" Duration="0:0:0.1"/>
+                        </Storyboard>
+                        <Storyboard x:Key="FocusedOff">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="1.06" To="1" Duration="0:0:0.2"/>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="1.06" To="1" Duration="0:0:0.2"/>
+                        </Storyboard>
+                       
+                        <Storyboard x:Key="TitleAnim">
+                            <DoubleAnimation Storyboard.TargetProperty="Height" Storyboard.TargetName="Title" From="0" To="120" Duration="0:0:0.2" FillBehavior="Stop"/>
+                        </Storyboard>
+                        <Storyboard x:Key="BorderHighlightAnim" RepeatBehavior="Forever">
+                            <ColorAnimation From="#66000000" To="#BFEAD3CF" Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="MainBorder" Duration="0:0:2.00" AutoReverse="True"/>
+                        </Storyboard>
+                        <Storyboard x:Key="BorderShimmerAnim" RepeatBehavior="Forever">
+                            <ColorAnimation From="#00000000" To="#40FFFFFF" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Storyboard.TargetName="BorderShimmer" Duration="0:0:1.50" AutoReverse="True">
+                                <ColorAnimation.EasingFunction>
+                                    <ExponentialEase EasingMode="EaseInOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+
+                        <!--Single Row Mode-->
+                        <Storyboard x:Key="FocusedOnSingle">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="1" To="1.6" Duration="0:0:0.075"/>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="1" To="1.6" Duration="0:0:0.075"/>
+                        </Storyboard>
+                        <Storyboard x:Key="FocusedOffSingle">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="1.6" To="1" Duration="0:0:0.075"/>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="1.6" To="1" Duration="0:0:0.075"/>
+                        </Storyboard>
+                        <Storyboard x:Key="BorderHighlightAnimSingle" RepeatBehavior="Forever">
+                            <ColorAnimation From="#66000000" To="#BFEAD3CF" Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="MainBorderSingle" Duration="0:0:2.00" AutoReverse="True"/>
+                        </Storyboard>
+                        <Storyboard x:Key="BorderShimmerAnimSingle" RepeatBehavior="Forever">
+                            <ColorAnimation From="#00000000" To="#40FFFFFF" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Storyboard.TargetName="BorderShimmerSingle" Duration="0:0:1.50" AutoReverse="True">
+                                <ColorAnimation.EasingFunction>
+                                    <ExponentialEase EasingMode="EaseInOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+                    <Grid Margin="{Settings FullscreenItemSpacingMargin}"
+                          RenderTransformOrigin="0.5,0.1"
+                          d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}" x:Name="CoverContainer">
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
+                        </Grid.RenderTransform>
+                        <Border x:Name="Mask" CornerRadius="20" Background="Black"/>
+                        
+                        <ContentPresenter />
+
+                        <StackPanel Visibility="{Settings Fullscreen.ShowGameTitles}" VerticalAlignment="Bottom">
+                            <Grid x:Name="Title" Visibility="Collapsed" Height="120" HorizontalAlignment="Stretch">
+                                <Border Background="{DynamicResource OverlayTitle}"/>
+                                <StackPanel VerticalAlignment="Bottom">
+                                    <StackPanel Margin="20,0,0,0">
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Platforms[0]}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <Image Name="PlatformSource" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Left" Height="35" Margin="0,0,0,0"
+                                               Source="{Binding Platforms[0].Icon, Converter={StaticResource ImageStringToImageConverter}}"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis"
+                                   Style="{DynamicResource TextBlockBaseStyle}" FontFamily="Segoe UI Semibold" FontSize="22"
+                                   HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                   TextAlignment="Center" Padding="20,10,10,20"                                  
+                                   Foreground="#FFEBEBEB"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+
+                        <Border x:Name="MainBorder" BorderThickness="3" BorderBrush="White"
+                                Margin="-2" Visibility="Collapsed" CornerRadius="2">
+                        </Border>
+                        <Border x:Name="BorderShimmer" Background="#AA000000" BorderBrush="White"
+                                Visibility="Collapsed" CornerRadius="0">
+                        </Border>
+
+                        <Border x:Name="MainBorderSingle" BorderThickness="1.5" BorderBrush="White"
+                                Margin="0" Visibility="Collapsed" CornerRadius="20">
+                        </Border>
+                        <Border x:Name="BorderShimmerSingle" Background="#AA000000" BorderBrush="White"
+                                Visibility="Collapsed" CornerRadius="20">
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!--Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+                            <Setter Property="Canvas.ZIndex" Value="90" />
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource FocusedOff}" />
+                            </Trigger.ExitActions>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource FocusedOn}" />
+                            </Trigger.EnterActions>
+                        </Trigger-->
+
+
+                        <Trigger Property="ListBox.AlternationIndex" Value="0">
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="1">
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="2">
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="3">
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="4">
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="5">
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="6">
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="7">
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="8">
+                            <Setter Property="Focusable" Value="True"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+
+                        <Trigger Property="ListBox.AlternationIndex" Value="9">
+                            <Setter Property="Focusable" Value="False"/>
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Focusable" Value="True" />
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsFocused}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+                            <Setter Property="Canvas.ZIndex" Value="90" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderShimmer" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="Title"/>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource BorderHighlightAnim}" />
+                                <BeginStoryboard Storyboard="{StaticResource BorderShimmerAnim}" />
+                                <BeginStoryboard Storyboard="{StaticResource TitleAnim}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true">
+                            <Setter Property="Focusable" Value="True" />
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="OpacityMask" TargetName="CoverContainer">
+                                <Setter.Value>
+                                    <VisualBrush Visual="{Binding ElementName=Mask}" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill"/>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsFocused}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorderSingle" />
+                            <Setter Property="Canvas.ZIndex" Value="90" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderShimmerSingle" />          
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource BorderHighlightAnimSingle}" />
+                                <BeginStoryboard Storyboard="{StaticResource BorderShimmerAnimSingle}" />
+                                <BeginStoryboard Storyboard="{StaticResource FocusedOnSingle}" />
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource FocusedOffSingle}" />
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--###############################################################################################-->
+    <!--###############################################################################################-->
+    <!--###############################################################################################-->
+    <!--###############################################################################################-->
+    <Style x:Key="PreviewGrid_1" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="MaxHeight" Value="300"/>
+        <Setter Property="MaxWidth" Value="300"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid Margin="5" d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}">
+                        <Image RenderOptions.BitmapScalingMode="Fant" Height="{TemplateBinding MaxHeight}" Width="{TemplateBinding MaxWidth}" StretchDirection="Both" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="{Settings CoverArtStretch}">
+                            <Image.Source>
+                                <PriorityBinding>
+                                    <Binding Path="CoverImageObject" Mode="OneWay" Converter="{StaticResource NullToDependencyPropertyUnsetConverter}"/>
+                                    <Binding Path="DefaultCoverImageObject" Mode="OneWay" />
+                                </PriorityBinding>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ListBox.AlternationIndex" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="1">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="2">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="3">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="4">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="5">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Margin" Value="1000,0,0,0"/>
+                        </Trigger>
+
+                        <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="1">
+                            <Setter Property="MaxHeight" Value="310" />
+                            <Setter Property="MaxWidth" Value="310" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="4">
+                            <Setter Property="MaxHeight" Value="267" />
+                            <Setter Property="MaxWidth" Value="200" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="3">
+                            <Setter Property="MaxHeight" Value="300" />
+                            <Setter Property="MaxWidth" Value="200" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PreviewGrid_2" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="MaxHeight" Value="300"/>
+        <Setter Property="MaxWidth" Value="300"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid Margin="5" d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}">
+                        <Image RenderOptions.BitmapScalingMode="Fant" Height="{TemplateBinding MaxHeight}" Width="{TemplateBinding MaxWidth}" StretchDirection="Both" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="{Settings CoverArtStretch}">
+                            <Image.Source>
+                                <PriorityBinding>
+                                    <Binding Path="CoverImageObject" Mode="OneWay" Converter="{StaticResource NullToDependencyPropertyUnsetConverter}"/>
+                                    <Binding Path="DefaultCoverImageObject" Mode="OneWay" />
+                                </PriorityBinding>
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ListBox.AlternationIndex" Value="6">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="7">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="8">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="9">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="10">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="11">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Margin" Value="1000,0,0,0"/>
+                        </Trigger>
+
+                        <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="1">
+                            <Setter Property="MaxHeight" Value="310" />
+                            <Setter Property="MaxWidth" Value="310" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="4">
+                            <Setter Property="MaxHeight" Value="267" />
+                            <Setter Property="MaxWidth" Value="200" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="3">
+                            <Setter Property="MaxHeight" Value="300" />
+                            <Setter Property="MaxWidth" Value="200" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    
+    <Style x:Key="RowItemsStyle" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="MaxHeight" Value="168" />
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="FocusedOn">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="0.625" To="1" Duration="0:0:0.15">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="0.625" To="1" Duration="0:0:0.15">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                        <Storyboard x:Key="FocusedOff">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="1" To="0.625" Duration="0:0:0.15">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="1" To="0.625" Duration="0:0:0.15">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+
+                        <Storyboard x:Key="BorderShimmerAnim" RepeatBehavior="Forever">
+                            <ColorAnimation From="#00000000" To="#33FFFFFF" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Storyboard.TargetName="BorderShimmer" BeginTime="0:0:0" Duration="0:0:01.50" AutoReverse="True">
+                                <ColorAnimation.EasingFunction>
+                                    <ExponentialEase EasingMode="EaseInOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                            <ColorAnimation From="#00000000" To="#00000000" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Storyboard.TargetName="BorderShimmer" BeginTime="0:0:03" Duration="0:0:06">
+                                <ColorAnimation.EasingFunction>
+                                    <ExponentialEase EasingMode="EaseInOut" />
+                                </ColorAnimation.EasingFunction>
+                            </ColorAnimation>
+                        </Storyboard>
+
+                        <!--IntroAnims-->
+                        <Storyboard x:Key="Intro_0">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="0" To="0.625" BeginTime="0:0:0" Duration="0:0:0.1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="0" To="0.625" BeginTime="0:0:0" Duration="0:0:0.1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0" Duration="0:0:0.1" From="0" To="1"/>
+                        </Storyboard>
+                        <Storyboard x:Key="Intro_1">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="0" To="0.625" BeginTime="0:0:0" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="0" To="0.625" BeginTime="0:0:0" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0" Duration="0:0:0.1" From="0" To="1"/>
+                        </Storyboard>
+                        <Storyboard x:Key="Intro_2">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="0" To="0.625" BeginTime="0:0:0.1" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="0" To="0.625" BeginTime="0:0:0.1" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.1" Duration="0:0:0.1" From="0" To="1"/>
+                        </Storyboard>
+                        <Storyboard x:Key="Intro_3">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="0" To="0.625" BeginTime="0:0:0.2" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="0" To="0.625" BeginTime="0:0:0.2" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.2" Duration="0:0:0.1" From="0" To="1"/>
+                        </Storyboard>
+                        <Storyboard x:Key="Intro_4">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="0" To="0.625" BeginTime="0:0:0.3" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="0" To="0.625" BeginTime="0:0:0.3" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.3" Duration="0:0:0.1" From="0" To="1"/>
+                        </Storyboard>
+                        <Storyboard x:Key="Intro_5">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="0" To="0.625" BeginTime="0:0:0.4" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="0" To="0.625" BeginTime="0:0:0.4" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.4" Duration="0:0:0.1" From="0" To="1"/>
+                        </Storyboard>
+                        <Storyboard x:Key="Intro_6">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="0" To="0.625" BeginTime="0:0:0.5" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="0" To="0.625" BeginTime="0:0:0.5" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.5" Duration="0:0:0.1" From="0" To="1"/>
+                        </Storyboard>
+                        <Storyboard x:Key="Intro_7">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="0" To="0.625" BeginTime="0:0:0.6" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="0" To="0.625" BeginTime="0:0:0.6" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.6" Duration="0:0:0.1" From="0" To="1"/>
+                        </Storyboard>
+                        <Storyboard x:Key="Intro_8">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             From="0" To="0.625" BeginTime="0:0:0.8" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             From="0" To="0.625" BeginTime="0:0:0.8" Duration="0:0:1">
+                                <DoubleAnimation.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut"/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.8" Duration="0:0:0.1" From="0" To="1"/>
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+                    <Grid Margin="0" d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}" RenderTransformOrigin="0.5,0">
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="ScaleTransform" ScaleX="0.625" ScaleY="0.625" />
+                        </Grid.RenderTransform>
+                        <Border CornerRadius="5" Background="Transparent" Margin="0" MaxHeight="{TemplateBinding MaxHeight}" Width="168">
+                            <Grid>
+                                <Border Name="mask" Background="Black" Style="{DynamicResource CornerRadius}"/>
+                                <Grid>
+                                    <Grid.OpacityMask>
+                                        <VisualBrush Visual="{Binding ElementName=mask}"/>
+                                    </Grid.OpacityMask>
+                                    <Image x:Name="CoverImage" Source="Blank.png" RenderOptions.BitmapScalingMode="Fant" Height="{TemplateBinding MaxHeight}" Width="168"
+                                                                       VerticalAlignment="Top" HorizontalAlignment="Left"
+                                                                       Stretch="{Settings CoverArtStretch}">
+                                    </Image>
+
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <Border Background="#AA000000" x:Name="BorderDarken" Style="{DynamicResource CornerRadius}" Visibility="Collapsed" MaxHeight="{TemplateBinding MaxHeight}" Width="168"/>
+
+                        <Border x:Name="BorderShimmer" Background="#AA000000" BorderBrush="White"
+                                Visibility="Collapsed" Style="{DynamicResource CornerRadius}">
+                        </Border>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=hasIntro, Path=Opacity}" Value="0">
+                            <Setter Property="Opacity" Value="0"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=hasIntroVideo, Path=Opacity}" Value="0">
+                            <Setter Property="Opacity" Value="0"/>
+                        </DataTrigger>
+
+                        <Trigger Property="ListBox.AlternationIndex" Value="0">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Source" TargetName="CoverImage" Value="{Binding CoverImageObjectCached}"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="1">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Source" TargetName="CoverImage" Value="{Binding CoverImageObjectCached}"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="2">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Source" TargetName="CoverImage" Value="{Binding CoverImageObjectCached}"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="3">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Source" TargetName="CoverImage" Value="{Binding CoverImageObjectCached}"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="4">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Source" TargetName="CoverImage" Value="{Binding CoverImageObjectCached}"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="5">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Source" TargetName="CoverImage" Value="{Binding CoverImageObjectCached}"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="6">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Source" TargetName="CoverImage" Value="{Binding CoverImageObjectCached}"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="7">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Source" TargetName="CoverImage" Value="{Binding CoverImageObjectCached}"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="8">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Source" TargetName="CoverImage" Value="{Binding CoverImageObjectCached}"/>
+                        </Trigger>
+                        <Trigger Property="ListBox.AlternationIndex" Value="9">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Source" TargetName="CoverImage" Value="{Binding CoverImageObjectCached}"/>
+                            <Setter Property="Margin" Value="50,0,0,0"/>
+                        </Trigger>
+
+                        <!--IntroAnims-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=AnimatedIntro, Path=Visibility}" Value="Hidden"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="0"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_0}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=IntroVideoSource, Path=MaxHeight}" Value="2161"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="0"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_0}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <!--END-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=AnimatedIntro, Path=Visibility}" Value="Hidden"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="1"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_1}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=IntroVideoSource, Path=MaxHeight}" Value="2161"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="1"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_1}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <!--END-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=AnimatedIntro, Path=Visibility}" Value="Hidden"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="2"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_2}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=IntroVideoSource, Path=MaxHeight}" Value="2161"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="2"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_2}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <!--END-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=AnimatedIntro, Path=Visibility}" Value="Hidden"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="3"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_3}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=IntroVideoSource, Path=MaxHeight}" Value="2161"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="3"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_3}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <!--END-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=AnimatedIntro, Path=Visibility}" Value="Hidden"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="4"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_4}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=IntroVideoSource, Path=MaxHeight}" Value="2161"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="4"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_4}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <!--END-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=AnimatedIntro, Path=Visibility}" Value="Hidden"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="5"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_5}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=IntroVideoSource, Path=MaxHeight}" Value="2161"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="5"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_5}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <!--END-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=AnimatedIntro, Path=Visibility}" Value="Hidden"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="6"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_6}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=IntroVideoSource, Path=MaxHeight}" Value="2161"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="6"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_6}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <!--END-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=AnimatedIntro, Path=Visibility}" Value="Hidden"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="7"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_7}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=IntroVideoSource, Path=MaxHeight}" Value="2161"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="7"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_7}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <!--END-->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=AnimatedIntro, Path=Visibility}" Value="Hidden"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="8"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_8}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=IntroVideoSource, Path=MaxHeight}" Value="2161"/>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ListBox.AlternationIndex)}" Value="8"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Intro_8}"/>
+                            </MultiDataTrigger.EnterActions>
+                        </MultiDataTrigger>
+                        <!--END-->
+
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsInstalled}" Value="False" />
+                                <Condition Binding="{Settings Fullscreen.DarkenUninstalledGamesGrid}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderDarken" />
+                        </MultiDataTrigger>
+
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Margin" Value="15,0,15,0"/>
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderShimmer" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource FocusedOn}"/>
+                                <BeginStoryboard Storyboard="{StaticResource BorderShimmerAnim}" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource FocusedOff}"/>
+                            </Trigger.ExitActions>
+                        </Trigger>
+
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter Property="Margin" Value="-27,0,-27,0"/>
+                        </Trigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsFocused}" Value="True"/>
+                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard x:Name="EnterAction" Storyboard="{StaticResource FocusedOff}"/>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <RemoveStoryboard BeginStoryboardName="EnterAction"/>
+                            </MultiDataTrigger.ExitActions>
+                            <Setter Property="Margin" Value="-27,0,-27,0"/>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=DKGThemeModifier_PS5ish_StoreButton, Path=IsKeyboardFocusWithin}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard x:Name="StoreFocus" Storyboard="{StaticResource FocusedOff}"/>
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <RemoveStoryboard BeginStoryboardName="StoreFocus"/>
+                            </MultiDataTrigger.ExitActions>
+                            <Setter Property="Margin" Value="-27,0,-27,0"/>
+                        </MultiDataTrigger>
+                        
+                        <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="1">
+                            <Setter Property="MaxHeight" Value="168" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="4">
+                            <Setter Property="MaxHeight" Value="229" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="3">
+                            <Setter Property="MaxHeight" Value="251" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ListBoxTemplate" TargetType="{x:Type ListBox}">
+        <Setter Property="ItemsControl.ItemsSource" Value="{Binding ElementName=PART_ListGameItems, Path=ItemsSource}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
+                        <VirtualizingStackPanel x:Name="StackPanel1" IsItemsHost="True" Orientation="Horizontal" HorizontalAlignment="Left"/>
+                    </ScrollViewer>
+                    <ControlTemplate.Triggers>
+                        <!--DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="False">
+                            <Setter Property="ItemsControl.ItemsSource" Value="{Binding ElementName=BlankList, Path=ItemsSource}" />
+                        </DataTrigger-->
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

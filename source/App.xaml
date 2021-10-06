@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application x:Class="Playnite.FullscreenApp.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="LocSource.xaml" />
+        <ResourceDictionary Source="GlobalResources.xaml" />
+        <ResourceDictionary Source="Constants.xaml" />
+        <ResourceDictionary Source="Media.xaml" />
+        <ResourceDictionary Source="Images/ButtonPrompts/Xbox/Xbox.xaml" />
+        <!--Default Controls-->
+        <ResourceDictionary Source="DefaultControls/TextBox.xaml" />
+        <ResourceDictionary Source="DefaultControls/Slider.xaml" />
+        <ResourceDictionary Source="DefaultControls/CheckBox.xaml" />
+        <ResourceDictionary Source="DefaultControls/ComboBox.xaml" />
+        <ResourceDictionary Source="DefaultControls/Button.xaml" />
+        <ResourceDictionary Source="DefaultControls/ScrollViewer.xaml" />
+        <ResourceDictionary Source="DefaultControls/ToolTip.xaml" />
+        <ResourceDictionary Source="DefaultControls/ProgressBar.xaml" />
+        <ResourceDictionary Source="DefaultControls/ToggleButton.xaml" />
+        <!--Custom Controls-->
+        <ResourceDictionary Source="CustomControls/FilterEnumListSelection.xaml" />
+        <ResourceDictionary Source="CustomControls/FilterStringListSelection.xaml" />
+        <ResourceDictionary Source="CustomControls/FilterDbItemtSelection.xaml" />
+        <ResourceDictionary Source="CustomControls/FilterPresetSelector.xaml" />
+        <!--Derived Styles-->
+        <ResourceDictionary Source="DerivedStyles/ListGameItemStyle.xaml" />
+        <ResourceDictionary Source="DerivedStyles/ListGameItemTemplate.xaml" />
+        <ResourceDictionary Source="DerivedStyles/ButtonBottomMenu.xaml" />
+        <ResourceDictionary Source="DerivedStyles/ButtonTopMenu.xaml" />
+        <ResourceDictionary Source="DerivedStyles/ItemFilterQuickPreset.xaml" />
+        <!--Views-->
+        <ResourceDictionary Source="Views/ActionSelection.xaml" />
+        <ResourceDictionary Source="Views/FiltersAdditional.xaml" />
+        <ResourceDictionary Source="Views/FiltersView.xaml" />
+        <ResourceDictionary Source="Views/GameDetails.xaml" />
+        <ResourceDictionary Source="Views/GameMenu.xaml" />
+        <ResourceDictionary Source="Views/GameStatus.xaml" />
+        <ResourceDictionary Source="Views/Main.xaml" />
+        <ResourceDictionary Source="Views/MainMenu.xaml" />
+        <ResourceDictionary Source="Views/MessageBox.xaml" />
+        <ResourceDictionary Source="Views/NotificationsMenu.xaml" />
+        <ResourceDictionary Source="Views/SettingsMenus.xaml" />
+        <ResourceDictionary Source="Views/TextInput.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

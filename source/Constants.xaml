@@ -1,0 +1,381 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    mc:Ignorable="d">
+
+    <sys:Boolean x:Key="UseAbsoluteExtraMetadataPath">false</sys:Boolean>
+    <sys:String x:Key="ExtraMetadataPath">..\..\..\..</sys:String>
+    <!--sys:String x:Key="ExtraMetadataPath">C:\Users\david\Downloads\Playnite9Beta_OLD_LIBRARY</sys:String-->
+
+    <!--Single Row Mode-->
+    <sys:Boolean x:Key="SingleRowMode">false</sys:Boolean>
+    
+    <!--Left Icon-->
+    <sys:Boolean x:Key="LeftIconTrueFalse">true</sys:Boolean>
+    
+    <!--Right Info-->
+    <sys:Boolean x:Key="RightInfoTrueFalse">true</sys:Boolean>
+
+    <!--PlaystationStore-->
+    <sys:Boolean x:Key="PlaystationStoreTrueFalse">true</sys:Boolean>
+
+    <!--StoreButton-->
+    <sys:Boolean x:Key="StoreButtonTrueFalse">false</sys:Boolean>
+
+    <!--DisableGameBackgroundOnGrid-->
+    <sys:Boolean x:Key="DisableGameBackgroundOnGridTrueFalse">true</sys:Boolean>
+
+    <!--PS5BackgroundOnGrid-->
+    <sys:Boolean x:Key="PS5BackgroundOnGridTrueFalse">true</sys:Boolean>
+
+    <!--Intro-->
+    <sys:Boolean x:Key="Intro">true</sys:Boolean>
+
+    <!--IntroTimespan-->
+    <!--IL--><sys:TimeSpan x:Key="IntroTimespan">0:0:1</sys:TimeSpan><!--IL-->
+
+    <!--IntroVideo-->
+    <sys:Boolean x:Key="IntroVideo">false</sys:Boolean>
+
+    <!--IntroVideoVolume-->
+    <!--IVV--><sys:Double x:Key="IntroVideoVolume">0</sys:Double><!--IVV-->
+
+    <!--Labels-->
+    <!--PGL--><sys:String x:Key="PlayGameLabelString">Game</sys:String><!--PGL-->
+
+    <!--Scale 1 - Small-->
+    <sys:Boolean x:Key="ScaleSmall">true</sys:Boolean>
+    <!--Scale 1.5 - Medium-->
+    <sys:Boolean x:Key="ScaleMedium">false</sys:Boolean>
+    <!--Scale 2 - Large-->
+    <sys:Boolean x:Key="ScaleLarge">false</sys:Boolean>
+    
+    <!--Trailers-->
+    <sys:Boolean x:Key="Trailers">true</sys:Boolean>
+
+    <Color x:Key="BlackColor">#FF000000</Color>
+    <Color x:Key="WhiteColor">#FFFFFFFF</Color>
+    <Color x:Key="GlyphColor">#404040</Color>
+    <Color x:Key="GlyphLightColor">#9A9A9A</Color>
+    <Color x:Key="SelectionLightColor">#9A9A9A</Color>
+    <Color x:Key="OverlayColor">#BB000000</Color>
+    <Color x:Key="UIColour">#606060</Color>
+
+	<Color x:Key="DarkBackground">#171717</Color>
+	<Color x:Key="GrayBackground">#343434</Color>
+	<Color x:Key="TransparentBackground">#00000000</Color>
+
+    <Color x:Key="ControlBackgroundColor">Transparent</Color>
+    <Color x:Key="ControlBackgroundColorDark">#242424</Color>
+    <Image x:Key="ImageBackground" RenderOptions.BitmapScalingMode="Fant" Source="{ThemeFile 'Images/Notification.png'}" />
+
+
+    <Color x:Key="TextColor">#FFEBEBEB</Color>
+    <Color x:Key="TextColorDark">#707070</Color>
+
+    <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource TextColor}" />
+    <SolidColorBrush x:Key="TextBrushDark" Color="{DynamicResource TextColorDark}" />
+    <SolidColorBrush x:Key="GlyphBrush" Color="{DynamicResource GlyphColor}" />
+    <SolidColorBrush x:Key="GlyphLightBrush" Color="{DynamicResource GlyphLightColor}" />
+    <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{DynamicResource ControlBackgroundColor}" />
+    <SolidColorBrush x:Key="SelectionLightBrush" Color="{DynamicResource SelectionLightColor}" />
+    <SolidColorBrush x:Key="OverlayBrush" Color="{DynamicResource OverlayColor}" />
+    <SolidColorBrush x:Key="TransparentBrush" Color="{DynamicResource TransparentBackground}" />
+    <!--UIB--><SolidColorBrush x:Key="UIBrush" Color="{DynamicResource UIColour}" /><!--UIB-->
+
+    <sys:Double x:Key="FontSize">20</sys:Double>
+
+    <sys:Double x:Key="FilterPanelWidth">450</sys:Double>
+    
+    <Style x:Key="TextBlockBaseStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource FontSize}" />
+        <Setter Property="FontFamily" Value="Segoe UI Light" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    </Style>
+
+    <Style x:Key="TextBlockBaseStyleOptional" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource FontSize}" />
+        <Setter Property="FontFamily" Value="Segoe UI Light" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrushOptional}" />
+    </Style>
+
+
+    <SolidColorBrush x:Key="MainBackgourndBrush" Color="#00000000" />
+
+    <LinearGradientBrush x:Key="TopBarBackgroundBrush" StartPoint="-0.5,0.5" EndPoint="1,0.5" >
+        <GradientStop Color="#141E30" Offset="0"/>
+        <GradientStop Color="#181A1E" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="BottomBarBackgroundBrush" StartPoint="-0.5,0.5" EndPoint="1.5,1" >
+        <GradientStop Color="#141E30" Offset="0"/>
+        <GradientStop Color="#181A1E" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="OverlayMenuBackgroundBrush" StartPoint="1,0" EndPoint="0,1" >
+        <GradientStop Color="#090C13" Offset="0.0"/>
+        <GradientStop Color="#181A1E" Offset="0.9"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ControlBackgroundDarkBrush" StartPoint="1,0" EndPoint="0,1" >
+        <GradientStop Color="#090C13" Offset="0.0"/>
+        <GradientStop Color="#181A1E" Offset="0.9"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SelectordBrush1" StartPoint="1,0" EndPoint="0,1" >
+        <GradientStop Color="#BF303030" Offset="0.0"/>
+        <GradientStop Color="#E6C5AF9A" Offset="0.9"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SelectorBrush2" StartPoint="1,0" EndPoint="0,1" >
+        <GradientStop Color="#E6C5AF9A" Offset="0.0"/>
+        <GradientStop Color="#BF303030" Offset="0.9"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="SelectionBrush" Color="#737586" />
+
+    <LinearGradientBrush x:Key="GameDetailsBackgroundBrush" StartPoint="0.5,0" EndPoint="0.5,0.95" >
+        <GradientStop Color="#1A000000" Offset="0.0"/>
+        <GradientStop Color="#99000000" Offset="0.9"/>
+    </LinearGradientBrush>
+	
+	<LinearGradientBrush x:Key="OverlayTitle" StartPoint="0.5,0" EndPoint="0.5,1" >
+        <GradientStop Color="#00000000" Offset="0.0"/>
+        <GradientStop Color="#F2000000" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PlayniteLogo" StartPoint="-0.5,0.5" EndPoint="1.5,1" >
+        <GradientStop Color="#737586" Offset="0"/>
+        <GradientStop Color="#646464" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="TextBrushOptional" Color="{DynamicResource TextColor}" />
+    <!--Background Overlay 16:9-->
+    <Style x:Key="BackgroundOverlay16:9" TargetType="StackPanel">
+        <Setter Property="Visibility" Value="Collapsed" />
+    </Style>
+
+    <!--Background Overlay 21:9-->
+    <Style x:Key="BackgroundOverlay21:9" TargetType="StackPanel">
+        <Setter Property="Visibility" Value="Visible" />
+    </Style>
+
+    <!--CornerRadiusLarge-->
+    <Style x:Key="CornerRadius" TargetType="Border">
+        <!--CR--><Setter Property="CornerRadius" Value="25"/><!--CR-->
+    </Style>
+
+
+
+
+    
+    <!--Turning Things On and Off--> 
+	<!--Left Icon-->
+    <Style x:Key="LeftIcon" TargetType="StackPanel">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+	
+	<!--Title-->
+    <Style x:Key="Title" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{DynamicResource FontSize}" />
+        <Setter Property="FontFamily" Value="Segoe UI Light" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    </Style>
+
+    <!--Platform-->
+    <Style x:Key="Platform" TargetType="StackPanel">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Right Info-->
+    <Style x:Key="RightInfo" TargetType="StackPanel">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--PlaystationStore Icon-->
+    <Style x:Key="PlaystationStoreIcon" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Visibility" Value="Visible"/>
+        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="FocusedOn">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX" From="1" To="1.3" Duration="0:0:0.2"/>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY" From="1" To="1.3" Duration="0:0:0.2"/>
+                        </Storyboard>
+                        <Storyboard x:Key="FocusedOff">
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX" From="1.3" To="1" Duration="0:0:0.2"/>
+                            <DoubleAnimation Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY" From="1.3" To="1" Duration="0:0:0.2"/>
+                        </Storyboard>
+
+                        <Storyboard x:Key="MoreGamesFocus" RepeatBehavior="Forever">
+                            <ColorAnimation From="#33000000" To="#BFEAD3CF" Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="MainBorder" Duration="0:0:2.00" AutoReverse="True"/>
+                        </Storyboard>
+                        <Storyboard x:Key="IsClickedOpacity099">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ToggleButton.Opacity)">
+                                <DiscreteDoubleKeyFrame  KeyTime="00:00:00.1" Value="0.99"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                        <Storyboard x:Key="IsClickedOpacity1">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(ToggleButton.Opacity)">
+                                <DiscreteDoubleKeyFrame  KeyTime="00:00:00.1" Value="1"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+                    <Grid Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0,0">                        
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
+                        </Grid.RenderTransform>
+                        <Grid HorizontalAlignment="Left">
+                            <Border Background="#80100100" CornerRadius="20"/>
+                            <StackPanel>
+                                <Image x:Name="StorePNG" RenderOptions.BitmapScalingMode="Fant" Width="105" Source="{ThemeFile 'Images/PlaystationStore.png'}" />
+                            </StackPanel>
+                            <Border Name="MainBorder" BorderThickness="2.5" BorderBrush="White" Height="115" Width="115" Margin="-5,-5,-5,-5" Visibility="Collapsed" CornerRadius="18"/>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource MoreGamesFocus}" />
+                                <BeginStoryboard Storyboard="{StaticResource FocusedOn}" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource FocusedOff}" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+                <Setter Property="Visibility" Value="Hidden"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--DisableGameBackgroundOnGrid-->
+    <Style x:Key="DisableGameBackgroundOnGrid" TargetType="Grid">
+        <Setter Property="Visibility" Value="Visible"/>
+        <Setter Property="Opacity" Value="1"/>
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true"/>
+                    <Condition  Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ElementName=AnimIntroCanvas1, Path=MaxHeight}" Value="2161"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiDataTrigger.EnterActions>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ElementName=IntroVideoSource, Path=MaxHeight}" Value="2161"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:2"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiDataTrigger.EnterActions>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--PS5BackgroundOnGrid-->
+    <Style x:Key="PS5BackgroundOnGrid" TargetType="Grid">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true"/>
+                    <Condition  Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Visibility" Value="Visible"/>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Trailers-->
+    <Style x:Key="TrailersStyle" TargetType="StackPanel">
+        <Setter Property="Visibility" Value="Visible"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+
+
+
+    <!--Label Changes-->
+    <!--Games Label-->
+    <TextBlock x:Key="GamesLabel" Text="{DynamicResource GameLabelString}" Style="{DynamicResource TextBlockBaseStyle}" FontSize="36" FontFamily="Lato Semibold"></TextBlock>
+    
+    <!--Progress Label-->
+    <Style x:Key="ProgressLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontFamily" Value="Segoe UI Light" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <!--PL--><Setter Property="Text" Value="{DynamicResource LOCSuccessStoryProgress}" /><!--PL-->
+    </Style>
+
+    <!--Earned Label-->
+    <Style x:Key="EarnedLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontFamily" Value="Segoe UI Light" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <!--EL--><Setter Property="Text" Value="{DynamicResource LOCSuccessStoryEarned}" /><!--EL-->
+    </Style>
+
+
+
+    
+    
+</ResourceDictionary>
