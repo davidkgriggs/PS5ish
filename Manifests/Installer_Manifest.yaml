@@ -6,3 +6,10 @@ Packages:
     PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.0.0/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_0_0.pthm
     Changelog:
       - Rebuilt for Playnite v9
+  - Version: 4.0.1
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-10-14
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.0.1/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_0_1.pthm
+    Changelog:
+      - Bug fix
+      - Fix for "16:10"

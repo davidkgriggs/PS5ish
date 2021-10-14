@@ -35,7 +35,7 @@
     <sys:Boolean x:Key="Intro">true</sys:Boolean>
 
     <!--IntroTimespan-->
-    <!--IL--><sys:TimeSpan x:Key="IntroTimespan">0:0:1</sys:TimeSpan><!--IL-->
+    <!--IL--><sys:TimeSpan x:Key="IntroTimespan">0:0:01</sys:TimeSpan><!--IL-->
 
     <!--IntroVideo-->
     <sys:Boolean x:Key="IntroVideo">false</sys:Boolean>

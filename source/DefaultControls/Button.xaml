@@ -526,6 +526,10 @@
                         <Trigger Property="IsChecked" Value="False">
                             <Setter Property="Visibility" TargetName="OFF" Value="Collapsed"/>
                         </Trigger>
+						
+						<DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Collapsed">
+                            <Setter Property="IsChecked" Value="True"/>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
