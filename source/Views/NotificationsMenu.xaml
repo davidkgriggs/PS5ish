@@ -3,21 +3,54 @@
 
     <Style x:Key="NotificationsMenuBorder" TargetType="Border">
         <Setter Property="Background" Value="{DynamicResource OverlayMenuBackgroundBrush}" />
+		<!-- <Setter Property="Margin" Value="0,20,-50,20" /> -->
+		<Setter Property="Width" Value="400" />
+		<Setter Property="CornerRadius" Value="10" />
     </Style>
 
     <Style x:Key="NotificationsMenuItemButton" BasedOn="{StaticResource {x:Type ButtonEx}}" TargetType="ButtonEx">
-        <Setter Property="Margin" Value="10,5,10,5" />
-        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Margin" Value="15,5" />
+        <Setter Property="Height" Value="Auto" />
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}">                            
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Visibility="Collapsed" >
+							</Border>
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Visibility="Collapsed">
+							</Border>							
+						<TextBlock x:Name="NotificationsText" Style="{DynamicResource TextBlockBaseStyle}"
+                                       Margin="10" 
+                                       Foreground="{DynamicResource TextBrush}"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}">                            
+                                <ContentPresenter />
+							</TextBlock>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource SelectionLightBrush}" TargetName="NotificationsText" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     
     <Style x:Key="NotificationsMenuDismissButton" BasedOn="{StaticResource {x:Type ButtonEx}}" TargetType="ButtonEx">
-        <Setter Property="Margin" Value="10,5,10,20" />
+        <Setter Property="Margin" Value="20,5,20,30" />
+		<Setter Property="Opacity" Value="1" />
+		<Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
     <Style x:Key="NotificationsMenuHeaderText" BasedOn="{StaticResource TextBlockBaseStyle}" TargetType="TextBlock" >
-        <Setter Property="FontFamily" Value="{DynamicResource FontTitilliumWebBold}" />
-        <Setter Property="FontSize" Value="36" />
-        <Setter Property="HorizontalAlignment" Value="Right" />
-        <Setter Property="Margin" Value="0,0,20,0" />
+        <Setter Property="FontSize" Value="24" />
+		<Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="20,0,20,0" />
     </Style>
 </ResourceDictionary>

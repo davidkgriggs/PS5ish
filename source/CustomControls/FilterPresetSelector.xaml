@@ -11,35 +11,33 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBoxEx">
-                    <Border x:Name="BorderFocus" Background="{TemplateBinding Background}" CornerRadius="2.5" BorderThickness="2.5" BorderBrush="Transparent"
-                            Margin="10,0,0,10">
+                    <Grid x:Name="GridBox" Height="60" Opacity="0.75">
+                        <Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Visibility="Collapsed" >
+                        </Border>
+                        <Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Visibility="Collapsed">
+                        </Border>
                         <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="35"
                                    x:Name="TextContent">
-                            <Grid Margin="5">
+                            <Grid Margin="10,5,10,5">
                                 <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Visibility="Hidden"/>
                                 <StackPanel>
                                     <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
                                 </StackPanel>                                
                             </Grid>
                         </TextBlock>
-                    </Border>
+                    </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="BorderBrush" Value="White" TargetName="BorderFocus" />
-                            <Trigger.EnterActions>
-                                <BeginStoryboard x:Name="SelectedAnim">
-                                    <Storyboard RepeatBehavior="Forever">
-                                        <ColorAnimation From="#33FFFFFF" To="#BFEAD3CF" Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="BorderFocus" Duration="0:0:2.00" AutoReverse="True"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
+                            <Setter Property="Opacity" Value="1" TargetName="GridBox" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
                         </Trigger>
 
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="FontFamily" Value="Lato" TargetName="TextContent" />
                             <Setter Property="FontWeight" Value="Bold" TargetName="TextContent" />
                             <Setter Property="FontSize" Value="40" TargetName="TextContent" />
-                            <Setter Property="Margin" Value="0,5,0,0" TargetName="TextContent" />
+                            <Setter Property="Margin" Value="0,2.5,0,0" TargetName="TextContent" />
                         </Trigger>
 
                         <Trigger Property="ListBox.AlternationIndex" Value="0">

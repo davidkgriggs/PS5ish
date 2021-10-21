@@ -2,7 +2,37 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="GameMenuButton" BasedOn="{StaticResource {x:Type ButtonEx}}" TargetType="ButtonEx">
-        <Setter Property="Margin" Value="5" />
+        <Setter Property="Margin" Value="1,0" />
+	    <Setter Property="Height" Value="60" />	
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}">                            
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Visibility="Collapsed" >
+							</Border>
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Visibility="Collapsed">
+							</Border>							
+						<TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                       Margin="0,0,25,0" DockPanel.Dock="Left"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}">                            
+                                <ContentPresenter />
+							</TextBlock>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource SelectionLightBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="GameMenuBorder" TargetType="Border">
@@ -16,7 +46,8 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="Padding" Value="15,15,15,15" />
-        <Setter Property="Background" Value="#AA000000" />
+        <!-- <Setter Property="FontWeight" Value="Bold" /> -->
+        <Setter Property="Background" Value="Transparent" />
     </Style>
 
     <DataTemplate x:Key="GameMenuHeaderTemplate">
@@ -26,55 +57,55 @@
 
     <DataTemplate x:Key="GameMenuPlayButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xec74;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24" Width="25"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xe768;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24" Width="25"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{Binding}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="GameMenuInstallButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xef08;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24" Width="25"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xe896;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24" Width="25"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{Binding}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="GameMenuFavoriesButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xf000;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24" Width="25"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xe734;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24" Width="25"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{Binding}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="GameMenuVisibilityButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xef21;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24" Width="25"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xf140;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24" Width="25"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{Binding}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="GameMenuRemoveButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xeee4;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24" Width="25"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xe711;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24" Width="25"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{Binding}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="GameMenuUninstallButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xec53;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24" Width="25"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xe711;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24" Width="25"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{Binding}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="GameMenuCustomActionButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Width="25" Margin="0,0,10,0"
+            <TextBlock Width="25" Margin="20,0,20,0"
                        VerticalAlignment="Center" HorizontalAlignment="Center" />
             <TextBlock Text="{Binding}" VerticalAlignment="Center" />
         </StackPanel>

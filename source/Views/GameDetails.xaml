@@ -175,65 +175,6 @@
                                     </Style>
                                 </Grid.Style>
 
-
-                                <Grid>
-                                    <TextBlock Name="MusicPath" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Text">
-                                                    <Setter.Value>
-                                                        <MultiBinding StringFormat="{}{0}{1}">
-                                                            <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
-                                                            <Binding Source="\ExtraMetadata\Themes\Fullscreen\BackgroundMusic.mp3"/>
-                                                        </MultiBinding>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                    <MediaElement MediaElementBehaviors.Repeat="True" x:Name="MusicSource" Tag="{DynamicResource UseAbsoluteExtraMetadataPath}">
-                                        <MediaElement.Style>
-                                            <Style TargetType="MediaElement">
-                                                <Setter Property="MediaElement.Source" Value="{Binding ElementName=MusicPath, Path=Text}"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="False">
-                                                        <Setter Property="MediaElement.Source" Value="" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails,Path=Visibility}" Value="Visible">
-                                                        <DataTrigger.EnterActions>
-                                                            <BeginStoryboard>
-                                                                <Storyboard>
-                                                                    <DoubleAnimation Storyboard.TargetProperty="Volume" From="0" To="0.5" Duration="0:0:1"/>
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </DataTrigger.EnterActions>
-                                                    </DataTrigger>													
-													<DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails,Path=Visibility}" Value="Collapsed">
-														<Setter Property="MediaElement.Source" Value="" />
-													</DataTrigger>
-                                                    <DataTrigger Binding="{Binding ElementName=MuteButton,Path=IsChecked}" Value="True">
-                                                        <DataTrigger.EnterActions>
-                                                            <BeginStoryboard>
-                                                                <Storyboard>
-                                                                    <DoubleAnimation Storyboard.TargetProperty="Volume" From="0.5" To="0" Duration="0:0:0.2"/>
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </DataTrigger.EnterActions>
-                                                        <DataTrigger.ExitActions>
-                                                            <BeginStoryboard>
-                                                                <Storyboard>
-                                                                    <DoubleAnimation Storyboard.TargetProperty="Volume" From="0" To="0.5" Duration="0:0:0.2"/>
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </DataTrigger.ExitActions>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </MediaElement.Style>
-                                    </MediaElement>
-                                </Grid>
-
-
                                 <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="0" Margin="0,0,0,70">
                                     <StackPanel Focusable="False" VerticalAlignment="Top" Margin="0,0,0,0"></StackPanel>
                                     <!--Row 1 Stack 1-->
@@ -320,11 +261,6 @@
                                                     <Setter Property="Template">
                                                         <Setter.Value>
                                                             <ControlTemplate TargetType="Button">
-                                                                <ControlTemplate.Resources>
-                                                                    <Storyboard x:Key="BorderHighlight" RepeatBehavior="Forever">
-                                                                        <ColorAnimation From="#33000000" To="#BFEAD3CF" Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="BorderFocus" Duration="0:0:1" AutoReverse="True"/>
-                                                                    </Storyboard>
-                                                                </ControlTemplate.Resources>
                                                                 <Grid Background="Transparent" Margin="0,10,0,10" MinHeight="50" MaxHeight="50" VerticalAlignment="Bottom">
                                                                     <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="35" BorderBrush="#5A5A5A" Margin="-5,-8,-5,-8" x:Name="MainBorder"/>
                                                                     <StackPanel Orientation="Horizontal">
@@ -335,7 +271,7 @@
                                                                         <TextBlock Text="{DynamicResource PlayGameLabelString}" FontSize="30" FontFamily="Lato" FontWeight="Bold" VerticalAlignment="Center" Padding="0,0,90,0"/>
                                                                     </StackPanel>
                                                                     <Border BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="35" BorderBrush="{TemplateBinding BorderBrush}" x:Name="BorderStandard" />
-                                                                    <Border x:Name="BorderFocus" Margin="-10,-12,-10,-12" CornerRadius="37" BorderThickness="3" BorderBrush="White" Visibility="Collapsed" />
+                                                                    <Border x:Name="BorderFocus" Margin="-10,-12,-10,-12" CornerRadius="37" BorderThickness="3" Style="{DynamicResource AnimatedCoverBrush}"/>
                                                                 </Grid>
                                                                 <ControlTemplate.Triggers>
                                                                     <Trigger Property="IsFocused" Value="False">
@@ -347,9 +283,6 @@
                                                                         <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}"/>
                                                                         <Setter Property="Background" Value="#F2F2F2" TargetName="MainBorder"/>
                                                                         <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
-                                                                        <Trigger.EnterActions>
-                                                                            <BeginStoryboard Storyboard="{StaticResource BorderHighlight}"/>
-                                                                        </Trigger.EnterActions>
                                                                     </Trigger>
                                                                     <Trigger Property="IsMouseOver" Value="True">
                                                                         <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}"/>
@@ -374,18 +307,13 @@
                                                     <Setter Property="Template">
                                                         <Setter.Value>
                                                             <ControlTemplate TargetType="Button">
-                                                                <ControlTemplate.Resources>
-                                                                    <Storyboard x:Key="BorderHighlight" RepeatBehavior="Forever">
-                                                                        <ColorAnimation From="#33000000" To="#BFEAD3CF" Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="BorderFocus" Duration="0:0:1" AutoReverse="True"/>
-                                                                    </Storyboard>
-                                                                </ControlTemplate.Resources>
                                                                 <Grid Background="Transparent" Margin="0,10,0,10" MinHeight="50" MaxHeight="50" VerticalAlignment="Bottom">
                                                                     <Border Background="{TemplateBinding Background}" BorderThickness="0" CornerRadius="35" BorderBrush="#5A5A5A" Margin="-5,-8,-5,-8" x:Name="MainBorder"/>
                                                                     <TextBlock Style="{DynamicResource TextBlockBaseStyle}" Foreground="{TemplateBinding Foreground}" FontFamily="Calibri" FontWeight="Bold" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Padding="20,0,20,0">
                                                                         <ContentPresenter />
                                                                     </TextBlock>
                                                                     <Border BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="35" BorderBrush="{TemplateBinding BorderBrush}" x:Name="BorderStandard" />
-                                                                    <Border x:Name="BorderFocus" Margin="-10,-12,-10,-12" CornerRadius="37" BorderThickness="3" BorderBrush="White" Visibility="Collapsed" />
+                                                                    <Border x:Name="BorderFocus" Margin="-10,-12,-10,-12" CornerRadius="37" BorderThickness="3" Style="{DynamicResource AnimatedCoverBrush}" />
                                                                 </Grid>
                                                                 <ControlTemplate.Triggers>
                                                                     <Trigger Property="IsFocused" Value="False">
@@ -397,9 +325,6 @@
                                                                         <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}"/>
                                                                         <Setter Property="Background" Value="#F2F2F2" TargetName="MainBorder"/>
                                                                         <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
-                                                                        <Trigger.EnterActions>
-                                                                            <BeginStoryboard Storyboard="{StaticResource BorderHighlight}"/>
-                                                                        </Trigger.EnterActions>
                                                                     </Trigger>
                                                                     <Trigger Property="IsMouseOver" Value="True">
                                                                         <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}"/>

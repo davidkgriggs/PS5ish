@@ -12,6 +12,37 @@
                           d:DesignWidth="{StaticResource DesignWidth}"
                           d:DesignHeight="{StaticResource DesignHeight}"
                           d:DataContext="{x:Static DesignMainViewModel.DesignIntance}">
+                        <Grid>
+                            <TextBlock Name="VideoPath" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text">
+                                            <Setter.Value>
+                                                <MultiBinding StringFormat="{}{0}{1}">
+                                                    <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
+                                                    <Binding Source="\ExtraMetadata\Themes\Fullscreen\BackgroundVideo.mp4"/>
+                                                </MultiBinding>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <MediaElement MediaElementBehaviors.Repeat="True" Name="VideoSource" Tag="{DynamicResource UseAbsoluteExtraMetadataPath}">
+                                <MediaElement.CacheMode>
+                                    <BitmapCache RenderAtScale="1"/>
+                                </MediaElement.CacheMode>
+                                <MediaElement.Style>
+                                    <Style TargetType="MediaElement">
+                                        <Setter Property="MediaElement.Source" Value="{Binding ElementName=VideoPath, Path=Text}"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="False">
+                                                <Setter Property="MediaElement.Source" Value="" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </MediaElement.Style>
+                            </MediaElement>
+                        </Grid>
                         <Grid x:Name="PART_ViewHost" Background="{DynamicResource ControlBackgroundDarkBrush}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -809,7 +840,7 @@
                                 <!--Play and Options-->
                                 <StackPanel Orientation="Horizontal" Margin="170,0,0,65" HorizontalAlignment="Left" Grid.RowSpan="1" Grid.Row="1" VerticalAlignment="Bottom">
                                     <!--Play-->
-                                    <ButtonEx x:Name="PART_ButtonPlay" Focusable="True" Height="70" Padding="12,0,12,0"
+                                    <ButtonEx x:Name="PART_ButtonPlay" Height="70" Padding="12,0,12,0"
                                     Style="{DynamicResource ButtonPlayOptions}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal" Margin="55,5,55,0">
@@ -820,7 +851,7 @@
                                         </Button.Content>
                                     </ButtonEx>
                                     <!--Options-->
-                                    <ButtonEx x:Name="PART_ButtonGameOptions" Focusable="True"
+                                    <ButtonEx x:Name="PART_ButtonGameOptions"
                                     Style="{DynamicResource ButtonPlayOptions}" Margin="20,0,0,0" Height="70" Padding="-12,0,-12,0">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
@@ -862,38 +893,27 @@
 
                                 <Grid Grid.Row="1" Margin="30,230,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Height="80">
                                     <Border Background="#99333333" Width="80" Height="80" CornerRadius="80"/>
-                                    <Image Width="80" Source="{ThemeFile 'Images/PS5_Filters.png'}" />
-                                    <ButtonEx x:Name="PART_ButtonFilter" Width="80" Height="80">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-                                                <Setter Property="Background" Value="Transparent" />
-                                                <Setter Property="Margin" Value="0" />
-                                                <Setter Property="SnapsToDevicePixels" Value="True" />
-                                                <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                <Setter Property="VerticalContentAlignment" Value="Center" />
-                                                <Setter Property="BorderBrush" Value="White"/>
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="Button">
-                                                            <Grid Background="{TemplateBinding Background}" Width="80" Height="80">
-                                                                <Border x:Name="BorderFocus" Margin="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" BorderBrush="White"  CornerRadius="80" BorderThickness="2" Visibility="Hidden"/>
-                                                                <Border x:Name="ButtonStandard"  Background="{DynamicResource ControlBackgroundBrush}"	CornerRadius="80" />
-                                                            </Grid>
-                                                            <ControlTemplate.Triggers>
-                                                                <Trigger Property="IsFocused" Value="True">
-                                                                    <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
-                                                                </Trigger>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
-                                                                </Trigger>
-                                                            </ControlTemplate.Triggers>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </Button.Style>
+
+                                    <ButtonEx x:Name="PART_ButtonFilter"
+                                          Style="{DynamicResource ButtonFilterMenu}"
+                                          Grid.Column="9" Margin="0,0,0,0">
+                                        <Button.Content>
+                                            <Image RenderOptions.BitmapScalingMode="Fant" Width="80" Margin="0,0,0,0">
+                                                <Image.Style>
+                                                    <Style TargetType="Image">
+                                                        <Setter Property="Image.Source" Value="../Images/PS5_Filters.png"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=PART_ButtonFilter, Path=IsFocused}" Value="True">
+                                                                <Setter Property="Image.Source" Value="../Images/PS5_Filters_Dark.png"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=PART_ButtonFilter, Path=IsMouseOver}" Value="True">
+                                                                <Setter Property="Image.Source" Value="../Images/PS5_Filters_Dark.png"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Image.Style>
+                                            </Image>
+                                        </Button.Content>
                                     </ButtonEx>
                                 </Grid>
                             </Grid>
@@ -1679,19 +1699,34 @@
                                            Tag="{DynamicResource SingleRowMode}">
                                     <ListBox.Style>
                                         <Style TargetType="ListBoxEx">
-                                            <Setter Property="Margin" Value="200,30,0,0" />
+                                            <Setter Property="Margin" Value="50,30,0,0" />
                                             <Setter Property="Opacity" Value="0"/>
                                             <Setter Property="Height" Value="50"/>
                                             <Setter Property="Width" Value="1000000"/>
                                             <Setter Property="Background" Value="Transparent" />
                                             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+                                            <Setter Property="Focusable" Value="True"/>
                                             <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=StoreButton, Path=IsKeyboardFocusWithin}" Value="True">
+                                                    <Setter Property="Margin" Value="200,30,0,0" />
+                                                </DataTrigger>
+                                                
                                                 <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
                                                     <Setter Property="Opacity" Value="1"/>
                                                     <Setter Property="Height" Value="825"/>
                                                     <Setter Property="Margin" Value="120,160,120,0" />
                                                     <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
                                                     <Setter Property="Width" Value="1680"/>
+                                                </DataTrigger>
+
+                                                <DataTrigger Binding="{Binding ElementName=PART_ElemFilters, Path=Visibility}" Value="Visible">
+                                                    <Setter Property="Focusable" Value="False"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=PART_ElemFiltersAdditional, Path=Visibility}" Value="Visible">
+                                                    <Setter Property="Focusable" Value="False"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=PART_ContentFilterItems, Path=Visibility}" Value="Visible">
+                                                    <Setter Property="Focusable" Value="False"/>
                                                 </DataTrigger>
 
                                                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true">
@@ -2087,6 +2122,44 @@
                                 </Grid>
                             </StackPanel>
                         </Grid>
+
+                        <!--XMB_Warnings-->
+                        <Grid Grid.Row="1">
+                            <StackPanel Margin="0,150,0,0" HorizontalAlignment="Center" 
+                                        Grid.RowSpan="1" Grid.Row="1" VerticalAlignment="Center">
+                                <StackPanel.Style>
+                                    <Style>
+                                        <Setter Property="Control.Visibility" Value="Collapsed" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Settings Fullscreen.HorizontalLayout}" Value="True">
+                                                <Setter Property="Control.Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                                <StackPanel Orientation="Vertical" Width="1200">
+                                    <Border Background="{DynamicResource OverlayMenuBackgroundBrush}" CornerRadius="15">
+                                        <StackPanel>
+                                            <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="72"
+                                                       Margin="20" TextWrapping="WrapWithOverflow" TextAlignment="Center"
+                                                       Text="For this Theme to work correctly DISABLE Horizontal Scrolling" >
+                                                <TextBlock.Effect>
+                                                    <DropShadowEffect ShadowDepth="2" Color="Black" RenderingBias="Quality" Opacity="1"/>
+                                                </TextBlock.Effect>
+                                            </TextBlock>
+                                            <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="72"
+                                                       Margin="20" TextWrapping="WrapWithOverflow" TextAlignment="Center"
+                                                       Text="Please go to SETTINGS to DISABLE Horizontal Scrolling" >
+                                                <TextBlock.Effect>
+                                                    <DropShadowEffect ShadowDepth="2" Color="Black" RenderingBias="Quality" Opacity="1"/>
+                                                </TextBlock.Effect>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                        <!--XMB_Warnings-->
 
                         <!--AnimatedIntro-->
                         <Grid x:Name="AnimatedIntro" Tag="{DynamicResource Intro}">

@@ -36,17 +36,7 @@
                         <Storyboard x:Key="TitleAnim">
                             <DoubleAnimation Storyboard.TargetProperty="Height" Storyboard.TargetName="Title" From="0" To="120" Duration="0:0:0.2" FillBehavior="Stop"/>
                         </Storyboard>
-                        <Storyboard x:Key="BorderHighlightAnim" RepeatBehavior="Forever">
-                            <ColorAnimation From="#66000000" To="#BFEAD3CF" Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="MainBorder" Duration="0:0:2.00" AutoReverse="True"/>
-                        </Storyboard>
-                        <Storyboard x:Key="BorderShimmerAnim" RepeatBehavior="Forever">
-                            <ColorAnimation From="#00000000" To="#40FFFFFF" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Storyboard.TargetName="BorderShimmer" Duration="0:0:1.50" AutoReverse="True">
-                                <ColorAnimation.EasingFunction>
-                                    <ExponentialEase EasingMode="EaseInOut" />
-                                </ColorAnimation.EasingFunction>
-                            </ColorAnimation>
-                        </Storyboard>
-
+                        
                         <!--Single Row Mode-->
                         <Storyboard x:Key="FocusedOnSingle">
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
@@ -112,11 +102,10 @@
                             </Grid>
                         </StackPanel>
 
-                        <Border x:Name="MainBorder" BorderThickness="3" BorderBrush="White"
-                                Margin="-2" Visibility="Collapsed" CornerRadius="2">
+                        <Border x:Name="MainBorder" Margin="-2" Opacity="0" BorderThickness="3" CornerRadius="3" Style="{DynamicResource AnimatedCoverBrush}" Visibility="Collapsed" >
                         </Border>
-                        <Border x:Name="BorderShimmer" Background="#AA000000" BorderBrush="White"
-                                Visibility="Collapsed" CornerRadius="0">
+
+                        <Border x:Name="FlashBorder" CornerRadius="0" Opacity="0" Style="{DynamicResource AnimatedFlashCover}"  Visibility="Collapsed">
                         </Border>
 
                         <Border x:Name="MainBorderSingle" BorderThickness="1.5" BorderBrush="White"
@@ -127,18 +116,6 @@
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <!--Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
-                            <Setter Property="Canvas.ZIndex" Value="90" />
-                            <Trigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource FocusedOff}" />
-                            </Trigger.ExitActions>
-                            <Trigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource FocusedOn}" />
-                            </Trigger.EnterActions>
-                        </Trigger-->
-
-
                         <Trigger Property="ListBox.AlternationIndex" Value="0">
                             <Setter Property="Focusable" Value="True"/>
                             <Setter Property="Visibility" Value="Visible"/>
@@ -196,11 +173,9 @@
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
                             <Setter Property="Canvas.ZIndex" Value="90" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderShimmer" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="FlashBorder" />
                             <Setter Property="Visibility" Value="Visible" TargetName="Title"/>
                             <MultiDataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource BorderHighlightAnim}" />
-                                <BeginStoryboard Storyboard="{StaticResource BorderShimmerAnim}" />
                                 <BeginStoryboard Storyboard="{StaticResource TitleAnim}"/>
                             </MultiDataTrigger.EnterActions>
                         </MultiDataTrigger>
@@ -232,6 +207,16 @@
                                 <BeginStoryboard Storyboard="{StaticResource FocusedOffSingle}" />
                             </MultiDataTrigger.ExitActions>
                         </MultiDataTrigger>
+
+                        <DataTrigger Binding="{Binding ElementName=PART_ElemFilters, Path=Visibility}" Value="Visible">
+                            <Setter Property="Focusable" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=PART_ElemFiltersAdditional, Path=Visibility}" Value="Visible">
+                            <Setter Property="Focusable" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=PART_ContentFilterItems, Path=Visibility}" Value="Visible">
+                            <Setter Property="Focusable" Value="False"/>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -599,10 +584,6 @@
                         </Border>
                         <Border Background="#AA000000" x:Name="BorderDarken" Style="{DynamicResource CornerRadius}" Visibility="Collapsed" MaxHeight="{TemplateBinding MaxHeight}" Width="168"/>
 
-                        <Border x:Name="BorderShimmer" Background="#AA000000" BorderBrush="White"
-                                Visibility="Collapsed" Style="{DynamicResource CornerRadius}">
-                        </Border>
-
                     </Grid>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding ElementName=hasIntro, Path=Opacity}" Value="0">
@@ -838,10 +819,8 @@
 
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Margin" Value="15,0,15,0"/>
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderShimmer" />
                             <Trigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource FocusedOn}"/>
-                                <BeginStoryboard Storyboard="{StaticResource BorderShimmerAnim}" />
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
                                 <BeginStoryboard Storyboard="{StaticResource FocusedOff}"/>

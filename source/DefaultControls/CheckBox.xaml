@@ -4,33 +4,35 @@
     <Style TargetType="CheckBox">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-        <Setter Property="Background" Value="Transparent" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Padding" Value="5,5,12,5" />
-        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Padding" Value="5,10" />
+        <Setter Property="Height" Value="60" />
+		<Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
-                    <Grid Background="Transparent">
-                        <Grid Margin="{TemplateBinding Padding}">
+                    <Grid Background="{TemplateBinding Background}">
+<!-- 						<Border x:Name="ItemLineBorder" Margin="15,0" BorderThickness="0,0,0,1" BorderBrush="Gray" Opacity="0.2" Visibility="Visible">
+							</Border>		 -->				
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Visibility="Collapsed" >
+							</Border>
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Visibility="Collapsed">
+							</Border>		
+						<Grid Margin="{TemplateBinding Padding}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-
-                            <Border Background="{TemplateBinding Background}" CornerRadius="20" Margin="-4" Grid.Column="0" Grid.ColumnSpan="2"/>
-                            <Border Background="{DynamicResource CheckBoxCheckMarkBkBrush}"
+							<Border Background="Transparent"
                                     VerticalAlignment="Center"
-                                    BorderThickness="2" BorderBrush="{DynamicResource ControlBackgroundBrush}"
-                                    Grid.Column="0" Margin="0,0,10,0" Width="30" Height="30" CornerRadius="30">
-                                <Viewbox x:Name="CheckIcon" Visibility="Collapsed">
-                                    <TextBlock Text="b" FontFamily="Marlett" Foreground="White"
-                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    Grid.Column="0" Margin="10,0" Width="24" Height="24">
+                                <Viewbox x:Name="CheckIcon">
+                                    <TextBlock Text="&#xe739;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" Foreground="White"
+                                               x:Name="IconText" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Viewbox>
                             </Border>
                             <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
-                                        FontFamily="{DynamicResource FontTitilliumWeb}"
                                         Foreground="{TemplateBinding Foreground}"
                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -40,24 +42,28 @@
                         </Grid>
                     </Grid>
                     <ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="False">
+						   <Setter Property="Opacity" Value="0.5" />
+					   </Trigger>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Visibility" Value="Visible" TargetName="CheckIcon" />
+                            <Setter Property="Text" Value="&#xe73d;" TargetName="IconText" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource UIBrush}" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />																				  
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource UIBrush}" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" Value="0.5" />
+                            <Setter Property="Foreground" Value="{DynamicResource SelectionLightBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style TargetType="CheckBoxEx" BasedOn="{StaticResource {x:Type CheckBox}}">
-    </Style>
+    
+	</Style>
+	
+	
 </ResourceDictionary>

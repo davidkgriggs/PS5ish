@@ -27,15 +27,11 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center" Width="55" Height="55"   
                             x:Name="MainBorder"/>
 
-                        <Border x:Name="BorderStandard"
+                        <Border x:Name="BorderFocus" Visibility="Collapsed"
                                 BorderThickness="3" CornerRadius="500"
-                                BorderBrush="#5A5A5A"
+                                Style="{DynamicResource AnimatedCoverBrush}"
                                 Margin="0,0,0,0"    
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Width="60" Height="60"   />
-
-                        <Border x:Name="BorderFocus" Margin="-3"
-                                BorderBrush="White" CornerRadius="5"
-                                BorderThickness="0" Visibility="Hidden" />
 
                         <ContentPresenter />
 
@@ -47,34 +43,17 @@
 
                         <Trigger Property="IsFocused" Value="False">
                             <Setter Property="Foreground" Value="Transparent"/>
-                            <!--Setter Property="Background" Value="#CC303030" TargetName="MainBorder"/-->
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
-                            <Setter Property="Visibility" Value="Hidden" TargetName="BorderStandard" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
                             <Setter Property="Background" Value="White" TargetName="MainBorder"/>
                             <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderStandard" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
                             <Setter Property="Background" Value="White" TargetName="MainBorder"/>
                             <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderStandard" />
                         </Trigger>
-                        <EventTrigger RoutedEvent="Button.Loaded">
-                            <BeginStoryboard>
-                                <Storyboard RepeatBehavior="Forever">
-                                    <ColorAnimation From="#33FFFFFF"
-                                        To="#BFFFFFFF" 
-                                    Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)" 
-                                                    Storyboard.TargetName="BorderStandard"
-                                    Duration="0:0:1.50"
-                                                    AutoReverse="True"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

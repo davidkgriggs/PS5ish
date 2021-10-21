@@ -13,3 +13,12 @@ Packages:
     Changelog:
       - Bug fix
       - Fix for "16:10"
+  - Version: 4.1.0
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-10-21
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.1.0/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_1_0.pthm
+    Changelog:
+      - Updated Buttons and Selection animations  thanks to KersalMassive!!!
+      - Bug Fixes
+      - Fix for trailers playing after game launches when using Splash Screen extension
+      - Video Backgrounds feature added for use with Extra Metadata Tools
