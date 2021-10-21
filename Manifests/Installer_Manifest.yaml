@@ -22,3 +22,9 @@ Packages:
       - Bug Fixes
       - Fix for trailers playing after game launches when using Splash Screen extension
       - Video Backgrounds feature added for use with Extra Metadata Tools
+  - Version: 4.1.1
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-10-21
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.1.1/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_1_1.pthm
+    Changelog:
+      - Fix for different cover sizes

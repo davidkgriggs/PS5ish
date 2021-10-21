@@ -109,6 +109,7 @@
     <!--###############################################################################################-->
     <Style x:Key="SelectedRowGameHighlighter" TargetType="Button">
         <Setter Property="Margin" Value="0,0,0,0"/>
+        <Setter Property="Height" Value="178"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -125,10 +126,10 @@
                         <Grid.RenderTransform>
                             <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
                         </Grid.RenderTransform>
-                        <Border x:Name="MainBorder" Opacity="1" BorderThickness="3" CornerRadius="28" Width="178" Height="178" Style="{DynamicResource AnimatedCoverBrush}" Visibility="Visible" >
+                        <Border x:Name="MainBorder" Opacity="1" BorderThickness="3" CornerRadius="28" Width="178" Height="{TemplateBinding Height}" Style="{DynamicResource AnimatedCoverBrush}" Visibility="Visible" >
                         </Border>
 
-                        <Border x:Name="FlashBorder" CornerRadius="28" Opacity="1" Width="178" Height="178" Style="{DynamicResource AnimatedFlashCover}"  Visibility="Visible">
+                        <Border x:Name="FlashBorder" CornerRadius="28" Opacity="1" Width="178" Height="{TemplateBinding Height}" Style="{DynamicResource AnimatedFlashCover}"  Visibility="Visible">
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -189,13 +190,13 @@
         </Setter>
         <Style.Triggers>
             <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="1">
-                <Setter Property="MaxHeight" Value="178" />
+                <Setter Property="Height" Value="178" />
             </DataTrigger>
             <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="4">
-                <Setter Property="MaxHeight" Value="239" />
+                <Setter Property="Height" Value="239" />
             </DataTrigger>
             <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="3">
-                <Setter Property="MaxHeight" Value="261" />
+                <Setter Property="Height" Value="261" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
