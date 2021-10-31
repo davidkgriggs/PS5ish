@@ -28,3 +28,12 @@ Packages:
     PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.1.1/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_1_1.pthm
     Changelog:
       - Fix for different cover sizes
+  - Version: 4.2.0
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-10-31
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.2.0/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_2_0.pthm
+    Changelog:
+      - Optimised animations
+      - Changed how the Row of Games loads artwork, should now work with any size cover images
+      - Single Row Mode reworked
+      - Fix for Background Video

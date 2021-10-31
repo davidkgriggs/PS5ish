@@ -283,11 +283,13 @@
                                                                         <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}"/>
                                                                         <Setter Property="Background" Value="#F2F2F2" TargetName="MainBorder"/>
                                                                         <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+																		<Setter Property="Tag" Value="True" TargetName="BorderFocus" />
                                                                     </Trigger>
                                                                     <Trigger Property="IsMouseOver" Value="True">
                                                                         <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}"/>
                                                                         <Setter Property="Background" Value="#F2F2F2" TargetName="MainBorder"/>
                                                                         <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+																		<Setter Property="Tag" Value="True" TargetName="BorderFocus" />
                                                                     </Trigger>
                                                                 </ControlTemplate.Triggers>
                                                             </ControlTemplate>
@@ -325,11 +327,13 @@
                                                                         <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}"/>
                                                                         <Setter Property="Background" Value="#F2F2F2" TargetName="MainBorder"/>
                                                                         <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+																		<Setter Property="Tag" Value="True" TargetName="BorderFocus" />
                                                                     </Trigger>
                                                                     <Trigger Property="IsMouseOver" Value="True">
                                                                         <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}"/>
                                                                         <Setter Property="Background" Value="#F2F2F2" TargetName="MainBorder"/>
                                                                         <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+																		<Setter Property="Tag" Value="True" TargetName="BorderFocus" />
                                                                     </Trigger>
                                                                 </ControlTemplate.Triggers>
                                                             </ControlTemplate>

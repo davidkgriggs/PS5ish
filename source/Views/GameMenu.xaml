@@ -9,9 +9,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid Background="{TemplateBinding Background}">                            
-						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Visibility="Collapsed" >
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
 							</Border>
-						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Visibility="Collapsed">
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
 							</Border>							
 						<TextBlock Style="{DynamicResource TextBlockBaseStyle}"
                                        Margin="0,0,25,0" DockPanel.Dock="Left"
@@ -23,6 +23,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
                             <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
 							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
                         </Trigger>
@@ -46,7 +48,6 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="Padding" Value="15,15,15,15" />
-        <!-- <Setter Property="FontWeight" Value="Bold" /> -->
         <Setter Property="Background" Value="Transparent" />
     </Style>
 

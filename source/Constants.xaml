@@ -425,7 +425,7 @@
             
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ElementName=MainBorder, Path=Visibility}" Value="Visible"/>
+					<Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.EnterActions>
@@ -465,7 +465,7 @@
         <Style.Triggers>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ElementName=MainBorder, Path=Visibility}" Value="Visible"/>
+					<Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.EnterActions>
@@ -502,7 +502,7 @@
         <Style.Triggers>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding ElementName=FlashBorder, Path=Visibility}" Value="Visible"/>
+					<Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.EnterActions>
@@ -533,7 +533,7 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding ElementName=FlashMenuBorder, Path=Visibility}" Value="Visible">
+			<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
                 <DataTrigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard RepeatBehavior="1x">

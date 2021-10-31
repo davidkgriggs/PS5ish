@@ -48,11 +48,13 @@
                             <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
                             <Setter Property="Background" Value="White" TargetName="MainBorder"/>
                             <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+                            <Setter Property="Tag" Value="True" TargetName="BorderFocus" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
                             <Setter Property="Background" Value="White" TargetName="MainBorder"/>
                             <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+                            <Setter Property="Tag" Value="True" TargetName="BorderFocus" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

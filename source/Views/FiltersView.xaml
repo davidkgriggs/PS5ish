@@ -8,10 +8,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Grid Background="{TemplateBinding Background}">
-						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Visibility="Collapsed" >
+                    <Grid Background="{TemplateBinding Background}">                        
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
 							</Border>
-						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Visibility="Collapsed">
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
 							</Border>	
 						<DockPanel Margin="15,0">
                             <TextBlock Text="&#xE974;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
@@ -29,6 +29,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
                             <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
                             <Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
                         </Trigger>
@@ -59,7 +61,7 @@
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <Setter Property="Background" Value="Transparent" />
 		<Setter Property="Height" Value="50" />
-		<Setter Property="Margin" Value="15,5,15,10" />	
+		<Setter Property="Margin" Value="35,5,30,10" />	
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -71,7 +73,7 @@
                                 x:Name="MainBackground"/>
 						<Border x:Name="MainBorder" Margin="-6" 
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                Style="{DynamicResource AnimatedBorderBrush}" 
+                                Style="{DynamicResource AnimatedBorderBrush}" Tag="False"
                                 BorderThickness="3" CornerRadius="30" Visibility="Collapsed" />
 						<TextBlock Style="{DynamicResource TextBlockBaseStyle}"
                                    Foreground="{TemplateBinding Foreground}" FontWeight="SemiBold"
@@ -87,6 +89,7 @@
 						</Trigger>
 						<Trigger Property="IsFocused" Value="True">
                             <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}" />
+							<Setter Property="Tag" Value="True" TargetName="MainBorder" />
 							<Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
 							<Setter Property="Background" Value="{DynamicResource ControlBackgroundLightBrush}" TargetName="MainBackground" />
                         </Trigger>
@@ -121,9 +124,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid Background="{TemplateBinding Background}">
-						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Visibility="Collapsed" >
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
 							</Border>
-						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Visibility="Collapsed">
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
 							</Border>	
                             <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
                                        DockPanel.Dock="Left"
@@ -135,6 +138,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
                             <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
                             <Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
                         </Trigger>

@@ -11,7 +11,7 @@
                     <Grid x:Name="PART_MainHost"
                           d:DesignWidth="{StaticResource DesignWidth}"
                           d:DesignHeight="{StaticResource DesignHeight}"
-                          d:DataContext="{x:Static DesignMainViewModel.DesignIntance}">
+                          d:DataContext="{x:Static DesignMainViewModel.DesignIntance}" Background="{DynamicResource ControlBackgroundDarkBrush}">
                         <Grid>
                             <TextBlock Name="VideoPath" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed">
                                 <TextBlock.Style>
@@ -43,7 +43,7 @@
                                 </MediaElement.Style>
                             </MediaElement>
                         </Grid>
-                        <Grid x:Name="PART_ViewHost" Background="{DynamicResource ControlBackgroundDarkBrush}">
+                        <Grid x:Name="PART_ViewHost" Background="Transparent">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
@@ -1400,7 +1400,7 @@
                                             </StackPanel>
 
                                             <!--ROW OF GAMES-->
-                                            <Grid Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Focusable="False" Tag="{DynamicResource Intro}" RenderTransformOrigin="0.5,0.25">
+                                            <Grid Margin="0,-10,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Focusable="False" Tag="{DynamicResource Intro}" RenderTransformOrigin="0.5,0.25">
                                                 <Grid.Style>
                                                     <Style TargetType="Grid">
                                                         <Setter Property="RenderTransform">
@@ -1626,59 +1626,6 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </Grid.Style>
-
-
-                                            <!--SELECTED_HIGHLIGHTER-->
-                                            <StackPanel Grid.Row="1" Focusable="False">
-                                                <StackPanel.Style>
-                                                    <Style TargetType="StackPanel">
-                                                        <Setter Property="Visibility" Value="Visible" />
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=IsKeyboardFocusWithin}" Value="False">
-                                                                <Setter Property="Visibility" Value="Collapsed" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </StackPanel.Style>
-                                                <StackPanel Margin="166,25,0,0" Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Focusable="False"
-                                                            Tag="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}">
-                                                    <Button Focusable="False" Style="{DynamicResource SelectedRowGameHighlighter}" />
-                                                    <StackPanel.Style>
-                                                        <Style TargetType="StackPanel">
-                                                            <Setter Property="Opacity" Value="0"/>
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="0">
-                                                                    <Setter Property="Opacity" Value="1"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="1">
-                                                                    <Setter Property="Opacity" Value="1"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="2">
-                                                                    <Setter Property="Opacity" Value="1"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="3">
-                                                                    <Setter Property="Opacity" Value="1"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="4">
-                                                                    <Setter Property="Opacity" Value="1"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="5">
-                                                                    <Setter Property="Opacity" Value="1"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="6">
-                                                                    <Setter Property="Opacity" Value="1"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="7">
-                                                                    <Setter Property="Opacity" Value="1"/>
-                                                                </DataTrigger>
-                                                                <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="8">
-                                                                    <Setter Property="Opacity" Value="1"/>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </StackPanel.Style>
-                                                </StackPanel>
-                                            </StackPanel>
                                         </Grid>
                                     </DockPanel>
                                 </Grid>
@@ -2126,14 +2073,18 @@
                         <!--XMB_Warnings-->
                         <Grid Grid.Row="1">
                             <StackPanel Margin="0,150,0,0" HorizontalAlignment="Center" 
-                                        Grid.RowSpan="1" Grid.Row="1" VerticalAlignment="Center">
+                                        Grid.RowSpan="1" Grid.Row="1" VerticalAlignment="Center" Tag="{DynamicResource SingleRowMode}">
                                 <StackPanel.Style>
                                     <Style>
                                         <Setter Property="Control.Visibility" Value="Collapsed" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Settings Fullscreen.HorizontalLayout}" Value="True">
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Settings Fullscreen.HorizontalLayout}" Value="True"/>
+                                                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="False"/>
+                                                </MultiDataTrigger.Conditions>
                                                 <Setter Property="Control.Visibility" Value="Visible" />
-                                            </DataTrigger>
+                                            </MultiDataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </StackPanel.Style>

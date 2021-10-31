@@ -41,28 +41,18 @@
                         <Storyboard x:Key="FocusedOnSingle">
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleX"
-                                             From="1" To="1.6" Duration="0:0:0.075"/>
+                                             From="1" To="1.5" Duration="0:0:0.075"/>
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleY"
-                                             From="1" To="1.6" Duration="0:0:0.075"/>
+                                             From="1" To="1.5" Duration="0:0:0.075"/>
                         </Storyboard>
                         <Storyboard x:Key="FocusedOffSingle">
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleX"
-                                             From="1.6" To="1" Duration="0:0:0.075"/>
+                                             From="1.5" To="1" Duration="0:0:0.075"/>
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleY"
-                                             From="1.6" To="1" Duration="0:0:0.075"/>
-                        </Storyboard>
-                        <Storyboard x:Key="BorderHighlightAnimSingle" RepeatBehavior="Forever">
-                            <ColorAnimation From="#66000000" To="#BFEAD3CF" Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="MainBorderSingle" Duration="0:0:2.00" AutoReverse="True"/>
-                        </Storyboard>
-                        <Storyboard x:Key="BorderShimmerAnimSingle" RepeatBehavior="Forever">
-                            <ColorAnimation From="#00000000" To="#40FFFFFF" Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Storyboard.TargetName="BorderShimmerSingle" Duration="0:0:1.50" AutoReverse="True">
-                                <ColorAnimation.EasingFunction>
-                                    <ExponentialEase EasingMode="EaseInOut" />
-                                </ColorAnimation.EasingFunction>
-                            </ColorAnimation>
+                                             From="1.5" To="1" Duration="0:0:0.075"/>
                         </Storyboard>
                     </ControlTemplate.Resources>
                     <Grid Margin="{Settings FullscreenItemSpacingMargin}"
@@ -102,17 +92,16 @@
                             </Grid>
                         </StackPanel>
 
-                        <Border x:Name="MainBorder" Margin="-2" Opacity="0" BorderThickness="3" CornerRadius="3" Style="{DynamicResource AnimatedCoverBrush}" Visibility="Collapsed" >
+                        <Border x:Name="MainBorder" Margin="-2" Opacity="0" BorderThickness="3" CornerRadius="3" Style="{DynamicResource AnimatedCoverBrush}" Visibility="Collapsed" Tag="False">
                         </Border>
 
-                        <Border x:Name="FlashBorder" CornerRadius="0" Opacity="0" Style="{DynamicResource AnimatedFlashCover}"  Visibility="Collapsed">
+                        <Border x:Name="FlashBorder" CornerRadius="0" Opacity="0" Style="{DynamicResource AnimatedFlashCover}"  Visibility="Collapsed" Tag="False">
                         </Border>
 
-                        <Border x:Name="MainBorderSingle" BorderThickness="1.5" BorderBrush="White"
-                                Margin="0" Visibility="Collapsed" CornerRadius="20">
+                        <Border x:Name="MainBorderSingle" Margin="0" Opacity="0" BorderThickness="1.5" CornerRadius="18" Style="{DynamicResource AnimatedCoverBrush}" Visibility="Collapsed" Tag="False">
                         </Border>
-                        <Border x:Name="BorderShimmerSingle" Background="#AA000000" BorderBrush="White"
-                                Visibility="Collapsed" CornerRadius="20">
+
+                        <Border x:Name="FlashBorderSingle" CornerRadius="18" Opacity="0" Style="{DynamicResource AnimatedFlashCover}"  Visibility="Collapsed" Tag="False">
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -175,6 +164,8 @@
                             <Setter Property="Canvas.ZIndex" Value="90" />
                             <Setter Property="Visibility" Value="Visible" TargetName="FlashBorder" />
                             <Setter Property="Visibility" Value="Visible" TargetName="Title"/>
+                            <Setter Property="Tag" Value="True" TargetName="FlashBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
                             <MultiDataTrigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource TitleAnim}"/>
                             </MultiDataTrigger.EnterActions>
@@ -196,11 +187,11 @@
                                 <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsFocused}" Value="True"/>
                             </MultiDataTrigger.Conditions>
                             <Setter Property="Visibility" Value="Visible" TargetName="MainBorderSingle" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="FlashBorderSingle" />
+                            <Setter Property="Tag" Value="True" TargetName="MainBorderSingle" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashBorderSingle" />
                             <Setter Property="Canvas.ZIndex" Value="90" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderShimmerSingle" />          
                             <MultiDataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource BorderHighlightAnimSingle}" />
-                                <BeginStoryboard Storyboard="{StaticResource BorderShimmerAnimSingle}" />
                                 <BeginStoryboard Storyboard="{StaticResource FocusedOnSingle}" />
                             </MultiDataTrigger.EnterActions>
                             <MultiDataTrigger.ExitActions>
@@ -355,7 +346,6 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="MaxHeight" Value="168" />
         <Setter Property="Focusable" Value="False"/>
         <Setter Property="Visibility" Value="Collapsed"/>
         <Setter Property="Template">
@@ -563,27 +553,28 @@
                             <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.8" Duration="0:0:0.1" From="0" To="1"/>
                         </Storyboard>
                     </ControlTemplate.Resources>
-                    <Grid Margin="0" d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}" RenderTransformOrigin="0.5,0">
+                    <Grid Margin="0,10,0,-10" d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}" RenderTransformOrigin="0.5,0">
                         <Grid.RenderTransform>
                             <ScaleTransform x:Name="ScaleTransform" ScaleX="0.625" ScaleY="0.625" />
                         </Grid.RenderTransform>
-                        <Border CornerRadius="5" Background="Transparent" Margin="0" MaxHeight="{TemplateBinding MaxHeight}" Width="168">
-                            <Grid>
-                                <Border Name="mask" Background="Black" Style="{DynamicResource CornerRadius}"/>
-                                <Grid>
-                                    <Grid.OpacityMask>
-                                        <VisualBrush Visual="{Binding ElementName=mask}"/>
-                                    </Grid.OpacityMask>
-                                    <Image x:Name="CoverImage" Source="Blank.png" RenderOptions.BitmapScalingMode="Fant" Height="{TemplateBinding MaxHeight}" Width="168"
+                        <Border Name="mask" Background="Black" Style="{DynamicResource CornerRadius}"/>
+                        <Grid>
+                            <Grid.OpacityMask>
+                                <VisualBrush Visual="{Binding ElementName=mask}"/>
+                            </Grid.OpacityMask>
+                            <Image x:Name="CoverImage" Source="Blank.png" RenderOptions.BitmapScalingMode="Fant" Width="168"
                                                                        VerticalAlignment="Top" HorizontalAlignment="Left"
-                                                                       Stretch="{Settings CoverArtStretch}">
-                                    </Image>
+                                                                       Stretch="Uniform">
+                            </Image>
 
-                                </Grid>
-                            </Grid>
-                        </Border>
+                        </Grid>
                         <Border Background="#AA000000" x:Name="BorderDarken" Style="{DynamicResource CornerRadius}" Visibility="Collapsed" MaxHeight="{TemplateBinding MaxHeight}" Width="168"/>
+                        
+                        <Border x:Name="MainBorder" Opacity="1" BorderThickness="3" CornerRadius="28" Margin="-6" Style="{DynamicResource AnimatedCoverBrush}" Visibility="Hidden" Tag="False">
+                        </Border>
 
+                        <Border x:Name="FlashBorder" CornerRadius="28" Opacity="1" Margin="-6" Style="{DynamicResource AnimatedFlashCover}"  Visibility="Hidden" Tag="False">
+                        </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding ElementName=hasIntro, Path=Opacity}" Value="0">
@@ -819,6 +810,10 @@
 
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Margin" Value="15,0,15,0"/>
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="FlashBorder" />
                             <Trigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource FocusedOn}"/>
                             </Trigger.EnterActions>
@@ -858,15 +853,15 @@
                             <Setter Property="Margin" Value="-27,0,-27,0"/>
                         </MultiDataTrigger>
                         
-                        <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="1">
+                        <!--DataTrigger Binding="{Settings GridItemHeightRatio}" Value="1">
                             <Setter Property="MaxHeight" Value="168" />
-                        </DataTrigger>
+                        </>
                         <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="4">
                             <Setter Property="MaxHeight" Value="229" />
                         </DataTrigger>
                         <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="3">
                             <Setter Property="MaxHeight" Value="251" />
-                        </DataTrigger>
+                        </DataTrigger-->
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

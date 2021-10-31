@@ -14,11 +14,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
                     <Grid Background="{TemplateBinding Background}">
-<!-- 						<Border x:Name="ItemLineBorder" Margin="15,0" BorderThickness="0,0,0,1" BorderBrush="Gray" Opacity="0.2" Visibility="Visible">
-							</Border>		 -->				
-						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Visibility="Collapsed" >
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
 							</Border>
-						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Visibility="Collapsed">
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
 							</Border>
                         <ToggleButton x:Name="ToggleButton" Focusable="False" ClickMode="Press"
                                       VerticalAlignment="Center" Margin="0,0,20,0"
@@ -67,6 +65,8 @@
 						   <Setter Property="Opacity" Value="0.5" />
 					   </Trigger>
                         <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
                             <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
 							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />	
                         </Trigger>
@@ -92,9 +92,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBoxItem}">
                     <Grid Background="{TemplateBinding Background}" >
-                    	<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Visibility="Collapsed" >
+                    	<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
 							</Border>
-						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Visibility="Collapsed">
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
 							</Border>    
 						<TextBlock Style="{DynamicResource TextBlockBaseStyle}"                                   
                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -106,6 +106,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
                             <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
 							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />	
                         </Trigger>

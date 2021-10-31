@@ -17,11 +17,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid Background="{TemplateBinding Background}">
-<!-- 						<Border x:Name="ItemLineBorder" Margin="20,0" BorderThickness="0,0,0,1" BorderBrush="Gray" Opacity="0.2" Visibility="Visible">
-							</Border>	 -->					
-						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Visibility="Collapsed" >
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
 							</Border>
-						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Visibility="Collapsed">
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
 							</Border>							
 						<TextBlock Style="{DynamicResource TextBlockBaseStyle}"
                                        Margin="0,0,25,0" DockPanel.Dock="Left"
@@ -33,6 +31,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
                             <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
 							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
                         </Trigger>
@@ -47,10 +47,10 @@
 
     <DataTemplate x:Key="MainMenuHeaderTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,30">
-            <TextBlock Text="" FontSize="24" FontWeight="Bold" Style="{DynamicResource TextBlockBaseStyle}"
-                       Margin="0,0,0,0"/>
-			<Image Source="{ThemeFile 'Images/logo-psplaynite.png'}" Height="30"
-                   RenderOptions.BitmapScalingMode="Fant" />
+            <TextBlock Text="Playnite" FontSize="24" Style="{DynamicResource TextBlockBaseStyle}"
+                       Margin="0"/>
+<!-- 			<Image Source="{ThemeFile 'Images/logo-psplaynite.png'}" Height="30"
+                   RenderOptions.BitmapScalingMode="Fant" /> -->
         </StackPanel>
     </DataTemplate>
 
