@@ -37,3 +37,11 @@ Packages:
       - Changed how the Row of Games loads artwork, should now work with any size cover images
       - Single Row Mode reworked
       - Fix for Background Video
+  - Version: 4.3.0
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-11-08
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.3.0/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_3_0.pthm
+    Changelog:
+      - Reworked Game Details page
+      - Added game titles to Main page
+      - Additional bits to bring it closer to the PS5 UI

@@ -568,12 +568,12 @@
                             </Image>
 
                         </Grid>
-                        <Border Background="#AA000000" x:Name="BorderDarken" Style="{DynamicResource CornerRadius}" Visibility="Collapsed" MaxHeight="{TemplateBinding MaxHeight}" Width="168"/>
+                        <Border Background="#AA000000" x:Name="BorderDarken" Style="{DynamicResource CornerRadius}" Visibility="Collapsed" Width="168"/>
                         
                         <Border x:Name="MainBorder" Opacity="1" BorderThickness="3" CornerRadius="28" Margin="-6" Style="{DynamicResource AnimatedCoverBrush}" Visibility="Hidden" Tag="False">
                         </Border>
 
-                        <Border x:Name="FlashBorder" CornerRadius="28" Opacity="1" Margin="-6" Style="{DynamicResource AnimatedFlashCover}"  Visibility="Hidden" Tag="False">
+                        <Border x:Name="FlashBorder" CornerRadius="28" Opacity="1" Margin="0" Style="{DynamicResource AnimatedFlashCover}"  Visibility="Hidden" Tag="False">
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>

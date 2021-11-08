@@ -304,6 +304,20 @@
                                         </Image>
                                     </Button.Content>
                                 </ButtonEx>
+                                <TextBlock Grid.Column="8" Margin="0,0,0,-30" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                                           FontFamily="Segoe UI Light" Foreground="White" FontSize="24" 
+                                           Text="{DynamicResource LOCSearchLabel}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=PART_ButtonSearch, Path=IsFocused}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
 
                                 <!--Settings Button Top-->
                                 <ButtonEx x:Name="PART_ButtonMainMenu" VerticalAlignment="Bottom"
@@ -327,6 +341,20 @@
                                         </Image>
                                     </Button.Content>
                                 </ButtonEx>
+                                <TextBlock Grid.Column="9" Margin="0,0,0,-30" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                                           FontFamily="Segoe UI Light" Foreground="White" FontSize="24" 
+                                           Text="{DynamicResource LOCSettingsLabel}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=PART_ButtonMainMenu, Path=IsFocused}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
 
                                 <!--Notifications-->
                                 <ButtonEx x:Name="PART_ButtonNotifications" VerticalAlignment="Bottom" Style="{DynamicResource ButtonTopMenu}"
@@ -840,7 +868,7 @@
                                 <!--Play and Options-->
                                 <StackPanel Orientation="Horizontal" Margin="170,0,0,65" HorizontalAlignment="Left" Grid.RowSpan="1" Grid.Row="1" VerticalAlignment="Bottom">
                                     <!--Play-->
-                                    <ButtonEx x:Name="PART_ButtonPlay" Height="70" Padding="12,0,12,0"
+                                    <ButtonEx x:Name="PART_ButtonPlay" Height="100" MinWidth="300" Padding="12,0,12,0"
                                     Style="{DynamicResource ButtonPlayOptions}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal" Margin="55,5,55,0">
@@ -852,7 +880,7 @@
                                     </ButtonEx>
                                     <!--Options-->
                                     <ButtonEx x:Name="PART_ButtonGameOptions"
-                                    Style="{DynamicResource ButtonPlayOptions}" Margin="20,0,0,0" Height="70" Padding="-12,0,-12,0">
+                                    Style="{DynamicResource ButtonPlayOptions}" Margin="20,0,0,0" Height="100" MinWidth="70" Padding="-12,0,-12,0">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="..." 
@@ -1626,6 +1654,59 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </Grid.Style>
+
+                                            <Grid Grid.Row="1" Grid.RowSpan="1" Margin="360,140,0,0">
+                                                <Grid.Style>
+                                                    <Style>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
+                                                                <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                                                <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Grid.Style>
+                                                <Grid>
+                                                    <Grid.Style>
+                                                        <Style>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsFocused}" Value="True">
+                                                                    <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Grid.Style>
+                                                    <StackPanel Orientation="Horizontal" Visibility="{Settings Fullscreen.ShowGameTitles}">
+                                                        <Image Name="PlatformSource" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Left" Height="35" Margin="0,0,0,0"
+                                                                           Source="{Binding SelectedGame.Platforms[0].Icon, Converter={StaticResource ImageStringToImageConverter}}"/>
+
+                                                        <TextBlock x:Name="DisplayName" Style="{DynamicResource Title}" 
+											                        Text="{Binding SelectedGame.DisplayName}" FontSize="32" FontWeight="Light" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="20,0,0,10">
+                                                        </TextBlock>
+                                                    </StackPanel>
+                                                </Grid>
+                                                <Grid Margin="-30,0,0,30">
+                                                    <Grid.Style>
+                                                        <Style>
+                                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsFocused}" Value="True">
+                                                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Grid.Style>
+                                                    <TextBlock x:Name="MoreGamesTitle" Tag="{DynamicResource TitleTrueFalse}" Style="{DynamicResource Title}"
+											                        Text="{DynamicResource LOCAllGames}" FontSize="32" FontWeight="Light" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="20,0,0,10">
+                                                        <TextBlock.Effect>
+                                                            <DropShadowEffect ShadowDepth="2" Color="Black"
+													                              RenderingBias="Quality" Opacity="0.6"/>
+                                                        </TextBlock.Effect>
+                                                    </TextBlock>
+                                                </Grid>
+                                            </Grid>
                                         </Grid>
                                     </DockPanel>
                                 </Grid>
@@ -2292,11 +2373,14 @@
                                             <EventTrigger RoutedEvent="MediaElement.MediaEnded">
                                                 <BeginStoryboard>
                                                     <Storyboard>
-                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.5"/>
-                                                        <DoubleAnimation Storyboard.TargetProperty="MaxHeight" From="2160" To="2161" Duration="0:0:0.01"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.5" FillBehavior="HoldEnd"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="MaxHeight" From="2160" To="2161" Duration="0:0:0.5"/>
                                                     </Storyboard>
                                                 </BeginStoryboard>
                                             </EventTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=IntroVideoSource,Path=MaxHeight}" Value="2161">
+                                                <Setter Property="MediaElement.Source" Value="Stop" />
+                                            </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </MediaElement.Style>
