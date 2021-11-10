@@ -1670,10 +1670,17 @@
                                                 </Grid.Style>
                                                 <Grid>
                                                     <Grid.Style>
-                                                        <Style>
+                                                        <Style TargetType="Grid">
+                                                            <Setter Property="Margin" Value="0,0,0,0"/>
                                                             <Style.Triggers>
                                                                 <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsFocused}" Value="True">
-                                                                    <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="3">
+                                                                    <Setter Property="Margin" Value="0,50,0,0"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="4">
+                                                                    <Setter Property="Margin" Value="0,50,0,0"/>
                                                                 </DataTrigger>
                                                             </Style.Triggers>
                                                         </Style>
@@ -2202,13 +2209,13 @@
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true">
                                             <Setter Property="Visibility" Value="Visible"/>
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding ElementName=AnimIntroCanvas1, Path=Opacity}" Value="0">
-                                            <Setter Property="Visibility" Value="Hidden"/>
+                                        <DataTrigger Binding="{Binding ElementName=AnimIntroCanvas1, Path=Height}" Value="1081">
+                                            <Setter Property="ItemsControl.Visibility" Value="Hidden"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Grid.Style>
-                            <Viewbox Stretch="Fill">
+                            <Viewbox Stretch="Fill" x:Name="AnimatedIntroViewbox">
                                 <Canvas x:Name="AnimIntroCanvas1" Width="1920" Height="1080" Opacity="0">
                                     <Canvas.Resources>
                                         <Storyboard x:Key="Video">
@@ -2233,7 +2240,7 @@
                                             <DoubleAnimation Storyboard.TargetName="AnimIntroBorder2" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:1.5"/>
                                         </Storyboard>
                                         <Storyboard x:Key="End">
-                                            <DoubleAnimation Storyboard.TargetName="AnimIntroCanvas1" Storyboard.TargetProperty="Height" From="1080" To="1081" BeginTime="{DynamicResource IntroTimespan}" Duration="0:0:2"/>
+                                            <DoubleAnimation Storyboard.TargetName="AnimIntroCanvas1" Storyboard.TargetProperty="Height" From="1080" To="1081" BeginTime="{DynamicResource IntroTimespan}" Duration="0:0:01"/>
                                         </Storyboard>
                                     </Canvas.Resources>
                                     <Grid>
@@ -2285,15 +2292,24 @@
                                             <BeginStoryboard x:Name="Intro4" Storyboard="{StaticResource Border2}"/>
                                             <BeginStoryboard x:Name="Intro5" Storyboard="{StaticResource End}"/>
                                         </EventTrigger>
-                                        <EventTrigger RoutedEvent="Canvas.SizeChanged">
-                                            <!--StopStoryboard BeginStoryboardName="Intro1"/-->
-                                            <StopStoryboard BeginStoryboardName="Intro2"/>
-                                            <StopStoryboard BeginStoryboardName="Intro3"/>
-                                            <StopStoryboard BeginStoryboardName="Intro4"/>
-                                            <StopStoryboard BeginStoryboardName="Intro5"/>
-                                        </EventTrigger>
                                     </Canvas.Triggers>
                                 </Canvas>
+                                <Viewbox.Style>
+                                    <Style TargetType="Viewbox">
+                                        <Setter Property="Opacity" Value="1"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=AnimIntroCanvas1, Path=Height}" Value="1081">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:01" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Viewbox.Style>
                             </Viewbox>
                         </Grid>
                         <Grid x:Name="hasIntro" Tag="{DynamicResource Intro}">

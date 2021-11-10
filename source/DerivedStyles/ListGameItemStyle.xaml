@@ -877,9 +877,9 @@
                         <VirtualizingStackPanel x:Name="StackPanel1" IsItemsHost="True" Orientation="Horizontal" HorizontalAlignment="Left"/>
                     </ScrollViewer>
                     <ControlTemplate.Triggers>
-                        <!--DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="False">
+                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameStatus, Path=Visibility}" Value="Visible">
                             <Setter Property="ItemsControl.ItemsSource" Value="{Binding ElementName=BlankList, Path=ItemsSource}" />
-                        </DataTrigger-->
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

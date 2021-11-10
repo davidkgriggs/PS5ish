@@ -45,3 +45,10 @@ Packages:
       - Reworked Game Details page
       - Added game titles to Main page
       - Additional bits to bring it closer to the PS5 UI
+  - Version: 4.3.1
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-11-10
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.3.1/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_3_1.pthm
+    Changelog:
+      - Fixed the row of games not updating when coming back from a game
+      - Fixed Theme Intro animation fade
