@@ -361,6 +361,16 @@
 
 
     <!--Label Changes-->
+    <!--Play Label-->
+    <Style x:Key="PlayLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="FontFamily" Value="Lato" />
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <!--PYL--><Setter Property="Text" Value="{DynamicResource LOCPlayGame}" /><!--PYL-->
+    </Style>
+    
     <!--Games Label-->
     <TextBlock x:Key="GamesLabel" Text="{DynamicResource GameLabelString}" Style="{DynamicResource TextBlockBaseStyle}" FontSize="36" FontFamily="Lato Semibold"></TextBlock>
     

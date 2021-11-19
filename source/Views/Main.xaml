@@ -304,7 +304,7 @@
                                         </Image>
                                     </Button.Content>
                                 </ButtonEx>
-                                <TextBlock Grid.Column="8" Margin="0,0,0,-30" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                                <TextBlock Grid.Column="8" Grid.ColumnSpan="3" Margin="20,0,0,-30" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                                            FontFamily="Segoe UI Light" Foreground="White" FontSize="24" 
                                            Text="{DynamicResource LOCSearchLabel}">
                                     <TextBlock.Style>
@@ -341,7 +341,7 @@
                                         </Image>
                                     </Button.Content>
                                 </ButtonEx>
-                                <TextBlock Grid.Column="9" Margin="0,0,0,-30" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                                <TextBlock Grid.Column="9" Grid.ColumnSpan="3"  Margin="15,0,0,-30" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                                            FontFamily="Segoe UI Light" Foreground="White" FontSize="24" 
                                            Text="{DynamicResource LOCSettingsLabel}">
                                     <TextBlock.Style>
@@ -872,7 +872,7 @@
                                     Style="{DynamicResource ButtonPlayOptions}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal" Margin="55,5,55,0">
-                                                <TextBlock Text="{DynamicResource LOCPlayGame}" FontSize="30" VerticalAlignment="Center" FontFamily="Lato" FontWeight="Bold" />
+                                                <TextBlock Style="{DynamicResource PlayLabel}"/>
                                                 <TextBlock Text=" " FontSize="30" VerticalAlignment="Center" FontFamily="Lato" FontWeight="Bold" />
                                                 <TextBlock Text="{DynamicResource PlayGameLabelString}" FontSize="30" VerticalAlignment="Center" FontFamily="Lato" FontWeight="Bold" />
                                             </StackPanel>

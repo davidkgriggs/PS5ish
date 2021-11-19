@@ -52,3 +52,10 @@ Packages:
     Changelog:
       - Fixed the row of games not updating when coming back from a game
       - Fixed Theme Intro animation fade
+  - Version: 4.3.2
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-11-19
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.3.2/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_3_2.pthm
+    Changelog:
+      - Fixed "Search" and "Settings" text cutting off for other languages
+      - Added option to change the "Play" word on the main screen in the DKG Theme Modifier
