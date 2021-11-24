@@ -19,7 +19,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Thumb">
-                    <Rectangle  Width="{TemplateBinding Width}" Height="Auto"
+                    <Ellipse  Width="{TemplateBinding Width}" Height="15"
                                 Fill="{TemplateBinding Foreground}" />
           
                 </ControlTemplate>
@@ -33,16 +33,16 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
-        <Setter Property="Height" Value="38" />
+        <Setter Property="Height" Value="60" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Slider">
                     <Grid Background="{TemplateBinding Background}">
-                        <Border Height="6" Background="{DynamicResource ControlBackgroundBrush}" />
+                        <Border Height="6" Margin="10,0" CornerRadius="3" Background="Gray" />
                         <Track Grid.Row="1" x:Name="PART_Track" Margin="0,3,0,3" >
                             <Track.Thumb>
-                                <Thumb Width="8" Foreground="{TemplateBinding Foreground}"
+                                <Thumb Width="15" Foreground="{TemplateBinding Foreground}"
                                        Style="{DynamicResource SliderThumb}"/>
                             </Track.Thumb>
                             <Track.DecreaseRepeatButton>
@@ -54,21 +54,24 @@
                                               Command="Slider.IncreaseLarge" />
                             </Track.IncreaseRepeatButton>
                         </Track>
-                        <Border x:Name="BorderFocus" Margin="-3" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                BorderBrush="{DynamicResource SelectionBrush}"
-                                BorderThickness="3" Visibility="Hidden" />
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
+							</Border>
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
+							</Border>	
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource GlyphBrush}" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource GlyphBrush}" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" Value="0.5" />
+                            <Setter Property="Opacity" Value="0.2" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -1,8 +1,61 @@
-AddonId: XBOXSERIESish_74735df9-3351-4669-a1ff-50f18f39b63b
+AddonId: PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca
 Packages:
-  - Version: 1.9.0
+  - Version: 4.0.0
     RequiredApiVersion: 2.0.0
-    ReleaseDate: 2021-11-30
-    PackageUrl: https://github.com/davidkgriggs/XBOXSERIESish/releases/download/v1.9.0/XBOXSERIESish_74735df9-3351-4669-a1ff-50f18f39b63b_1_9_0.pthm
+    ReleaseDate: 2021-10-06
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.0.0/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_0_0.pthm
     Changelog:
       - Rebuilt for Playnite v9
+  - Version: 4.0.1
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-10-14
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.0.1/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_0_1.pthm
+    Changelog:
+      - Bug fix
+      - Fix for "16:10"
+  - Version: 4.1.0
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-10-21
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.1.0/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_1_0.pthm
+    Changelog:
+      - Updated Buttons and Selection animations  thanks to KersalMassive!!!
+      - Bug Fixes
+      - Fix for trailers playing after game launches when using Splash Screen extension
+      - Video Backgrounds feature added for use with Extra Metadata Tools
+  - Version: 4.1.1
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-10-21
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.1.1/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_1_1.pthm
+    Changelog:
+      - Fix for different cover sizes
+  - Version: 4.2.0
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-10-31
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.2.0/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_2_0.pthm
+    Changelog:
+      - Optimised animations
+      - Changed how the Row of Games loads artwork, should now work with any size cover images
+      - Single Row Mode reworked
+      - Fix for Background Video
+  - Version: 4.3.0
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-11-08
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.3.0/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_3_0.pthm
+    Changelog:
+      - Reworked Game Details page
+      - Added game titles to Main page
+      - Additional bits to bring it closer to the PS5 UI
+  - Version: 4.3.1
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-11-10
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.3.1/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_3_1.pthm
+    Changelog:
+      - Fixed the row of games not updating when coming back from a game
+      - Fixed Theme Intro animation fade
+  - Version: 4.3.2
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-11-19
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.3.2/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_3_2.pthm
+    Changelog:
+      - Fixed "Search" and "Settings" text cutting off for other languages
+      - Added option to change the "Play" word on the main screen in the DKG Theme Modifier

@@ -3,6 +3,9 @@
 
     <Style x:Key="SettingsMenuBorder" TargetType="Border">
         <Setter Property="Background" Value="{DynamicResource OverlayMenuBackgroundBrush}" />
+		<Setter Property="Width" Value="400" />
+		<Setter Property="Margin" Value="0,20" />
+		<Setter Property="CornerRadius" Value="10" />
     </Style>
     
     <Style x:Key="SettingsSectionBorder" TargetType="Border">
@@ -12,19 +15,48 @@
     </Style>
 
     <Style x:Key="SettingsMenuButton" BasedOn="{StaticResource {x:Type ButtonEx}}" TargetType="ButtonEx">
-        <Setter Property="Margin" Value="0,5,0,5" />
-        <Setter Property="Padding" Value="20,3,20,3" />
-        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Margin" Value="1,0" />
+	    <Setter Property="Height" Value="70" />	
         <Setter Property="HorizontalContentAlignment" Value="Left" />
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}">                            
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
+							</Border>
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
+							</Border>							
+						<TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                       Margin="0,0,25,0" DockPanel.Dock="Left"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}">                            
+                                <ContentPresenter />
+							</TextBlock>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource SelectionLightBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <DataTemplate x:Key="SettingsMenuHeaderTemplate">
         <TextBlock Text="{DynamicResource LOCSettingsLabel}"
-                   FontSize="36" Style="{DynamicResource TextBlockBaseStyle}"
-                   Margin="20,30,40,30" />
+                   FontSize="24" FontWeight="Bold" Style="{DynamicResource TextBlockBaseStyle}"
+                   Margin="20,30" />
     </DataTemplate>
-
-    <Thickness x:Key="SettingsSectionItemSpacing">0,10,10,10</Thickness>
+<!-- submenu -->
+    <Thickness x:Key="SettingsSectionItemSpacing">0,0,0,0</Thickness>
     
     <Style x:Key="SettingsSectionSlider" TargetType="SliderEx" BasedOn="{StaticResource {x:Type SliderEx}}">
         <Setter Property="Width" Value="300" />
@@ -36,6 +68,7 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Height" Value="60" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="HorizontalContentAlignment" Value="Right" />
@@ -43,46 +76,44 @@
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
                     <Grid Background="{TemplateBinding Background}">
-                        <Grid Margin="{TemplateBinding Padding}">
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
+							</Border>
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
+							</Border>							
+                        <Grid Margin="20,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
-                                        FontFamily="{DynamicResource FontTitilliumWeb}"
                                         Foreground="{TemplateBinding Foreground}"
                                         HorizontalAlignment="Left"
-                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        VerticalAlignment="Center"
                                         Grid.Column="0" TextTrimming="WordEllipsis">
                                 <ContentPresenter RecognizesAccessKey="True" />
                             </TextBlock>
-                            <Border Background="{DynamicResource CheckBoxCheckMarkBkBrush}"
+                            <Border Background="Transparent"
                                     VerticalAlignment="Center"
-                                    BorderThickness="2" BorderBrush="{DynamicResource ControlBackgroundBrush}"
                                     Grid.Column="1" Width="26" Height="26">
-                                <Viewbox x:Name="CheckIcon" Visibility="Collapsed">
-                                    <TextBlock Text="b" FontFamily="Marlett" Foreground="White"
-                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Viewbox x:Name="CheckIcon">
+                                   <TextBlock Text="&#xe739;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" Foreground="{TemplateBinding Foreground}"
+                                               x:Name="IconText" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Viewbox>
                             </Border>
-                            <Border x:Name="BorderFocus"
-                                    Grid.Column="1" Width="26" Height="26"
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                    BorderBrush="{DynamicResource SelectionBrush}"
-                                    BorderThickness="3" Visibility="Hidden" />
                         </Grid>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Visibility" Value="Visible" TargetName="CheckIcon" />
+                            <Setter Property="Text" Value="&#xe73d;" TargetName="IconText" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource GlyphLightBrush}" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource GlyphLightBrush}" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+                            <Setter Property="Foreground" Value="{DynamicResource GlyphBrush}" TargetName="IconText"  />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -97,52 +128,54 @@
 
     <Style x:Key="SettingsSectionText" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="20,0" />
     </Style>
 
+<!-- menuicons -->
     <DataTemplate x:Key="SettingsMenuGeneralButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xefb0;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xe9e9;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{DynamicResource LOCSettingsFSSectionGeneral}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="SettingsMenuVisualsButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xeef2;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xe8b9;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{DynamicResource LOCSettingsFSSectionVisuals}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="SettingsMenuAudioButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xeea8;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xe994;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{DynamicResource LOCSettingsFSSectionAudio}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="SettingsMenuLayoutButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xef5d;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xf0e2;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{DynamicResource LOCSettingsFSSectionLayout}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="SettingsMenuMenusButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xefa2;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xea37;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{DynamicResource LOCSettingsFSSectionMenus}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
 
     <DataTemplate x:Key="SettingsMenuInputButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xea30;" FontFamily="{DynamicResource FontIcoFont}" FontSize="24"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Text="&#xe961;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
             <TextBlock Text="{DynamicResource LOCSettingsFSSection}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>

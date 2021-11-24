@@ -2,58 +2,43 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="FilterPanelNagivationButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="Padding" Value="6,5,6,5" />
-        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="BorderBrush" Value="{x:Null}" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Margin" Value="15,5,15,5" />
+        <Setter Property="Margin" Value="20,0,15,0" />
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Height" Value="55" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Grid Background="{TemplateBinding Background}">
-                        <DockPanel Margin="{TemplateBinding Padding}">
-                            <TextBlock Text="&#xeab8;" FontFamily="{StaticResource FontIcoFont}"
-                                       DockPanel.Dock="Right"
+                    <Grid Background="{TemplateBinding Background}">                        
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
+							</Border>
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
+							</Border>	
+						<DockPanel Margin="15,0">
+                            <TextBlock Text="&#xE974;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                       DockPanel.Dock="Right" FontSize="18"
                                        Foreground="{TemplateBinding Foreground}"
-                                       FontSize="20"
                                        VerticalAlignment="Center"/>
                             <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
                                        DockPanel.Dock="Left"
                                        Foreground="{TemplateBinding Foreground}"
-                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       HorizontalAlignment="Left"
                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">                            
                                 <ContentPresenter />
                             </TextBlock>
                         </DockPanel>
-
-                        <Border BorderThickness="{TemplateBinding BorderThickness}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                x:Name="BorderStandard" />
-
-                        <Border x:Name="BorderFocus" Margin="-3"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                BorderBrush="{DynamicResource SelectionBrush}"
-                                BorderThickness="3" Visibility="Hidden" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource ControlBackgroundDarkBrush}" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
-                            <Setter Property="Visibility" Value="Hidden" TargetName="BorderStandard" />
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource ControlBackgroundDarkBrush}" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
-                            <Setter Property="Visibility" Value="Hidden" TargetName="BorderStandard" />
+                            <Setter Property="Foreground" Value="{DynamicResource SelectionLightBrush}" />
                         </Trigger>
                         <Trigger Property="Tag" Value="{StaticResource True}">
-                            <Setter Property="Foreground" Value="{DynamicResource GlyphLightBrush}" />
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Foreground" Value="{DynamicResource SelectionLightBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -62,54 +47,128 @@
     </Style>
 
     <Style x:Key="FilterItemtSelectionStyle" TargetType="CheckBoxEx" BasedOn="{StaticResource {x:Type CheckBoxEx}}">
-        <Setter Property="Margin" Value="15,5,15,5" />
+        <Setter Property="Margin" Value="10,0,10,0" />
+		<Setter Property="Height" Value="55" />
     </Style>
 
     <Style x:Key="FilterPanelCheckBoxEx" TargetType="CheckBoxEx" BasedOn="{StaticResource {x:Type CheckBoxEx}}">
-        <Setter Property="Margin" Value="15,5,15,5" />
+        <Setter Property="Margin" Value="20,0,15,0" />
+		<Setter Property="Height" Value="55" />
     </Style>
 
     <Style x:Key="FilterPanelButtonEx" TargetType="ButtonEx" BasedOn="{StaticResource {x:Type ButtonEx}}">
-        <Setter Property="Margin" Value="15,5,15,5" />
-        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-        <Style.Triggers>
-            <Trigger Property="Tag" Value="{StaticResource True}">
-                <Setter Property="Foreground" Value="{DynamicResource GlyphLightBrush}" />
-            </Trigger>
-        </Style.Triggers>
+        <Setter Property="Background" Value="Transparent" />
+		<Setter Property="Height" Value="50" />
+		<Setter Property="Margin" Value="35,5,30,10" />	
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}">						
+						<Border CornerRadius="25" Background="{DynamicResource ControlBackgroundBrush}"
+                                x:Name="MainBackground"/>
+						<Border x:Name="MainBorder" Margin="-6" 
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Style="{DynamicResource AnimatedBorderBrush}" Tag="False"
+                                BorderThickness="3" CornerRadius="30" Visibility="Collapsed" />
+						<TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                   Foreground="{TemplateBinding Foreground}" FontWeight="SemiBold"
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                   Margin="0">                            
+                                <ContentPresenter />
+                        </TextBlock>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="False">
+						   <Setter Property="Opacity" Value="0.5" />
+						</Trigger>
+						<Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}" />
+							<Setter Property="Tag" Value="True" TargetName="MainBorder" />
+							<Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+							<Setter Property="Background" Value="{DynamicResource ControlBackgroundLightBrush}" TargetName="MainBackground" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Background" Value="{DynamicResource SelectionLightBrush}" TargetName="MainBackground" />
+                        </Trigger> 
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="FilterPanelComboBoxEx" TargetType="ComboBoxEx" BasedOn="{StaticResource {x:Type ComboBoxEx}}">
-        <Setter Property="Margin" Value="15,5,15,5" />
+        <Setter Property="Margin" Value="20,0,15,0" />
+		<Setter Property="Height" Value="55" />
     </Style>
 
     <Style x:Key="FilterPanelText" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
-        <Setter Property="Margin" Value="15,20,15,5" />
+        <Setter Property="Margin" Value="35,20,15,5" />
+		<Setter Property="FontSize" Value="{DynamicResource FontSizeSmall}" />
+		<Setter Property="FontWeight" Value="Bold" />
     </Style>
 
     <Style x:Key="FilterPanelFilterPresetActionButton" TargetType="ButtonEx" BasedOn="{StaticResource {x:Type ButtonEx}}">
-        <Setter Property="Margin" Value="15,5,15,5" />
+        <Setter Property="Margin" Value="20,0,20,0" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
+		<Setter Property="Height" Value="40" />
+		<Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}">
+						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
+							</Border>
+						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
+							</Border>	
+                            <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                       DockPanel.Dock="Left"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}">                            
+                                <ContentPresenter />
+                            </TextBlock>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource SelectionLightBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <DataTemplate x:Key="FilterPanelAddPresetTemplate">
-        <TextBlock Text="&#xee00;" TextAlignment="Center"
-                   FontFamily="{DynamicResource FontIcoFont}"
+        <TextBlock Text="&#xe710;" TextAlignment="Center"
+                   FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
                    FontSize="20" Foreground="{DynamicResource TextBrush}"
                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </DataTemplate>
 
     <DataTemplate x:Key="FilterPanelRenamePresetTemplate">
-        <TextBlock Text="&#xec55;" TextAlignment="Center"
-                   FontFamily="{DynamicResource FontIcoFont}"
+        <TextBlock Text="&#xe712;" TextAlignment="Center"
+                   FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
                    FontSize="20" Foreground="{DynamicResource TextBrush}"
                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </DataTemplate>
 
     <DataTemplate x:Key="FilterPanelRemovePresetTemplate">
-        <TextBlock Text="&#xec53;" TextAlignment="Center"
-                   FontFamily="{DynamicResource FontIcoFont}"
+        <TextBlock Text="&#xe738;" TextAlignment="Center"
+                   FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
                    FontSize="20" Foreground="{DynamicResource TextBrush}"
                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </DataTemplate>
@@ -118,9 +177,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Filters}">
-                    <StackPanel x:Name="PART_PanelItemsHost"
-                                MinWidth="{DynamicResource FilterPanelWidth}"
-                                Background="{DynamicResource OverlayMenuBackgroundBrush}" />
+                    <Border Margin="0" Background="{DynamicResource OverlayMenuBackgroundBrush}" CornerRadius="10">
+                        <ScrollViewer Margin="0,10">
+                            <StackPanel x:Name="PART_PanelItemsHost"
+								Margin="0" MinWidth="{DynamicResource FilterPanelWidth}"
+                                Background="Transparent" />
+                        </ScrollViewer>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

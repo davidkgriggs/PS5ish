@@ -23,11 +23,11 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Rectangle x:Name="HoverRectangle" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                 Width="Auto" Height="Auto" Stroke="{x:Null}"
-                                Margin="4.5,1,4.5,1" MinHeight="20"
+                                Margin="1" MinHeight="20"
                                 Fill="{TemplateBinding Background}" />                
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Fill" Value="{DynamicResource GlyphBrush}" TargetName="HoverRectangle" />
+                            <Setter Property="Fill" Value="{DynamicResource ControlBackgroundLightBrush}" TargetName="HoverRectangle" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -42,7 +42,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollBar}">
                     <Track x:Name="PART_Track" Orientation="Vertical" IsDirectionReversed="True"
-                           Width="17">
+                           Width="5">
                         <Track.Resources>
                             <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">42</sys:Double>
                         </Track.Resources>
@@ -107,8 +107,8 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource GlyphBrush}" TargetName="PART_VerticalScrollBar" />
-                            <Setter Property="Background" Value="{DynamicResource GlyphBrush}" TargetName="PART_HorizontalScrollBar" />
+                            <Setter Property="Background" Value="Gray" TargetName="PART_VerticalScrollBar" />
+                            <Setter Property="Background" Value="Gray" TargetName="PART_HorizontalScrollBar" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
