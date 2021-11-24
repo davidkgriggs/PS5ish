@@ -4,67 +4,36 @@
     <Style x:Key="ItemFilterQuickPreset" TargetType="CheckBoxEx">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Focusable" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Visibility" Value="Collapsed"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBoxEx">
-                    <Grid x:Name="GridBox" Height="60" Opacity="0.75">
-                        <Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Visibility="Collapsed" Tag="False">
-                        </Border>
-                        <Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Visibility="Collapsed" Tag="False">
-                        </Border>
-                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="35"
+                    <Border Background="{TemplateBinding Background}"
+                            Margin="0,0,0,0">
+                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
                                    x:Name="TextContent">
-                            <Grid Margin="10,5,10,5">
+                            <Grid x:Name="Container" Width="380" Height="50">
+                                <Border x:Name="BorderFocus" Visibility="Hidden" Background="{DynamicResource TabsBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="5"/>
                                 <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Visibility="Hidden"/>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-                                </StackPanel>                                
+                                <TextBlock x:Name="Text" Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
                             </Grid>
                         </TextBlock>
-                    </Grid>
+                    </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Opacity" Value="1" TargetName="GridBox" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
-                            <Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
-                            <Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
-                            <Setter Property="Tag" Value="True" TargetName="MainBorder" />
+                            <Setter Property="FontWeight" Value="SemiBold" TargetName="TextContent" />
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus"/>
                         </Trigger>
-
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="FontFamily" Value="Lato" TargetName="TextContent" />
-                            <Setter Property="FontWeight" Value="Bold" TargetName="TextContent" />
-                            <Setter Property="FontSize" Value="40" TargetName="TextContent" />
-                            <Setter Property="Margin" Value="0,2.5,0,0" TargetName="TextContent" />
+                            <Setter Property="FontWeight" Value="SemiBold" TargetName="TextContent" />
                         </Trigger>
 
-                        <Trigger Property="ListBox.AlternationIndex" Value="0">
-                            <Setter Property="Focusable" Value="True"/>
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </Trigger>
-                        <Trigger Property="ListBox.AlternationIndex" Value="1">
-                            <Setter Property="Focusable" Value="True"/>
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </Trigger>
-
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False" />
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="Margin" Value="0,0,60,0" />
-                        </MultiDataTrigger>
-
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True" />
-                            </MultiDataTrigger.Conditions>
-                            <Setter Property="Focusable" Value="True" />
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </MultiDataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False">
+                            <Setter Property="Height" Value="70" TargetName="Container"/>
+                            <Setter Property="Width" Value="480" TargetName="Container"/>
+                            <Setter Property="Margin" Value="100,0,0,0" TargetName="Text"/>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -76,12 +45,12 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type FilterPresetSelector}">
-                    <ItemsControlEx x:Name="PART_ItemsFilterPresets" Focusable="False" AlternationCount="{Binding Items.Count, RelativeSource={RelativeSource Self}}"
+                    <ItemsControlEx x:Name="PART_ItemsFilterPresets" Focusable="False"
                                     KeyboardNavigation.DirectionalNavigation="Once"
-                                    HorizontalLayout="True">
+                                    HorizontalLayout="False">
                         <ItemsControl.ItemsPanel>                            
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" />
+                                <StackPanel Orientation="Vertical" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.Template>

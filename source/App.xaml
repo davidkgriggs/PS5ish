@@ -28,7 +28,6 @@
         <ResourceDictionary Source="DerivedStyles/ListGameItemTemplate.xaml" />
         <ResourceDictionary Source="DerivedStyles/ButtonBottomMenu.xaml" />
         <ResourceDictionary Source="DerivedStyles/ButtonTopMenu.xaml" />
-        <ResourceDictionary Source="DerivedStyles/ItemFilterQuickPreset.xaml" />
         <!--Views-->
         <ResourceDictionary Source="Views/ActionSelection.xaml" />
         <ResourceDictionary Source="Views/FiltersAdditional.xaml" />

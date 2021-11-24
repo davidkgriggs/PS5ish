@@ -1,7 +1,7 @@
-# PS5ish
-PS5ish is a Theme for Playnite that emulates the PS5 UI
+# XBOXSERIESish
+XBOXSERIESish is a Theme for Playnite that emulates the XBOX Series UI
 
-See the Playnite Forum thread for more information: https://playnite.link/forum/thread-492.html
+See the Playnite Forum thread for more information: https://playnite.link/forum/thread-629.html
 
 Please support the Main Playnite Project: https://www.patreon.com/playnite 
 

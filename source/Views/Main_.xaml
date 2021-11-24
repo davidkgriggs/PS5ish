@@ -42,7 +42,7 @@
                                 <StackPanel.Style>
                                     <Style>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False">
+                                            <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
                                                 <Setter Property="Control.Background" Value="{DynamicResource DarkLightBrush}"/>
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -55,7 +55,7 @@
                                     <Style>
                                         <Setter Property="Control.Visibility" Value="Collapsed"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False">
+                                            <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
                                                 <Setter Property="Control.Visibility" Value="Visible"/>
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -224,7 +224,7 @@
                                         <Style>
                                             <Setter Property="Control.Visibility" Value="Collapsed" />
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False">
+                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
                                                     <Setter Property="Control.Visibility" Value="Visible" />
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -310,172 +310,244 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <Grid>
-                                    <Grid x:Name="SelectedIndex0Logic">
-                                        <Grid.Style>
-                                            <Style TargetType="Grid">
-                                                <Setter Property="Height" Value="0"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="0">
-                                                        <Setter Property="Height" Value="0"/>
-                                                        <DataTrigger.EnterActions>
-                                                            <RemoveStoryboard BeginStoryboardName="ChangeTo1"/>
-                                                            <RemoveStoryboard BeginStoryboardName="ChangeTo2"/>
-                                                        </DataTrigger.EnterActions>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="7">
-                                                        <DataTrigger.EnterActions>
-                                                            <BeginStoryboard x:Name="ChangeTo1">
-                                                                <Storyboard FillBehavior="HoldEnd">
-                                                                    <DoubleAnimation Storyboard.TargetProperty="Height" To="1" Duration="0:0:0.01"/>
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </DataTrigger.EnterActions>
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="8">
-                                                        <DataTrigger.EnterActions>
-                                                            <RemoveStoryboard BeginStoryboardName="ChangeTo1"/>
-                                                            <BeginStoryboard x:Name="ChangeTo2">
-                                                                <Storyboard FillBehavior="HoldEnd">
-                                                                    <DoubleAnimation Storyboard.TargetProperty="Height" To="2" Duration="0:0:0.01"/>
-                                                                </Storyboard>
-                                                            </BeginStoryboard>
-                                                        </DataTrigger.EnterActions>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Grid.Style>
-                                    </Grid>
-                                </Grid>
+                                <!--XBOX_ListGames-->
+                                <StackPanel x:Name="HighlighterLogic">
+                                    <StackPanel.Style>
+                                        <Style>
+                                            <Setter Property="Control.Visibility" Value="Hidden" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=IsKeyboardFocusWithin}" Value="True">
+                                                    <Setter Property="Control.Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+                                </StackPanel>
 
-                                <DockPanel x:Name="ListItems" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Top" Focusable="False">
-                                    <ListBoxEx x:Name="PART_ListGameItems"
-                                           FocusVisualStyle="{x:Null}"
-										   VerticalAlignment="Top" 
-										   HorizontalAlignment="Left"			
-										   BorderThickness="0"
-                                           KeyboardNavigation.DirectionalNavigation="Once"
-                                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                                               ScrollViewer.CanContentScroll="True"
-                                               ScrollToSelectedBehavior.Enabled="True"
-                                           AlternationCount="{Binding Items.Count, RelativeSource={RelativeSource Self}}">
+                                <Grid Margin="-214,0,0,0" Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Focusable="False">
+                                    <Grid.Style>
+                                        <Style>
+                                            <Setter Property="Control.Visibility" Value="Visible" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
+                                                    <Setter Property="Control.Visibility" Value="Hidden" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                    <ListBoxEx x:Name="BehindGrid"
+                                    Focusable="False"
+                                    Background="Transparent" 
+								    BorderThickness="0"
+                                    VirtualizingPanel.IsContainerVirtualizable="True"     
+                                    VirtualizingPanel.IsVirtualizing="True"
+                                    VirtualizingPanel.ScrollUnit="Item" 
+                                    VirtualizingPanel.VirtualizationMode="Recycling"     
+                                    ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                    HorizontalContentAlignment="Left"     
+                                    VerticalContentAlignment="Bottom"
+                                    AlternationCount="{Binding ElementName=PART_ListGameItems, Path=Items.Count}"
+                                    ItemContainerStyle="{DynamicResource RowOfGamesItems}"
+                                               SelectedItem="{Binding ElementName=PART_ListGameItems, Path=SelectedItem}">
+                                        <ListBoxEx.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <VirtualizingStackPanel Orientation="Horizontal" HorizontalAlignment="Left"></VirtualizingStackPanel>
+                                            </ItemsPanelTemplate>
+                                        </ListBoxEx.ItemsPanel>
                                         <ListBoxEx.Style>
-                                            <Style TargetType="ListBoxEx">
-                                                <Setter Property="Margin" Value="290,292.5,100,0"/>
-                                                <Setter Property="Opacity" Value="1"/>
-                                                <Setter Property="Height" Value="320"/>
-                                                <Setter Property="Background" Value="Transparent" />
-                                                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+                                            <Style>
+                                                <Setter Property="ItemsControl.ItemsSource" Value="{Binding ElementName=PART_ListGameItems, Path=ItemsSource}"/>
                                                 <Style.Triggers>
-                                                    <MultiDataTrigger>
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
-                                                            <Condition Binding="{Settings GridItemHeightRatio}" Value="3"/>
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Margin" Value="290,240,100,0"/>
-                                                    </MultiDataTrigger>
-                                                    <MultiDataTrigger>
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
-                                                            <Condition Binding="{Settings GridItemHeightRatio}" Value="4"/>
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Margin" Value="290,255,100,0"/>
-                                                    </MultiDataTrigger>
-                                                    <!--MultiDataTrigger>
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
-                                                            <Condition Binding="{Settings Fullscreen.Columns}" Value="7"/>
-                                                            <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="0"/>
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Margin" Value="290,300,100,0"/>
-                                                    </MultiDataTrigger>
-                                                    <MultiDataTrigger>
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
-                                                            <Condition Binding="{Settings Fullscreen.Columns}" Value="7"/>
-                                                            <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="1"/>
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Margin" Value="290,300,100,0"/>
-                                                    </MultiDataTrigger>
-                                                    <MultiDataTrigger>
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
-                                                            <Condition Binding="{Settings Fullscreen.Columns}" Value="7"/>
-                                                            <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="2"/>
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Margin" Value="290,300,100,0"/>
-                                                    </MultiDataTrigger>
-                                                    <MultiDataTrigger>
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
-                                                            <Condition Binding="{Settings Fullscreen.Columns}" Value="7"/>
-                                                            <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="3"/>
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Margin" Value="290,300,100,0"/>
-                                                    </MultiDataTrigger>
-                                                    <MultiDataTrigger>
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
-                                                            <Condition Binding="{Settings Fullscreen.Columns}" Value="7"/>
-                                                            <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="4"/>
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Margin" Value="290,300,100,0"/>
-                                                    </MultiDataTrigger>
-                                                    <MultiDataTrigger>
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
-                                                            <Condition Binding="{Settings Fullscreen.Columns}" Value="7"/>
-                                                            <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="5"/>
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Margin" Value="290,300,100,0"/>
-                                                    </MultiDataTrigger>
-                                                    <MultiDataTrigger>
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
-                                                            <Condition Binding="{Settings Fullscreen.Columns}" Value="7"/>
-                                                            <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="6"/>
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Margin" Value="290,300,100,0"/>
-                                                    </MultiDataTrigger-->
-                                                    <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False">
-                                                        <Setter Property="Control.Opacity" Value="1"/>
-                                                        <Setter Property="Control.Height" Value="860"/>
-                                                        <Setter Property="Control.Margin" Value="490,150,0,0" />
-                                                        <Setter Property="Control.Width" Value="1420"/>
-                                                        <Setter Property="Control.Background" Value="Transparent"/>
-                                                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+                                                    <DataTrigger Binding="{Binding ElementName=PART_ElemGameStatus, Path=Visibility}" Value="Visible">
+                                                        <Setter Property="ItemsControl.ItemsSource" Value="{Binding ElementName=BlankList, Path=ItemsSource}" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </ListBoxEx.Style>
                                     </ListBoxEx>
-                                </DockPanel>
-                                
-                                <!--XBOX_ListGames-->
-                                <Grid Grid.Row="0" Grid.Column="1" Margin="0,0,0,0">
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Focusable="False">
+                                </Grid>
+
+                                <Grid VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="2">
+                                    <StackPanel x:Name="SelectedIndex_1_Highlighter" VerticalAlignment="Bottom">
                                         <StackPanel.Style>
-                                            <Style TargetType="StackPanel">
-                                                <Setter Property="Visibility" Value="Visible" />
-                                                <Setter Property="Margin" Value="0,0,0,0"/>
+                                            <Style>
+                                                <Setter Property="Control.Visibility" Value="Hidden" />
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False">
-                                                        <Setter Property="Visibility" Value="Hidden" />
+                                                    <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="1">
+                                                        <Setter Property="Control.Visibility" Value="Visible" />
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding ElementName=SelectedIndex0Logic, Path=Height}" Value="1">
-                                                        <Setter Property="Margin" Value="-150,0,150,0"/>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <StackPanel Grid.Row="1" Focusable="False">
+                                            <StackPanel.Style>
+                                                <Style>
+                                                    <Setter Property="Control.Visibility" Value="Hidden" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=HighlighterLogic, Path=Visibility}" Value="Visible">
+                                                            <Setter Property="Control.Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+                                            <StackPanel Margin="2,0,0,-5" Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Focusable="False">
+                                                <Button Focusable="False" Tag="{DynamicResource Banners}" Style="{DynamicResource HighlighterSMALL1}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel x:Name="SelectedIndex_2_Highlighter" VerticalAlignment="Bottom">
+                                        <StackPanel.Style>
+                                            <Style>
+                                                <Setter Property="Control.Visibility" Value="Hidden" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="2">
+                                                        <Setter Property="Control.Visibility" Value="Visible" />
                                                     </DataTrigger>
-                                                    <DataTrigger Binding="{Binding ElementName=SelectedIndex0Logic, Path=Height}" Value="2">
-                                                        <Setter Property="Margin" Value="-200,0,200,0"/>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <StackPanel Grid.Row="1" Focusable="False">
+                                            <StackPanel.Style>
+                                                <Style>
+                                                    <Setter Property="Control.Visibility" Value="Hidden" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=HighlighterLogic, Path=Visibility}" Value="Visible">
+                                                            <Setter Property="Control.Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+                                            <StackPanel Margin="216,0,0,-5" Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Focusable="False">
+                                                <Button Focusable="False" Tag="{DynamicResource Banners}" Style="{DynamicResource HighlighterSMALL2}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel x:Name="SelectedIndex_3_Highlighter" VerticalAlignment="Bottom">
+                                        <StackPanel.Style>
+                                            <Style>
+                                                <Setter Property="Control.Visibility" Value="Hidden" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="3">
+                                                        <Setter Property="Control.Visibility" Value="Visible" />
                                                     </DataTrigger>
-                                                    <!--MultiDataTrigger>
-                                                        <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True"/>
-                                                            <Condition Binding="{Settings Fullscreen.Columns}" Value="7"/>
-                                                            <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="7"/>
-                                                        </MultiDataTrigger.Conditions>
-                                                        <Setter Property="Margin" Value="-150,0,150,0"/>
-                                                    </MultiDataTrigger-->
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <StackPanel Grid.Row="1" Focusable="False">
+                                            <StackPanel.Style>
+                                                <Style>
+                                                    <Setter Property="Control.Visibility" Value="Hidden" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=HighlighterLogic, Path=Visibility}" Value="Visible">
+                                                            <Setter Property="Control.Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+                                            <StackPanel Margin="430,0,0,-5" Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Focusable="False">
+                                                <Button Focusable="False" Tag="{DynamicResource Banners}" Style="{DynamicResource HighlighterSMALL3}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel x:Name="SelectedIndex_4_Highlighter" VerticalAlignment="Bottom">
+                                        <StackPanel.Style>
+                                            <Style>
+                                                <Setter Property="Control.Visibility" Value="Hidden" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="4">
+                                                        <Setter Property="Control.Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <StackPanel Grid.Row="1" Focusable="False">
+                                            <StackPanel.Style>
+                                                <Style>
+                                                    <Setter Property="Control.Visibility" Value="Hidden" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=HighlighterLogic, Path=Visibility}" Value="Visible">
+                                                            <Setter Property="Control.Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+                                            <StackPanel Margin="644,0,0,-5" Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Focusable="False">
+                                                <Button Focusable="False" Tag="{DynamicResource Banners}" Style="{DynamicResource HighlighterSMALL4}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel x:Name="SelectedIndex_5_Highlighter" VerticalAlignment="Bottom">
+                                        <StackPanel.Style>
+                                            <Style>
+                                                <Setter Property="Control.Visibility" Value="Hidden" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="5">
+                                                        <Setter Property="Control.Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <StackPanel Grid.Row="1" Focusable="False">
+                                            <StackPanel.Style>
+                                                <Style>
+                                                    <Setter Property="Control.Visibility" Value="Hidden" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=HighlighterLogic, Path=Visibility}" Value="Visible">
+                                                            <Setter Property="Control.Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+                                            <StackPanel Margin="858,0,0,-5" Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Focusable="False">
+                                                <Button Focusable="False" Tag="{DynamicResource Banners}" Style="{DynamicResource HighlighterSMALL5}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel x:Name="SelectedIndex_6_Highlighter" VerticalAlignment="Bottom">
+                                        <StackPanel.Style>
+                                            <Style>
+                                                <Setter Property="Control.Visibility" Value="Hidden" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="6">
+                                                        <Setter Property="Control.Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <StackPanel Grid.Row="1" Focusable="False">
+                                            <StackPanel.Style>
+                                                <Style>
+                                                    <Setter Property="Control.Visibility" Value="Hidden" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=HighlighterLogic, Path=Visibility}" Value="Visible">
+                                                            <Setter Property="Control.Visibility" Value="Visible" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+                                            <StackPanel Margin="1072,0,0,-5" Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Focusable="False">
+                                                <Button Focusable="False" Tag="{DynamicResource Banners}" Style="{DynamicResource HighlighterSMALL6}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+
+
+
+                                <Grid Grid.Row="0" Grid.Column="1" Margin="0,0,0,0">
+                                    <StackPanel Margin="0,0,0,0" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Focusable="False">
+                                        <StackPanel.Style>
+                                            <Style>
+                                                <Setter Property="Control.Visibility" Value="Visible" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
+                                                        <Setter Property="Control.Visibility" Value="Hidden" />
+                                                    </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </StackPanel.Style>
@@ -517,37 +589,134 @@
 
                                 <Grid x:Name="SelectedIndex_0_Highlighter" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left">
                                     <Grid.Style>
-                                        <Style TargetType="Grid">
-                                            <Setter Property="Visibility" Value="Hidden" />
+                                        <Style>
+                                            <Setter Property="Control.Visibility" Value="Hidden" />
                                             <Style.Triggers>
-                                                <MultiDataTrigger>
-                                                    <MultiDataTrigger.Conditions>
-                                                        <Condition Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="0"/>
-                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=IsKeyboardFocusWithin}" Value="True"/>
-                                                    </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Visibility" Value="Visible" />
-                                                </MultiDataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="0">
+                                                    <Setter Property="Control.Visibility" Value="Visible" />
+                                                </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Grid.Style>
-                                    <StackPanel Margin="-5" Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Focusable="False">
-                                        <Button Focusable="False" Tag="{DynamicResource Banners}" Style="{DynamicResource HighlighterLARGE}"/>
+                                    <StackPanel Focusable="False">
+                                        <StackPanel.Style>
+                                            <Style>
+                                                <Setter Property="Control.Visibility" Value="Hidden" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=HighlighterLogic, Path=Visibility}" Value="Visible">
+                                                        <Setter Property="Control.Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <StackPanel Margin="-5" Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Focusable="False">
+                                            <Button Focusable="False" Tag="{DynamicResource Banners}" Style="{DynamicResource HighlighterLARGE}"/>
+                                        </StackPanel>
                                     </StackPanel>
                                 </Grid>
 
-                                
+                                <DockPanel x:Name="ListItems" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Top" Focusable="False">
+                                    <ListBoxEx x:Name="PART_ListGameItems"
+                                           FocusVisualStyle="{x:Null}"
+										   VerticalAlignment="Top" 
+										   HorizontalAlignment="Left"			
+										   BorderThickness="0"
+                                           VirtualizingPanel.IsContainerVirtualizable="True"     
+                                           VirtualizingPanel.IsVirtualizing="True"
+                                           VirtualizingPanel.ScrollUnit="Item"
+                                           KeyboardNavigation.DirectionalNavigation="Once"
+                                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                           AlternationCount="{Binding Items.Count, RelativeSource={RelativeSource Self}}">
+                                        <ListBox.Style>
+                                            <Style>
+                                                <Setter Property="Control.Margin" Value="0,200,120,0" />
+                                                <Setter Property="Control.Opacity" Value="0"/>
+                                                <Setter Property="Control.Height" Value="50"/>
+                                                <Setter Property="Control.Width" Value="1000000"/>
+                                                <Setter Property="Control.Background" Value="Transparent" />
+                                                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
+                                                        <Setter Property="Control.Opacity" Value="1"/>
+                                                        <Setter Property="Control.Height" Value="860"/>
+                                                        <Setter Property="Control.Margin" Value="490,150,0,0" />
+                                                        <Setter Property="Control.Width" Value="1420"/>
+                                                        <Setter Property="Control.Background" Value="Transparent"/>
+                                                        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ListBox.Style>
+                                    </ListBoxEx>
+                                </DockPanel>
 
                                 <StackPanel x:Name="SelectedIndexLogic"  Focusable="False">
                                     <StackPanel.Style>
-                                        <Style TargetType="StackPanel">
-                                            <Setter Property="Height" Value="100"/>
+                                        <Style>
+                                            <Setter Property="Control.Height" Value="100"/>
                                             <Style.Triggers>
                                                 <MultiDataTrigger>
                                                     <MultiDataTrigger.Conditions>
                                                         <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="0" />
-                                                        <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True" />
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=Height}" Value="50" />
                                                     </MultiDataTrigger.Conditions>
-                                                    <Setter Property="Height" Value="0"/>
+                                                    <Setter Property="Control.Height" Value="0"/>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="1" />
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=Height}" Value="50" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Control.Height" Value="1"/>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="2" />
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=Height}" Value="50" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Control.Height" Value="2"/>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="3" />
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=Height}" Value="50" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Control.Height" Value="3"/>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="4" />
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=Height}" Value="50" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Control.Height" Value="4"/>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="5" />
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=Height}" Value="50" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Control.Height" Value="5"/>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="6" />
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=Height}" Value="50" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Control.Height" Value="6"/>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="7" />
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=Height}" Value="50" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Control.Height" Value="7"/>
+                                                </MultiDataTrigger>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="8" />
+                                                        <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=Height}" Value="50" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Control.Height" Value="8"/>
                                                 </MultiDataTrigger>
                                             </Style.Triggers>
                                         </Style>
@@ -556,23 +725,21 @@
 
 
                                 <!--Show/Hide Grid Info-->
-                                <Grid x:Name="MoreGamesContainer" Visibility="Visible" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                <Grid x:Name="MoreGamesContainer" Visibility="Visible" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Focusable="False">
+                                    <StackPanel Orientation="Vertical">
                                         <StackPanel.Style>
-                                            <Style TargetType="StackPanel">
-                                                <Setter Property="Margin" Value="0,0,0,0"/>
-                                                <Setter Property="Focusable" Value="False"/>
-                                                <Setter Property="Visibility" Value="Visible"/>
+                                            <Style>
+                                                <Setter Property="Control.Margin" Value="0,0,0,0"/>
+                                                <Setter Property="Control.Focusable" Value="False"/>
+                                                <Setter Property="Control.Visibility" Value="Visible"/>
                                                 <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False">
-                                                        <Setter Property="Margin" Value="-90,-510,0,0"/>
+                                                    <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
+                                                        <Setter Property="ItemsControl.Margin" Value="-90,-510,0,0"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </StackPanel.Style>
-                                        <CheckBoxEx x:Name="MoreGames" HorizontalAlignment="Left"
-                                                    Style="{DynamicResource MoreGamesStyle}" 
-                                                    IsChecked="{Settings Fullscreen.HorizontalLayout, Mode=TwoWay}"/>
+                                        <CheckBoxEx x:Name="MoreGames" Style="{DynamicResource MoreGamesStyle}"/>
                                     </StackPanel>
                                 </Grid>
 
@@ -585,7 +752,7 @@
                                             <Setter Property="Control.Focusable" Value="False"/>
                                             <Setter Property="Control.Visibility" Value="Visible"/>
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False">
+                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
                                                     <Setter Property="Control.Visibility" Value="Collapsed"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -890,7 +1057,7 @@
                                             <Setter Property="Margin" Value="0,250,0,10"/>
                                             <Setter Property="VerticalAlignment" Value="Bottom"/>
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False">
+                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
                                                     <Setter Property="Margin" Value="-90,-400,0,100"/>
                                                     <Setter Property="VerticalAlignment" Value="Top"/>
                                                 </DataTrigger>
@@ -908,6 +1075,44 @@
                                     </Grid.Style>
                                     <FilterPresetSelector x:Name="PART_FilterPresetSelector" Margin="0,0,0,0" />
                                 </Grid>
+
+                                <!--XBOX_Warnings-->
+                                <Grid Grid.Row="1">
+                                    <StackPanel Margin="0,150,0,0" HorizontalAlignment="Center" 
+                                        Grid.RowSpan="1" Grid.Row="1" VerticalAlignment="Center">
+                                        <StackPanel.Style>
+                                            <Style>
+                                                <Setter Property="Control.Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Settings Fullscreen.HorizontalLayout}" Value="True">
+                                                        <Setter Property="Control.Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <StackPanel Orientation="Vertical" Width="1200">
+                                            <Border Background="{DynamicResource OverlayMenuBackgroundBrush}" CornerRadius="15">
+                                                <StackPanel>
+                                                    <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="72"
+                                                       Margin="20" TextWrapping="WrapWithOverflow" TextAlignment="Center"
+                                                       Text="For this Theme to work correctly DISABLE Horizontal Scrolling" >
+                                                        <TextBlock.Effect>
+                                                            <DropShadowEffect ShadowDepth="2" Color="Black" RenderingBias="Quality" Opacity="1"/>
+                                                        </TextBlock.Effect>
+                                                    </TextBlock>
+                                                    <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="72"
+                                                       Margin="20" TextWrapping="WrapWithOverflow" TextAlignment="Center"
+                                                       Text="Please go to SETTINGS to DISABLE Horizontal Scrolling" >
+                                                        <TextBlock.Effect>
+                                                            <DropShadowEffect ShadowDepth="2" Color="Black" RenderingBias="Quality" Opacity="1"/>
+                                                        </TextBlock.Effect>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                            </Border>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                                <!--XBOX_Warnings-->
                             </Grid>
 
                             <TextBlock Grid.Row="1" FontSize="40"
@@ -982,7 +1187,7 @@
                                         <Style>
                                             <Setter Property="Control.Visibility" Value="Visible"/>
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False">
+                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
                                                     <Setter Property="Control.Visibility" Value="Collapsed"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -1005,6 +1210,44 @@
                                     <ContentControl Style="{DynamicResource ProgressIndicator}" Focusable="False"
                                                 Height="30" Width="30" VerticalAlignment="Center" />
                                 </StackPanel>
+
+                                <!--XBOX_Warnings-->
+                                <Grid Grid.Row="1">
+                                    <StackPanel Margin="0,150,0,0" HorizontalAlignment="Center" 
+                                        Grid.RowSpan="1" Grid.Row="1" VerticalAlignment="Center">
+                                        <StackPanel.Style>
+                                            <Style>
+                                                <Setter Property="Control.Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Settings Fullscreen.HorizontalLayout}" Value="True">
+                                                        <Setter Property="Control.Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <StackPanel Orientation="Vertical" Width="1200">
+                                            <Border Background="{DynamicResource OverlayMenuBackgroundBrush}" CornerRadius="15">
+                                                <StackPanel>
+                                                    <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="72"
+                                                       Margin="20" TextWrapping="WrapWithOverflow" TextAlignment="Center"
+                                                       Text="For this Theme to work correctly DISABLE Horizontal Scrolling" >
+                                                        <TextBlock.Effect>
+                                                            <DropShadowEffect ShadowDepth="2" Color="Black" RenderingBias="Quality" Opacity="1"/>
+                                                        </TextBlock.Effect>
+                                                    </TextBlock>
+                                                    <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="72"
+                                                       Margin="20" TextWrapping="WrapWithOverflow" TextAlignment="Center"
+                                                       Text="Please go to SETTINGS to DISABLE Horizontal Scrolling" >
+                                                        <TextBlock.Effect>
+                                                            <DropShadowEffect ShadowDepth="2" Color="Black" RenderingBias="Quality" Opacity="1"/>
+                                                        </TextBlock.Effect>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                            </Border>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                                <!--XBOX_Warnings-->
                             </Grid>
                             
                             <!--Filter Menu-->
@@ -1018,68 +1261,6 @@
                                 <ContentControl x:Name="PART_ContentFilterItems"
                                             DockPanel.Dock="Left" Focusable="False" />
                             </DockPanel>
-
-                            <!--XBOX_Warnings-->
-                            <Grid Grid.Row="1">
-                                <StackPanel Margin="0,150,0,0" HorizontalAlignment="Center" 
-                                        Grid.RowSpan="1" Grid.Row="1" VerticalAlignment="Center">
-                                    <StackPanel.Style>
-                                        <Style>
-                                            <Setter Property="Control.Visibility" Value="Collapsed" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Settings Fullscreen.Columns}" Value="1">
-                                                    <Setter Property="Control.Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Settings Fullscreen.Columns}" Value="2">
-                                                    <Setter Property="Control.Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Settings Fullscreen.Columns}" Value="3">
-                                                    <Setter Property="Control.Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Settings Fullscreen.Columns}" Value="4">
-                                                    <Setter Property="Control.Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Settings Fullscreen.Columns}" Value="5">
-                                                    <Setter Property="Control.Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Settings Fullscreen.Columns}" Value="6">
-                                                    <Setter Property="Control.Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Settings Fullscreen.Columns}" Value="8">
-                                                    <Setter Property="Control.Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Settings Fullscreen.Columns}" Value="9">
-                                                    <Setter Property="Control.Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Settings Fullscreen.Columns}" Value="10">
-                                                    <Setter Property="Control.Visibility" Value="Visible" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </StackPanel.Style>
-                                    <StackPanel Orientation="Vertical" Width="1200">
-                                        <Border Background="{DynamicResource OverlayMenuBackgroundBrush}" CornerRadius="15">
-                                            <StackPanel>
-                                                <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="72"
-                                                       Margin="20" TextWrapping="WrapWithOverflow" TextAlignment="Center"
-                                                       Text="For this Theme to work correctly SET Columns to 7" >
-                                                    <TextBlock.Effect>
-                                                        <DropShadowEffect ShadowDepth="2" Color="Black" RenderingBias="Quality" Opacity="1"/>
-                                                    </TextBlock.Effect>
-                                                </TextBlock>
-                                                <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="72"
-                                                       Margin="20" TextWrapping="WrapWithOverflow" TextAlignment="Center"
-                                                       Text="Please go to SETTINGS to SET Columns to 7" >
-                                                    <TextBlock.Effect>
-                                                        <DropShadowEffect ShadowDepth="2" Color="Black" RenderingBias="Quality" Opacity="1"/>
-                                                    </TextBlock.Effect>
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </Border>
-                                    </StackPanel>
-                                </StackPanel>
-                            </Grid>
-                            <!--XBOX_Warnings-->
                         </Grid>
 
                         <GameDetails x:Name="PART_ElemGameDetails" Grid.RowSpan="3"

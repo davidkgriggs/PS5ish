@@ -54,57 +54,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    <Style x:Key="ToggleViewButton" TargetType="ToggleButton">
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="VerticalAlignment" Value="Center" />
-		<Setter Property="Height" Value="50" />	
-		<Setter Property="Width" Value="50" />	
-		<Setter Property="Margin" Value="0" />	
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ToggleButton">
-                    <Grid Background="{TemplateBinding Background}">
-						<Border x:Name="MainBorder" Margin="-6" 
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                Style="{DynamicResource AnimatedBorderBrush}" Tag="False"
-                                BorderThickness="3" CornerRadius="55" Visibility="Collapsed" />		
-						<Border CornerRadius="50" Background="Transparent"
-                                x:Name="MainBackground" />	
-								
-						<TextBlock 	Foreground="{TemplateBinding Foreground}"
-									HorizontalAlignment="Center"
-									VerticalAlignment="Center"                           
-									Text="&#xe8ab;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="30"
-                                    x:Name="ToggleIconText" >
-                        </TextBlock>
-
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}" TargetName="ToggleIconText"/>
-							<Setter Property="Tag" Value="True" TargetName="MainBorder" />
-							<Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />
-							<Setter Property="Background" Value="{DynamicResource ControlBackgroundLightBrush}" TargetName="MainBackground" />
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-							<Setter Property="Background" Value="{DynamicResource SelectionLightBrush}" TargetName="MainBackground" />
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-	                           <Setter Property="Opacity" Value="0.5" />
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Text" Value="&#xe8cb;" TargetName="ToggleIconText" />
-                            <Setter Property="FontSize" Value="28" TargetName="ToggleIconText" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 
     <Style TargetType="ToggleButtonEx" BasedOn="{StaticResource {x:Type ToggleButton}}">
     </Style>

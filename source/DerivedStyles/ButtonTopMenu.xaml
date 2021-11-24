@@ -6,55 +6,41 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Height" Value="60" />
-        <Setter Property="Width" Value="60" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Grid Background="{TemplateBinding Background}" >
-                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
-                                   Foreground="{TemplateBinding Foreground}"
-                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                   Margin="0">                            
-                                <ContentPresenter />
-                        </TextBlock>
-
-                        <Border Background="{DynamicResource Background}"
-							BorderThickness="0" CornerRadius="500"
-                            BorderBrush="#5A5A5A"
-                            Margin="0,0,0,0"    
-                            HorizontalAlignment="Center" VerticalAlignment="Center" Width="55" Height="55"   
-                            x:Name="MainBorder"/>
-
-                        <Border x:Name="BorderFocus" Visibility="Collapsed"
-                                BorderThickness="3" CornerRadius="500"
-                                Style="{DynamicResource AnimatedCoverBrush}"
-                                Margin="0,0,0,0"    
-                                HorizontalAlignment="Center" VerticalAlignment="Center" Width="60" Height="60"   />
-
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                            x:Name="MainBorder" Opacity="0.4" CornerRadius="60">
+                            <Border.Effect>
+                                <BlurEffect Radius="60"/>
+                            </Border.Effect>
+                        </Border>
+                        <Border BorderBrush="Transparent"
+                            x:Name="MainBorderExtra" BorderThickness="4" CornerRadius="60" Margin="-4">
+                        </Border>
+                        <Border BorderBrush="Transparent"
+                            x:Name="MainBorderExtraBlur" BorderThickness="4" CornerRadius="60" Margin="-4">
+                            <Border.Effect>
+                                <BlurEffect Radius="10"/>
+                            </Border.Effect>
+                        </Border>
                         <ContentPresenter />
-
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=DKGThemeModifier_PS5ish_StoreButton, Path=IsKeyboardFocusWithin}" Value="True">
-                            <Setter Property="Focusable" Value="False"/>
-                        </DataTrigger>
-
-                        <Trigger Property="IsFocused" Value="False">
-                            <Setter Property="Foreground" Value="Transparent"/>
-                        </Trigger>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-                            <Setter Property="Background" Value="White" TargetName="MainBorder"/>
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
-                            <Setter Property="Tag" Value="True" TargetName="BorderFocus" />
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-                            <Setter Property="Background" Value="White" TargetName="MainBorder"/>
-                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
-                            <Setter Property="Tag" Value="True" TargetName="BorderFocus" />
+                            <Setter Property="Background" Value="{DynamicResource GlyphBrush}" TargetName="MainBorder" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource GlyphBrush}" TargetName="MainBorderExtra" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource GlyphBrush}" TargetName="MainBorderExtraBlur" />
+                            <Setter Property="Effect" TargetName="MainBorder">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      Color="White"
+                                                      Opacity="0.4"
+                                                      RenderingBias="Quality"
+                                                      BlurRadius="5"/>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -5,29 +5,27 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type FiltersAdditional}">
-                    <Border Margin="0" Background="{DynamicResource OverlayMenuBackgroundBrush}" CornerRadius="10">
-                        <DockPanel Background="Transparent"
+                    <DockPanel Background="{DynamicResource OverlayMenuBackgroundBrush}"
                                 Width="{DynamicResource FilterPanelWidth}"
                                 x:Name="PART_MenuHost">
-                            <ButtonEx DockPanel.Dock="Top"
-                                  Style="{DynamicResource FilterPanelButtonEx}" Margin="35,10,30,10"
-								  Height="50"
+                        <ButtonEx BorderThickness="2" DockPanel.Dock="Top"
+                                  Margin="15,5,15,5"
                                   x:Name="PART_ButtonBack">
-                                <Button.Content>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="&#xE973;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="18"
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xeab5;" FontFamily="{StaticResource FontIcoFont}"
+                                            FontSize="20" VerticalAlignment="Center"
+                                            Margin="0,0,10,0" />
+                                    <TextBlock Text="{DynamicResource LOCFilters}"
                                             VerticalAlignment="Center"
-                                            Margin="0,3,10,0" FontWeight="SemiBold" />
-                                        <TextBlock Text="{DynamicResource LOCFilters}" FontWeight="SemiBold"
-                                            VerticalAlignment="Center" FontSize="{DynamicResource FontSize}" />
-                                    </StackPanel>
-                                </Button.Content>
-                            </ButtonEx>
-                            <ItemsControlEx x:Name="PART_ItemsHost"
+                                            Style="{DynamicResource TextBlockBaseStyle}"/>
+                                </StackPanel>
+                            </Button.Content>
+                        </ButtonEx>
+                        <ItemsControlEx x:Name="PART_ItemsHost"
                                         DockPanel.Dock="Top" Focusable="False"
                                         KeyboardNavigation.DirectionalNavigation="Once" />
-                        </DockPanel>
-                    </Border>
+                    </DockPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
