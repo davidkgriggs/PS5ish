@@ -367,7 +367,6 @@
         <Setter Property="FontFamily" Value="Lato" />
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <!--PYL--><Setter Property="Text" Value="{DynamicResource LOCPlayGame}" /><!--PYL-->
     </Style>
     

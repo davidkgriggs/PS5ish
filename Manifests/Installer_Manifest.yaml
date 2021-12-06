@@ -59,3 +59,12 @@ Packages:
     Changelog:
       - Fixed "Search" and "Settings" text cutting off for other languages
       - Added option to change the "Play" word on the main screen in the DKG Theme Modifier
+  - Version: 4.4.0
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2021-12-03
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.4.0/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_4_0.pthm
+    Changelog:
+      - Reworked Game Details page, now has smooth scrolling
+      - Store Page Text
+      - Fix for Game Details page Play Game button
+      - Other bug fixes
