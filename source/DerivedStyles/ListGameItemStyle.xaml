@@ -562,10 +562,10 @@
                             <Grid.OpacityMask>
                                 <VisualBrush Visual="{Binding ElementName=mask}"/>
                             </Grid.OpacityMask>
-                            <Image x:Name="CoverImage" Source="Blank.png" RenderOptions.BitmapScalingMode="Fant" Width="168"
-                                                                       VerticalAlignment="Top" HorizontalAlignment="Left"
-                                                                       Stretch="{Settings CoverArtStretch}">
-                            </Image>
+                            <Image x:Name="CoverImage" Source="Blank.png" Width="168"
+                                   RenderOptions.BitmapScalingMode="Fant" StretchDirection="Both"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                                   Stretch="{Settings CoverArtStretch}" />
 
                         </Grid>
                         <Border Background="#AA000000" x:Name="BorderDarken" Style="{DynamicResource CornerRadius}" Visibility="Collapsed" Width="168"/>
@@ -860,15 +860,15 @@
                             <Setter Property="Margin" Value="-27,0,-27,0"/>
                         </MultiDataTrigger>
                         
-                        <!--DataTrigger Binding="{Settings GridItemHeightRatio}" Value="1">
+                        <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="1">
                             <Setter Property="MaxHeight" Value="168" />
-                        </>
+                        </DataTrigger>
                         <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="4">
                             <Setter Property="MaxHeight" Value="229" />
                         </DataTrigger>
                         <DataTrigger Binding="{Settings GridItemHeightRatio}" Value="3">
                             <Setter Property="MaxHeight" Value="251" />
-                        </DataTrigger-->
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

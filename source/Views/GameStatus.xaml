@@ -14,7 +14,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type GameStatus}">
-                    <Grid Background="{DynamicResource MainBackgourndBrush}"
+                    <Grid Background="{DynamicResource OverlayMenuBackgroundBrush}"
                           x:Name="PART_ViewHost"
                           d:DesignWidth="{StaticResource DesignWidth}"
                           d:DesignHeight="{StaticResource DesignHeight}"

@@ -77,8 +77,118 @@
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
-                                    <Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Overlay.png'}" />
+                                    <Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Overlay.png'}" Opacity="0.75"/>
                                 </StackPanel>
+                            </Grid>
+
+                            <!--MICRO VIDEO BACKGROUND-->
+                            <Grid Grid.Row="0" Grid.RowSpan="3" Opacity="1" Tag="{DynamicResource MicroVideoBackgrounds}">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+
+                                <Grid x:Name="VideoBackgrounds" Tag="{DynamicResource MicroVideoBackgrounds}" Style="{DynamicResource VideoBackground}">
+                                    <TextBlock Name="VideoPathMicro" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text">
+                                                    <Setter.Value>
+                                                        <MultiBinding StringFormat="{}{0}{1}{2}{3}">
+                                                            <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
+                                                            <Binding Source="\ExtraMetadata\games\"/>
+                                                            <Binding Path="SelectedGame.Id"/>
+                                                            <Binding Source="\VideoMicroTrailer.mp4" />
+                                                        </MultiBinding>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <MediaElement MediaElementBehaviors.Repeat="True" x:Name="VideoSourceBackgrounds" Tag="{DynamicResource UseAbsoluteExtraMetadataPath}" Stretch="UniformToFill" HorizontalAlignment="Center">
+                                        <MediaElement.Style>
+                                            <Style TargetType="MediaElement">
+                                                <Setter Property="MediaElement.Source" Value="{Binding ElementName=VideoPathMicro, Path=Text}"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="False">
+                                                        <Setter Property="MediaElement.Source" Value="" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=VideoBackgrounds, Path=Visibility}" Value="Collapsed">
+                                                        <Setter Property="MediaElement.Source" Value=""/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </MediaElement.Style>
+                                    </MediaElement>
+                                </Grid>
+                                <Border Background="{DynamicResource OverlayBrush}" Opacity="0.3"/>
+                            </Grid>
+                            <!--TRAILER VIDEO BACKGROUND-->
+                            <Grid Grid.Row="0" Grid.RowSpan="3" Opacity="1" Tag="{DynamicResource TrailerVideoBackgrounds}">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+
+                                <Grid x:Name="VideoBackgroundsTrailer" Tag="{DynamicResource TrailerVideoBackgrounds}">
+                                    <TextBlock Name="VideoPathTrailer" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text">
+                                                    <Setter.Value>
+                                                        <MultiBinding StringFormat="{}{0}{1}{2}{3}">
+                                                            <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
+                                                            <Binding Source="\ExtraMetadata\games\"/>
+                                                            <Binding Path="SelectedGame.Id"/>
+                                                            <Binding Source="\VideoTrailer.mp4" />
+                                                        </MultiBinding>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <MediaElement MediaElementBehaviors.Repeat="True" x:Name="VideoSourceBackgroundsTrailer" Tag="{DynamicResource UseAbsoluteExtraMetadataPath}" Stretch="UniformToFill" HorizontalAlignment="Center">
+                                        <MediaElement.Style>
+                                            <Style TargetType="MediaElement">
+                                                <Setter Property="MediaElement.Source" Value="{Binding ElementName=VideoPathTrailer, Path=Text}"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=IsActive}" Value="False">
+                                                        <Setter Property="MediaElement.Source" Value="" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=MuteButton,Path=IsChecked}" Value="True">
+                                                        <DataTrigger.EnterActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="Volume" From="0" To="0.5" Duration="0:0:0.2"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </DataTrigger.EnterActions>
+                                                        <DataTrigger.ExitActions>
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <DoubleAnimation Storyboard.TargetProperty="Volume" From="0.5" To="0" Duration="0:0:0.2"/>
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </DataTrigger.ExitActions>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=StopPlayButton,Path=IsChecked}" Value="True">
+                                                        <Setter Property="MediaElement.Source" Value="Stop" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </MediaElement.Style>
+                                    </MediaElement>
+                                </Grid>
                             </Grid>
 
                             <!--Show/Hide PS5 Background for Grid-->
@@ -108,7 +218,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Grid.Style>
-                                    <Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Overlay.png'}" />
+                                    <Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Overlay.png'}" Opacity="0.75"/>
                                 </Grid>
                             </Grid>
 
@@ -161,7 +271,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Grid.Style>
-                                    <Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Overlay.png'}" />
+                                    <Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Overlay.png'}" Opacity="0.75"/>
                                 </Grid>
                             </Grid>
 
@@ -619,135 +729,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
-                                    <StackPanel Orientation="Horizontal" Background="#B9000000" Width="365" Tag="{DynamicResource RightInfoTrueFalse}" Style="{DynamicResource RightInfo}">
-                                        <StackPanel>
-                                            <Grid Margin="0,10,0,15">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="165"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-                                                <StackPanel Grid.Column="0" Margin="20,0,0,0">
-                                                    <TextBlock Style="{DynamicResource ProgressLabel}"/>
-
-                                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" >
-                                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="24" FontFamily="Segoe UI Semibold"
-                                                Text="{PluginSettings Plugin=SuccessStory, Path=Percent}" />
-
-                                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="24" FontFamily="Segoe UI Semibold"
-                                                Text="%" />
-                                                    </StackPanel>
-                                                </StackPanel>
-
-                                                <StackPanel Grid.Column="1" HorizontalAlignment="Left">
-                                                    <TextBlock Style="{DynamicResource EarnedLabel}"/>
-
-                                                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" >
-                                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="24" FontFamily="Segoe UI Semibold"
-                                                Text="{PluginSettings Plugin=SuccessStory, Path=Unlocked}" />
-
-                                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="24" FontFamily="Segoe UI Semibold"
-                                                Text="/" />
-
-                                                        <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="24" FontFamily="Segoe UI Semibold"
-                                                Text="{PluginSettings Plugin=SuccessStory, Path=Total}" />
-                                                    </StackPanel>
-                                                </StackPanel>
-
-                                            </Grid>
-
-                                            <Grid Margin="0,0,0,22.5">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="35"/>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="35"/>
-                                                    <ColumnDefinition Width="60"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Image Grid.Column="0" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Gold.png'}" />
-                                                <TextBlock Grid.Column="1" Text="0" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
-
-                                                <Image Grid.Column="2" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Silver.png'}" />
-                                                <TextBlock Grid.Column="3" Text="0" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
-
-                                                <Image Grid.Column="4" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Bronze.png'}" />
-                                                <TextBlock Grid.Column="5" Text="{PluginSettings Plugin=SuccessStory, Path=Unlocked}" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
-                                            </Grid>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </StackPanel>
-
-
-
-                                <StackPanel Tag="{PluginSettings Plugin=SuccessStory, Path=HasData}" Margin="0,50,172.5,70" HorizontalAlignment="Right" 
-                                        Grid.RowSpan="1" Grid.Row="1" VerticalAlignment="Bottom">
-                                    <StackPanel.Style>
-                                        <Style TargetType="StackPanel">
-                                            <Setter Property="Visibility" Value="Collapsed" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
-                                                    <Setter Property="Visibility" Value="Collapsed" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </StackPanel.Style>
-                                    <StackPanel Orientation="Horizontal" Background="#B9000000" Width="365" Tag="{DynamicResource RightInfoTrueFalse}" Style="{DynamicResource RightInfo}">
-                                        <Image RenderOptions.BitmapScalingMode="Fant" Width="40" Margin="20,0,10,0"
-                                           Source="{ThemeFile 'Images/Trophy.png'}" />
-                                        <StackPanel Margin="15,0,0,0">
-                                            <TextBlock Style="{DynamicResource ProgressLabel}"
-                                        Margin="0,15,0,0" >
-                                                <TextBlock.Effect>
-                                                    <DropShadowEffect ShadowDepth="2" Color="Black"
-                                                RenderingBias="Quality" Opacity="1"/>
-                                                </TextBlock.Effect>
-                                            </TextBlock>
-                                            <StackPanel Margin="0,0,0,15" HorizontalAlignment="Left" Orientation="Horizontal" >
-                                                <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="32"
-                                                Text="{DynamicResource Sc_PercentageUnlockedString}" />
-
-                                                <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="32"
-                                                Text="%" />
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Margin="0,-87,27,0" HorizontalAlignment="Right" Orientation="Vertical" Tag="{DynamicResource RightInfoTrueFalse}" Style="{DynamicResource RightInfo}">
-                                        <TextBlock Style="{DynamicResource EarnedLabel}" 
-                                        Margin="0,0,0,0" HorizontalAlignment="Right">
-                                            <TextBlock.Effect>
-                                                <DropShadowEffect ShadowDepth="2" Color="Black"
-                                                RenderingBias="Quality" Opacity="1"/>
-                                            </TextBlock.Effect>
-                                        </TextBlock>
-                                        <StackPanel Margin="0,0,0,15" HorizontalAlignment="Right" Orientation="Horizontal" >
-                                            <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="32"
-                                                Text="{DynamicResource Sc_UnlockedString}" >
-                                                <TextBlock.Effect>
-                                                    <DropShadowEffect ShadowDepth="2" Color="Black"
-                                                RenderingBias="Quality" Opacity="1"/>
-                                                </TextBlock.Effect>
-                                            </TextBlock>
-
-                                            <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="32"
-                                                Text="/" >
-                                                <TextBlock.Effect>
-                                                    <DropShadowEffect ShadowDepth="2" Color="Black"
-                                                RenderingBias="Quality" Opacity="1"/>
-                                                </TextBlock.Effect>
-                                            </TextBlock>
-
-                                            <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="32"
-                                                Text="{DynamicResource Sc_TotalString}" >
-                                                <TextBlock.Effect>
-                                                    <DropShadowEffect ShadowDepth="2" Color="Black"
-                                                RenderingBias="Quality" Opacity="1"/>
-                                                </TextBlock.Effect>
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </StackPanel>
+                                    <CheckBoxEx x:Name="SuccessStoryButton" Style="{DynamicResource SuccessStory}"/>
                                 </StackPanel>
                             </Grid>
 
@@ -892,6 +874,24 @@
                                             </StackPanel>
                                         </Button.Content>
                                     </ButtonEx>
+
+                                    <StackPanel Orientation="Horizontal" Margin="30,15,0,0" Tag="{DynamicResource TrailerVideoBackgrounds}">
+                                        <StackPanel.Style>
+                                            <Style TargetType="StackPanel">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </StackPanel.Style>
+                                        <StackPanel Margin="0,0,10,0">
+                                            <CheckBoxEx x:Name="StopPlayButton" Style="{DynamicResource StopPlayButton}"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,0,0,0">
+                                            <CheckBoxEx x:Name="MuteButton" Style="{DynamicResource MuteButton}"/>
+                                        </StackPanel>                                        
+                                    </StackPanel>
                                 </StackPanel>
                             </Grid>
 
@@ -1731,8 +1731,8 @@
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Grid.Style>
-                                                    <TextBlock x:Name="StoreTitle" Style="{DynamicResource TextBlockBaseStyle}"
-											                        Text="{DynamicResource LOCCommonLinksStorePage}" FontSize="32" FontWeight="Light" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="20,0,0,10">
+                                                    <TextBlock x:Name="StoreTitle" Style="{DynamicResource StorePageLabel}"
+											                        Text="PlayStation Store" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="20,0,0,10">
                                                         <TextBlock.Effect>
                                                             <DropShadowEffect ShadowDepth="2" Color="Black"
 													                              RenderingBias="Quality" Opacity="0.6"/>
@@ -2049,6 +2049,37 @@
                                 </TextBlock.Style>
                             </TextBlock>
 
+                            <!--SUCCESS STORY-->
+                            <Grid Grid.Row="1" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,200,0,20">
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=SuccessStoryButton,Path=IsChecked}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+                                <Grid.RenderTransform>
+                                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                </Grid.RenderTransform>
+                                <Border Background="{DynamicResource OverlayMenuBackgroundBrush}" CornerRadius="10"/>
+                                <StackPanel Margin="10">
+                                    <TextBlock Text="{DynamicResource LOCSuccessStoryAchievements}" Style="{DynamicResource TextBlockBaseStyle}" FontSize="26"/>
+                                    <Border Background="#59FFFFFF" CornerRadius="10" Margin="0,0,0,20">
+                                        <ContentControl x:Name="SuccessStory_PluginCompactLocked" MinWidth="800" MaxHeight="500"/>
+                                    </Border>
+
+                                    <TextBlock Text="{DynamicResource LOCSuccessStoryEarned}" Style="{DynamicResource TextBlockBaseStyle}" Margin="0,20,0,5"/>
+                                    <Border Background="#59FFFFFF" CornerRadius="10" Margin="0,0,0,10">
+                                        <ContentControl x:Name="SuccessStory_PluginCompactUnlocked" MinWidth="800" MaxHeight="500"/>
+                                    </Border>
+                                    
+                                    <ContentControl x:Name="SuccessStory_PluginChart" MinWidth="800" Margin="0,0,0,10"/>
+                                </StackPanel>                                
+                            </Grid>
+                            
                             <Grid Grid.Row="2" Background="{DynamicResource Transparent}"
                               Height="100">
                                 <Grid.ColumnDefinitions>

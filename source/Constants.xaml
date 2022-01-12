@@ -56,6 +56,12 @@
     <!--Trailers-->
     <sys:Boolean x:Key="Trailers">true</sys:Boolean>
 
+    <!--MicroVideoBackgrounds-->
+    <sys:Boolean x:Key="MicroVideoBackgrounds">false</sys:Boolean>
+
+    <!--TrailerVideoBackgrounds-->
+    <sys:Boolean x:Key="TrailerVideoBackgrounds">false</sys:Boolean>
+
     <Color x:Key="Nintendo">Aqua</Color>
     <Color x:Key="XBOX">Lime</Color>
     <Color x:Key="XBOX Series X">#9bf00b</Color>
@@ -76,14 +82,14 @@
 
     <Color x:Key="ControlBackgroundColor">#222328</Color>
     <Color x:Key="ControlBackgroundColorLight">#e0e0e0</Color>
-    <Color x:Key="ControlBackgroundColorDark">#171717</Color>
+    <Color x:Key="ControlBackgroundColorDark">#303030</Color>
 
     <Color x:Key="TextColor">#f5f5f5</Color>
     <Color x:Key="TextColorDark">#282828</Color>
 
     <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource TextColor}" />
     <SolidColorBrush x:Key="TextBrushDark" Color="{DynamicResource TextColorDark}" />
-    <SolidColorBrush x:Key="GlyphBrush" Color="{DynamicResource BorderLight}" />
+    <SolidColorBrush x:Key="GlyphBrush" Color="{DynamicResource SelectionLightColor}" />
     <SolidColorBrush x:Key="GlyphLightBrush" Color="{DynamicResource GlyphLightColor}" />
 
     <SolidColorBrush x:Key="ControlBackgroundBrush" Color="{DynamicResource ControlBackgroundColor}" />
@@ -357,6 +363,26 @@
         </Style.Triggers>
     </Style>
 
+    <!--VideoBackgrounds-->
+    <Style x:Key="VideoBackground" TargetType="Grid">
+        <Setter Property="Visibility" Value="Visible"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=IsKeyboardFocusWithin}" Value="True">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard RepeatBehavior="Forever">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" BeginTime="0:0:0" Duration="0:0:0.5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" BeginTime="0:0:11.5" Duration="0:0:0.5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="0" BeginTime="0:0:12" Duration="0:0:6"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
 
 
 
@@ -389,7 +415,14 @@
         <!--EL--><Setter Property="Text" Value="{DynamicResource LOCSuccessStoryEarned}" /><!--EL-->
     </Style>
 
-    
+    <!--Store Page Label-->
+    <Style x:Key="StorePageLabel" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="32" />
+        <Setter Property="FontFamily" Value="Segoe UI Light" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <!--PSL--><Setter Property="Text" Value="PlayStation Store" /><!--PSL-->
+    </Style>
+
     <!-- CoverBorder -->
     <Style x:Key="AnimatedCoverBrush" TargetType="Border">
         <Setter Property="BorderBrush">

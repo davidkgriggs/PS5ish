@@ -14,19 +14,11 @@
                                    Grid.ColumnSpan="1" Grid.RowSpan="1"
                                    x:Name="PART_ImageBackground" />
 
+                            <Border Background="Black" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Opacity="0.3"/>
+
                             <!--Overlay Image 21:9-->
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                                <Grid.Style>
-                                    <Style TargetType="Grid">
-                                        <Setter Property="Visibility" Value="Visible" />
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Settings Fullscreen.MainBackgroundImageDarkAmount}" Value="0.0">
-                                                <Setter Property="Visibility" Value="Collapsed" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Grid.Style>
-                                <Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Overlay.png'}" />
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="1" Grid.RowSpan="1">
+                                <Image Stretch="Fill" Source="../Images/PS5Overlay.png" Opacity="0.75"/>
                             </Grid>
                         </Grid>
 
@@ -467,65 +459,7 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </StackPanel.Style>
-                                                <StackPanel Orientation="Horizontal" Background="#B9000000" Width="365" Tag="{DynamicResource RightInfoTrueFalse}" Style="{DynamicResource RightInfo}">
-                                                    <StackPanel>
-                                                        <Grid Margin="0,10,0,15">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="165"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                            </Grid.ColumnDefinitions>
-                                                            <StackPanel Grid.Column="0" Margin="20,0,0,0">
-                                                                <TextBlock Style="{DynamicResource ProgressLabel}"/>
-
-                                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" >
-                                                                    <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="24" FontFamily="Segoe UI Semibold"
-                                                Text="{PluginSettings Plugin=SuccessStory, Path=Percent}" />
-
-                                                                    <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="24" FontFamily="Segoe UI Semibold"
-                                                Text="%" />
-                                                                </StackPanel>
-                                                            </StackPanel>
-
-                                                            <StackPanel Grid.Column="1" HorizontalAlignment="Left">
-                                                                <TextBlock Style="{DynamicResource EarnedLabel}"/>
-
-                                                                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" >
-                                                                    <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="24" FontFamily="Segoe UI Semibold"
-                                                Text="{PluginSettings Plugin=SuccessStory, Path=Unlocked}" />
-
-                                                                    <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="24" FontFamily="Segoe UI Semibold"
-                                                Text="/" />
-
-                                                                    <TextBlock Style="{DynamicResource TextBlockBaseStyle}" FontSize="24" FontFamily="Segoe UI Semibold"
-                                                Text="{PluginSettings Plugin=SuccessStory, Path=Total}" />
-                                                                </StackPanel>
-                                                            </StackPanel>
-
-                                                        </Grid>
-
-                                                        <Grid Margin="0,0,0,22.5">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="60"/>
-                                                                <ColumnDefinition Width="60"/>
-                                                                <ColumnDefinition Width="35"/>
-                                                                <ColumnDefinition Width="60"/>
-                                                                <ColumnDefinition Width="35"/>
-                                                                <ColumnDefinition Width="60"/>
-                                                            </Grid.ColumnDefinitions>
-                                                            <Image Grid.Column="0" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Gold.png'}" />
-                                                            <TextBlock Grid.Column="1" Text="0" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
-
-                                                            <Image Grid.Column="2" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Silver.png'}" />
-                                                            <TextBlock Grid.Column="3" Text="0" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
-
-                                                            <Image Grid.Column="4" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Bronze.png'}" />
-                                                            <TextBlock Grid.Column="5" Text="{PluginSettings Plugin=SuccessStory, Path=Unlocked}" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
-                                                        </Grid>
-                                                    </StackPanel>
-                                                </StackPanel>
+                                                <CheckBoxEx x:Name="SuccessStoryButton" Style="{DynamicResource SuccessStory}"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Grid>
@@ -930,6 +864,39 @@
 
                                 </StackPanel>
 
+                                <!--SUCCESS STORY-->
+                                <Grid Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,200,0,20">
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=SuccessStoryButton,Path=IsChecked}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding ElementName=ZoomButton, Path=IsChecked}" Value="True">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                    <Grid.RenderTransform>
+                                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                    </Grid.RenderTransform>
+                                    <Border Background="{DynamicResource OverlayMenuBackgroundBrush}" CornerRadius="10"/>
+                                    <StackPanel Margin="10">
+                                        <TextBlock Text="{DynamicResource LOCSuccessStoryAchievements}" Style="{DynamicResource TextBlockBaseStyle}" FontSize="26"/>
+                                        <Border Background="#59FFFFFF" CornerRadius="10" Margin="0,0,0,20">
+                                            <ContentControl x:Name="SuccessStory_PluginCompactLocked" MinWidth="800" MaxHeight="500"/>
+                                        </Border>
+
+                                        <TextBlock Text="{DynamicResource LOCSuccessStoryEarned}" Style="{DynamicResource TextBlockBaseStyle}" Margin="0,20,0,5"/>
+                                        <Border Background="#59FFFFFF" CornerRadius="10" Margin="0,0,0,10">
+                                            <ContentControl x:Name="SuccessStory_PluginCompactUnlocked" MinWidth="800" MaxHeight="500"/>
+                                        </Border>
+
+                                        <ContentControl x:Name="SuccessStory_PluginChart" MinWidth="800" Margin="0,0,0,10"/>
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
