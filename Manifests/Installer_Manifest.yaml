@@ -77,3 +77,9 @@ Packages:
       - Added the option for Full Trailer backgrounds, enable in the DKG Theme Modifier
       - Changed the SuccessStory integration to show a pop up of achievements when selected
       - Bug fixes
+  - Version: 4.5.1
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2022-01-15
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.5.1/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_5_1.pthm
+    Changelog:
+      - Fix for trailer audio bug

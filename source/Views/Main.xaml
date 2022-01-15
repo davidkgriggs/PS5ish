@@ -121,6 +121,9 @@
                                                     <DataTrigger Binding="{Binding ElementName=VideoBackgrounds, Path=Visibility}" Value="Collapsed">
                                                         <Setter Property="MediaElement.Source" Value=""/>
                                                     </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                                        <Setter Property="MediaElement.Source" Value="" />
+                                                    </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
                                         </MediaElement.Style>
@@ -183,6 +186,9 @@
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding ElementName=StopPlayButton,Path=IsChecked}" Value="True">
                                                         <Setter Property="MediaElement.Source" Value="Stop" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                                        <Setter Property="MediaElement.Source" Value="" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
