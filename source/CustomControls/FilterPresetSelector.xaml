@@ -8,6 +8,7 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Visibility" Value="Collapsed"/>
+        <Setter Property="Tag" Value="{DynamicResource ShowAllFilterPresets}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBoxEx">
@@ -58,6 +59,11 @@
                             <Setter Property="Margin" Value="0,0,60,0" />
                         </MultiDataTrigger>
 
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true">
+                            <Setter Property="Focusable" Value="True" />
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True" />
@@ -73,6 +79,7 @@
 
     <Style TargetType="{x:Type FilterPresetSelector}">
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="Margin" Value="0,0,120,0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type FilterPresetSelector}">
@@ -98,5 +105,14 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Margin" Value="0,0,550,0"/>
+            </MultiDataTrigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

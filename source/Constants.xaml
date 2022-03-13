@@ -62,6 +62,9 @@
     <!--TrailerVideoBackgrounds-->
     <sys:Boolean x:Key="TrailerVideoBackgrounds">false</sys:Boolean>
 
+    <!--ShowAllFilterPresets-->
+    <sys:Boolean x:Key="ShowAllFilterPresets">false</sys:Boolean>
+
     <Color x:Key="Nintendo">Aqua</Color>
     <Color x:Key="XBOX">Lime</Color>
     <Color x:Key="XBOX Series X">#9bf00b</Color>

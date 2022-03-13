@@ -525,7 +525,7 @@
                                 </DockPanel>
 
                                 <!--Notifications-->
-                                <ButtonEx x:Name="PART_ButtonNotifications" VerticalAlignment="Bottom" Style="{DynamicResource ButtonTopMenu}"
+                                <ButtonEx x:Name="PART_ButtonNotifications" VerticalAlignment="Bottom" Style="{DynamicResource ButtonTopMenuNotification}"
                                           Grid.Column="13" Margin="0,0,0,0">
                                     <Button.Content>
                                         <Grid>
@@ -584,7 +584,7 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Grid.Style>
-                                <FilterPresetSelector x:Name="PART_FilterPresetSelector" MinWidth="1310" HorizontalAlignment="Stretch" Margin="0,0,120,0"/>
+                                <FilterPresetSelector x:Name="PART_FilterPresetSelector" MinWidth="1310" HorizontalAlignment="Stretch" Tag="{DynamicResource ShowAllFilterPresets}"/>
                             </Grid>
 
                             <!--Show/Hide Content Right-->
@@ -660,6 +660,31 @@
                                                     <BeginStoryboard Storyboard="{StaticResource RightContentEnter}"/>
                                                 </DataTrigger.EnterActions>
                                             </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="9">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource RightContentEnter}"/>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="10">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource RightContentEnter}"/>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="11">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource RightContentEnter}"/>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="12">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource RightContentEnter}"/>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="13">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource RightContentEnter}"/>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Grid.Style>
@@ -676,7 +701,10 @@
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
-                                    <StackPanel Orientation="Horizontal" Background="#B9000000" Width="365" Tag="{DynamicResource RightInfoTrueFalse}" Style="{DynamicResource RightInfo}">
+                                    <StackPanel Orientation="Horizontal" Width="365" Tag="{DynamicResource RightInfoTrueFalse}" Style="{DynamicResource RightInfo}">
+                                        <StackPanel.Background>
+                                            <ImageBrush ImageSource="../Images/Trophies.png" RenderOptions.BitmapScalingMode="Fant" Opacity="0.75"/>
+                                        </StackPanel.Background>
                                         <StackPanel>
                                             <Grid Margin="0,10,0,15">
                                                 <Grid.ColumnDefinitions>
@@ -811,6 +839,31 @@
                                                 </DataTrigger.EnterActions>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="8">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource LeftContentEnter}" />
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="9">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource LeftContentEnter}" />
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="10">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource LeftContentEnter}" />
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="11">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource LeftContentEnter}" />
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="12">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard Storyboard="{StaticResource LeftContentEnter}" />
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="13">
                                                 <DataTrigger.EnterActions>
                                                     <BeginStoryboard Storyboard="{StaticResource LeftContentEnter}" />
                                                 </DataTrigger.EnterActions>
@@ -1042,7 +1095,7 @@
                                                 <DataTrigger Binding="{Binding ElementName=ScaleLarge, Path=IsChecked}" Value="True">
                                                     <Setter Property="RenderTransform">
                                                         <Setter.Value>
-                                                            <ScaleTransform ScaleX="2" ScaleY="2" />
+                                                            <ScaleTransform ScaleX="1.8" ScaleY="1.8" />
                                                         </Setter.Value>
                                                     </Setter>
                                                 </DataTrigger>
@@ -1241,13 +1294,8 @@
                                                                 <RemoveStoryboard BeginStoryboardName="Row_Selected_8"/>
                                                             </DataTrigger.ExitActions>
                                                         </DataTrigger>
-
-                                                        <MultiDataTrigger>
-                                                            <MultiDataTrigger.Conditions>
-                                                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsFocused}" Value="True"/>
-                                                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False"/>
-                                                            </MultiDataTrigger.Conditions>
-                                                            <MultiDataTrigger.EnterActions>
+                                                        <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="9">
+                                                            <DataTrigger.EnterActions>
                                                                 <BeginStoryboard x:Name="Row_Selected_9">
                                                                     <Storyboard>
                                                                         <ThicknessAnimation Storyboard.TargetProperty="Margin" To="-976,0,0,0" Duration="0:0:0.1" FillBehavior="HoldEnd">
@@ -1258,9 +1306,65 @@
                                                                         <DoubleAnimation Storyboard.TargetProperty="MinHeight" To="9" Duration="0:0:0.15"/>
                                                                     </Storyboard>
                                                                 </BeginStoryboard>
+                                                            </DataTrigger.EnterActions>
+                                                            <DataTrigger.ExitActions>
+                                                                <RemoveStoryboard BeginStoryboardName="Row_Selected_9"/>
+                                                            </DataTrigger.ExitActions>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="10">
+                                                            <DataTrigger.EnterActions>
+                                                                <BeginStoryboard x:Name="Row_Selected_10">
+                                                                    <Storyboard>
+                                                                        <ThicknessAnimation Storyboard.TargetProperty="Margin" To="-1090,0,0,0" Duration="0:0:0.1" FillBehavior="HoldEnd">
+                                                                            <ThicknessAnimation.EasingFunction>
+                                                                                <SineEase EasingMode="EaseOut"/>
+                                                                            </ThicknessAnimation.EasingFunction>
+                                                                        </ThicknessAnimation>
+                                                                        <DoubleAnimation Storyboard.TargetProperty="MinHeight" To="10" Duration="0:0:0.15"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </DataTrigger.EnterActions>
+                                                            <DataTrigger.ExitActions>
+                                                                <RemoveStoryboard BeginStoryboardName="Row_Selected_10"/>
+                                                            </DataTrigger.ExitActions>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="11">
+                                                            <DataTrigger.EnterActions>
+                                                                <BeginStoryboard x:Name="Row_Selected_11">
+                                                                    <Storyboard>
+                                                                        <ThicknessAnimation Storyboard.TargetProperty="Margin" To="-1204,0,0,0" Duration="0:0:0.1" FillBehavior="HoldEnd">
+                                                                            <ThicknessAnimation.EasingFunction>
+                                                                                <SineEase EasingMode="EaseOut"/>
+                                                                            </ThicknessAnimation.EasingFunction>
+                                                                        </ThicknessAnimation>
+                                                                        <DoubleAnimation Storyboard.TargetProperty="MinHeight" To="11" Duration="0:0:0.15"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
+                                                            </DataTrigger.EnterActions>
+                                                            <DataTrigger.ExitActions>
+                                                                <RemoveStoryboard BeginStoryboardName="Row_Selected_11"/>
+                                                            </DataTrigger.ExitActions>
+                                                        </DataTrigger>
+
+                                                        <MultiDataTrigger>
+                                                            <MultiDataTrigger.Conditions>
+                                                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsFocused}" Value="True"/>
+                                                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False"/>
+                                                            </MultiDataTrigger.Conditions>
+                                                            <MultiDataTrigger.EnterActions>
+                                                                <BeginStoryboard x:Name="Row_Selected_14">
+                                                                    <Storyboard>
+                                                                        <ThicknessAnimation Storyboard.TargetProperty="Margin" To="-1318,0,0,0" Duration="0:0:0.1" FillBehavior="HoldEnd">
+                                                                            <ThicknessAnimation.EasingFunction>
+                                                                                <SineEase EasingMode="EaseOut"/>
+                                                                            </ThicknessAnimation.EasingFunction>
+                                                                        </ThicknessAnimation>
+                                                                        <DoubleAnimation Storyboard.TargetProperty="MinHeight" To="14" Duration="0:0:0.15"/>
+                                                                    </Storyboard>
+                                                                </BeginStoryboard>
                                                             </MultiDataTrigger.EnterActions>
                                                             <MultiDataTrigger.ExitActions>
-                                                                <RemoveStoryboard BeginStoryboardName="Row_Selected_9"/>
+                                                                <RemoveStoryboard BeginStoryboardName="Row_Selected_14"/>
                                                             </MultiDataTrigger.ExitActions>
                                                         </MultiDataTrigger>
 
@@ -1295,9 +1399,21 @@
                                                         <DataTrigger Binding="{Binding ElementName=RowOfGames, Path=MinHeight}" Value="9">
                                                             <Setter Property="Margin" Value="-976,0,0,0"/>
                                                         </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=RowOfGames, Path=MinHeight}" Value="10">
+                                                            <Setter Property="Margin" Value="-1090,0,0,0"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=RowOfGames, Path=MinHeight}" Value="11">
+                                                            <Setter Property="Margin" Value="-1204,0,0,0"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=RowOfGames, Path=MinHeight}" Value="12">
+                                                            <Setter Property="Margin" Value="-1318,0,0,0"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=RowOfGames, Path=MinHeight}" Value="13">
+                                                            <Setter Property="Margin" Value="-1432,0,0,0"/>
+                                                        </DataTrigger>                                                       
 
                                                         <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
-                                                            <Setter Property="Margin" Value="-1255,0,0,0"/>
+                                                            <Setter Property="Margin" Value="-1650,0,0,0"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -1514,11 +1630,10 @@
                                                          Focusable="False"
                                                          Margin="1,30,0,0"
                                                          Height="300"
-                                                         MaxWidth="1110"
                                                          SelectedValue="{Binding ElementName=PART_ListGameItems, Path=SelectedValue}"
                                                          IsSynchronizedWithCurrentItem="True"
                                                          ItemContainerStyle="{DynamicResource RowItemsStyle}"
-                                                         AlternationCount="10">
+                                                         AlternationCount="1000000">
                                                 </ListBox>
                                             </Grid>
                                         </StackPanel>
@@ -1583,9 +1698,6 @@
                                                         <Setter Property="Visibility" Value="Visible"/>
                                                         <Setter Property="Opacity" Value="0.99"/>
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding ElementName=SelectedIndexLogic, Path=Height}" Value="8">
-                                                                <Setter Property="Margin" Value="0,30,0,0"/>
-                                                            </DataTrigger>
                                                             <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
                                                                 <Setter Property="Margin" Value="50,-50,0,0"/>
                                                             </DataTrigger>
@@ -1597,7 +1709,7 @@
                                                                     <Condition Binding="{Binding ElementName=MoreGames, Path=IsFocused}" Value="True"/>
                                                                     <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False"/>
                                                                 </MultiDataTrigger.Conditions>
-                                                                <Setter Property="Margin" Value="-75,22,0,0"/>
+                                                                <Setter Property="Margin" Value="7.5,22,0,0"/>
                                                             </MultiDataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -2034,6 +2146,54 @@
                                                     <Condition Binding="{Binding ElementName=DKGThemeModifier_PS5ish_StoreButton, Path=IsKeyboardFocusWithin}" Value="False"/>
                                                 </MultiDataTrigger.Conditions>
                                                 <Setter Property="Height" Value="8"/>
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="9" />
+                                                    <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False" />
+                                                    <Condition Binding="{Binding ElementName=DKGThemeModifier_PS5ish_StoreButton, Path=IsKeyboardFocusWithin}" Value="False"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Height" Value="9"/>
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="10" />
+                                                    <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False" />
+                                                    <Condition Binding="{Binding ElementName=DKGThemeModifier_PS5ish_StoreButton, Path=IsKeyboardFocusWithin}" Value="False"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Height" Value="10"/>
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="11" />
+                                                    <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False" />
+                                                    <Condition Binding="{Binding ElementName=DKGThemeModifier_PS5ish_StoreButton, Path=IsKeyboardFocusWithin}" Value="False"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Height" Value="11"/>
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="12" />
+                                                    <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False" />
+                                                    <Condition Binding="{Binding ElementName=DKGThemeModifier_PS5ish_StoreButton, Path=IsKeyboardFocusWithin}" Value="False"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Height" Value="12"/>
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="13" />
+                                                    <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False" />
+                                                    <Condition Binding="{Binding ElementName=DKGThemeModifier_PS5ish_StoreButton, Path=IsKeyboardFocusWithin}" Value="False"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Height" Value="13"/>
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=PART_ListGameItems, Path=SelectedIndex}" Value="14" />
+                                                    <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False" />
+                                                    <Condition Binding="{Binding ElementName=DKGThemeModifier_PS5ish_StoreButton, Path=IsKeyboardFocusWithin}" Value="False"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Height" Value="14"/>
                                             </MultiDataTrigger>
                                         </Style.Triggers>
                                     </Style>

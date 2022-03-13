@@ -83,3 +83,11 @@ Packages:
     PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.5.1/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_5_1.pthm
     Changelog:
       - Fix for trailer audio bug
+  - Version: 4.9.0
+    RequiredApiVersion: 2.0.0
+    ReleaseDate: 2022-03-14
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v4.9.0/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_4_9_0.pthm
+    Changelog:
+      - Updated to be in line with the new PS5 Beta
+      - Now 12 games are on the main row
+      - Trophy card now has new background
