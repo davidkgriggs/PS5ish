@@ -9,7 +9,6 @@ PS5ish is a Theme for Playnite that emulates the PS5 UI.
 ### YouTube Installation Instructions, click to view:
 [![YouTube Showcase](https://img.youtube.com/vi/Xurs63Ccnlo/hqdefault.jpg)](https://www.youtube.com/watch?v=Xurs63Ccnlo)
 
-
 ### Screenshots:
 ![](https://i.imgur.com/fibgjGg.jpeg)
 ![](https://i.imgur.com/XW7d63W.jpeg)
