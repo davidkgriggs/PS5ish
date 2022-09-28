@@ -272,9 +272,21 @@
                         <Grid HorizontalAlignment="Left">
                             <Border Background="#80100100" CornerRadius="20"/>
                             <StackPanel Tag="{DynamicResource MoreGamesTrueFalse}" Style="{DynamicResource MoreGamesIcon}">
-                                <Image x:Name="MoreGamesPNG" RenderOptions.BitmapScalingMode="Fant" Width="{TemplateBinding Width}" Source="{ThemeFile 'Images/MoreGames.png'}" />
+                                <Image x:Name="MoreGamesPNG" RenderOptions.BitmapScalingMode="Fant" Width="{TemplateBinding Width}" Source="{ThemeFile 'Images/MoreGames.png'}"  >
+                                    <Image.CacheMode>
+                                        <BitmapCache EnableClearType="True" 
+                                                     RenderAtScale="1" 
+                                                     SnapsToDevicePixels="True"/>
+                                    </Image.CacheMode>
+                                </Image>
                             </StackPanel>
-                            <Image x:Name="BackToRowPNG" Opacity="0" RenderOptions.BitmapScalingMode="Fant" Width="105" Source="{ThemeFile 'Images/BackToRow.png'}" />
+                            <Image x:Name="BackToRowPNG" Opacity="0" RenderOptions.BitmapScalingMode="Fant" Width="105" Source="{ThemeFile 'Images/BackToRow.png'}"  >
+                                <Image.CacheMode>
+                                    <BitmapCache EnableClearType="True" 
+                                                 RenderAtScale="1" 
+                                                 SnapsToDevicePixels="True"/>
+                                </Image.CacheMode>
+                            </Image>
                             <Border Name="MainBorder" BorderThickness="1.5" Style="{DynamicResource AnimatedCoverBrush}" Height="{TemplateBinding MaxWidth}" Width="{TemplateBinding MaxWidth}"
                                                                     Margin="-5,-5,-5,-5" Visibility="Collapsed" CornerRadius="18" Tag="False"/>
                         </Grid>
@@ -487,6 +499,10 @@
                             <Setter Property="Visibility" TargetName="OFF" Value="Collapsed"/>
                         </Trigger>
 
+                        <DataTrigger Binding="{Binding ElementName=TrailerContainer1, Path=IsKeyboardFocusWithin}" Value="False">
+                            <Setter Property="IsChecked" Value="False"/>
+                        </DataTrigger>
+                        
                         <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Collapsed">
                             <Setter Property="IsChecked" Value="False"/>
                         </DataTrigger>
@@ -551,10 +567,6 @@
                         <Trigger Property="IsChecked" Value="False">
                             <Setter Property="Visibility" TargetName="OFF" Value="Collapsed"/>
                         </Trigger>
-
-                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Collapsed">
-                            <Setter Property="IsChecked" Value="False"/>
-                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -571,7 +583,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource SelectionLightBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="22"/>
-        <Setter Property="IsChecked" Value="False"/>
+        <Setter Property="IsChecked" Value="True"/>
         <Setter Property="Width" Value="75"/>
         <Setter Property="Height" Value="75"/>
         <Setter Property="Opacity" Value="1"/>
@@ -616,15 +628,18 @@
                         <Trigger Property="IsChecked" Value="False">
                             <Setter Property="Visibility" TargetName="OFF" Value="Collapsed"/>
                         </Trigger>
-						
-						<DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Collapsed">
+
+                        <DataTrigger Binding="{Binding ElementName=TrailerContainer1, Path=IsKeyboardFocusWithin}" Value="True">
+                            <Setter Property="IsChecked" Value="False"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Collapsed">
                             <Setter Property="IsChecked" Value="True"/>
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding ElementName=PART_ElemGameStatus, Path=Visibility}" Value="Visible">
                             <Setter Property="IsChecked" Value="True"/>
                         </DataTrigger>
-                        
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -713,6 +728,11 @@
                             <StackPanel.Background>
                                 <ImageBrush ImageSource="../Images/Trophies.png" RenderOptions.BitmapScalingMode="Fant" Opacity="0.75"/>
                             </StackPanel.Background>
+                            <StackPanel.CacheMode>
+                                <BitmapCache EnableClearType="True" 
+                                             RenderAtScale="1" 
+                                             SnapsToDevicePixels="True"/>
+                            </StackPanel.CacheMode>
                             <StackPanel>
                                 <Grid Margin="0,10,0,15">
                                     <Grid.ColumnDefinitions>
@@ -758,15 +778,33 @@
                                         <ColumnDefinition Width="60"/>
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.Column="0" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Gold.png'}" />
+                                                       Source="{ThemeFile 'Images/Trophy_Gold.png'}" >
+                                        <Image.CacheMode>
+                                            <BitmapCache EnableClearType="True" 
+                                                         RenderAtScale="1" 
+                                                         SnapsToDevicePixels="True"/>
+                                        </Image.CacheMode>
+                                    </Image>
                                     <TextBlock Grid.Column="1" Text="0" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
 
                                     <Image Grid.Column="2" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Silver.png'}" />
+                                                       Source="{ThemeFile 'Images/Trophy_Silver.png'}" >
+                                        <Image.CacheMode>
+                                            <BitmapCache EnableClearType="True" 
+                                                         RenderAtScale="1" 
+                                                         SnapsToDevicePixels="True"/>
+                                        </Image.CacheMode>
+                                    </Image>
                                     <TextBlock Grid.Column="3" Text="0" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
 
                                     <Image Grid.Column="4" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Bronze.png'}" />
+                                                       Source="{ThemeFile 'Images/Trophy_Bronze.png'}" >
+                                        <Image.CacheMode>
+                                            <BitmapCache EnableClearType="True" 
+                                                         RenderAtScale="1" 
+                                                         SnapsToDevicePixels="True"/>
+                                        </Image.CacheMode>
+                                    </Image>
                                     <TextBlock Grid.Column="5" Text="{PluginSettings Plugin=SuccessStory, Path=Unlocked}" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
                                 </Grid>
                             </StackPanel>

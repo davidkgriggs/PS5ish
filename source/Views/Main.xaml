@@ -11,7 +11,7 @@
                     <Grid x:Name="PART_MainHost"
                           d:DesignWidth="{StaticResource DesignWidth}"
                           d:DesignHeight="{StaticResource DesignHeight}"
-                          d:DataContext="{x:Static DesignMainViewModel.DesignIntance}" Background="{DynamicResource ControlBackgroundDarkBrush}">
+                          d:DataContext="{x:Static DesignMainViewModel.DesignIntance}" Background="{DynamicResource MainBackgourndBrush}">
                         <Grid>
                             <TextBlock Name="VideoPath" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed">
                                 <TextBlock.Style>
@@ -52,12 +52,24 @@
 
                             <!--Background Image 16:9-->
                             <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" Grid.RowSpan="3" VerticalAlignment="Center">
-                                <Image Stretch="Fill" Source="{ThemeFile 'Media/background.jpg'}" />
+                                <Image Stretch="Fill" Source="{ThemeFile 'Media/background.jpg'}"  >
+                                    <Image.CacheMode>
+                                        <BitmapCache EnableClearType="True" 
+                                                     RenderAtScale="1" 
+                                                     SnapsToDevicePixels="True"/>
+                                    </Image.CacheMode>
+                                </Image>
                             </StackPanel>
 
                             <!--Background Image 21:9-->
                             <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Center" Grid.RowSpan="3" VerticalAlignment="Center">
-                                <Image Stretch="Fill" Source="{ThemeFile 'Media/background_21-9.jpg'}" />
+                                <Image Stretch="Fill" Source="{ThemeFile 'Media/background_21-9.jpg'}"  >
+                                    <Image.CacheMode>
+                                        <BitmapCache EnableClearType="True" 
+                                                     RenderAtScale="1" 
+                                                     SnapsToDevicePixels="True"/>
+                                    </Image.CacheMode>
+                                </Image>
                             </StackPanel>
 
                             <!--Show/Hide Game Backgrounds for Grid-->
@@ -66,18 +78,18 @@
                                        HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
                                 <!--Overlay Image-->
-                                <StackPanel HorizontalAlignment="Stretch" Grid.RowSpan="3" VerticalAlignment="Center">
+                                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                     <StackPanel.Style>
-                                        <Style TargetType="StackPanel">
-                                            <Setter Property="Visibility" Value="Visible" />
+                                        <Style>
+                                            <Setter Property="Control.Visibility" Value="Visible" />
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Settings Fullscreen.MainBackgroundImageDarkAmount}" Value="0.0">
-                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                    <Setter Property="Control.Visibility" Value="Collapsed" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
-                                    <Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Overlay.png'}" Opacity="0.75"/>
+                                    <Border Background="{DynamicResource MainBackgroundOverlay}" Opacity="1" HorizontalAlignment="Stretch" Height="{StaticResource DesignHeight}"/>
                                 </StackPanel>
                             </Grid>
 
@@ -199,7 +211,7 @@
 
                             <!--Show/Hide PS5 Background for Grid-->
                             <Grid Grid.Row="0" Grid.RowSpan="3" Tag="{DynamicResource PS5BackgroundOnGridTrueFalse}" Style="{DynamicResource PS5BackgroundOnGrid}">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.RowSpan="3" VerticalAlignment="Center">
+                                <StackPanel x:Name="GridImage1" Orientation="Horizontal" HorizontalAlignment="Center" Grid.RowSpan="3" VerticalAlignment="Center">
                                     <StackPanel.Style>
                                         <Style TargetType="StackPanel">
                                             <Setter Property="Visibility" Value="Visible"/>
@@ -210,7 +222,13 @@
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
-                                    <Image Stretch="Fill" Width="2580" Source="{ThemeFile 'Images/GameGrid21-9.jpg'}" />
+                                    <Image Stretch="Fill" Width="2580" Source="{ThemeFile 'Images/GameGrid21-9.jpg'}" >
+                                        <Image.CacheMode>
+                                            <BitmapCache EnableClearType="True" 
+                                                         RenderAtScale="1" 
+                                                         SnapsToDevicePixels="True"/>
+                                        </Image.CacheMode>
+                                    </Image>
                                 </StackPanel>
                                 <!--Overlay Image-->
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
@@ -224,7 +242,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Grid.Style>
-                                    <Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Overlay.png'}" Opacity="0.75"/>
+                                    <Border Background="{DynamicResource MainBackgroundOverlay}" Opacity="1" HorizontalAlignment="Stretch" Height="{StaticResource DesignHeight}"/>
                                 </Grid>
                             </Grid>
 
@@ -252,7 +270,7 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Grid.Style>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.RowSpan="3" VerticalAlignment="Center">
+                                <StackPanel x:Name="GridImage2" Orientation="Horizontal" HorizontalAlignment="Center" Grid.RowSpan="3" VerticalAlignment="Center">
                                     <StackPanel.Style>
                                         <Style TargetType="StackPanel">
                                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -263,7 +281,13 @@
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
-                                    <Image Stretch="Fill" Width="2580" Source="{ThemeFile 'Images/GameGrid21-9.jpg'}" />
+                                    <Image Stretch="Fill" Width="2580" Source="{ThemeFile 'Images/GameGrid21-9.jpg'}" >
+                                        <Image.CacheMode>
+                                            <BitmapCache EnableClearType="True" 
+                                                         RenderAtScale="1" 
+                                                         SnapsToDevicePixels="True"/>
+                                        </Image.CacheMode>
+                                    </Image>
                                 </StackPanel>
                                 <!--Overlay Image-->
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Center">
@@ -277,7 +301,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Grid.Style>
-                                    <Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Overlay.png'}" Opacity="0.75"/>
+                                    <Border Background="{DynamicResource MainBackgroundOverlay}" Opacity="1" HorizontalAlignment="Stretch" Height="{StaticResource DesignHeight}"/>
                                 </Grid>
                             </Grid>
 
@@ -316,7 +340,13 @@
                                             </Style.Triggers>
                                         </Style>
                                     </StackPanel.Style>
-                                    <Image Stretch="Fill" Width="2580" Source="{ThemeFile 'Images/StoreBackground.jpg'}" />
+                                    <Image Stretch="Fill" Width="2580" Source="{ThemeFile 'Images/StoreBackground.jpg'}"  >
+                                        <Image.CacheMode>
+                                            <BitmapCache EnableClearType="True" 
+                                                         RenderAtScale="1" 
+                                                         SnapsToDevicePixels="True"/>
+                                        </Image.CacheMode>
+                                    </Image>
                                 </StackPanel>
                             </Grid>
 
@@ -513,9 +543,13 @@
                                                Source="{ThemeFile 'Media/ProfilePicture.png'}">
                                             <Image.Style>
                                                 <Style TargetType="Image">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
                                                     <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="true">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ElementName=ProfilePictureSource, Path=ActualWidth}" Value="0">
+                                                            <Setter Property="Visibility" Value="Visible"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -705,6 +739,11 @@
                                         <StackPanel.Background>
                                             <ImageBrush ImageSource="../Images/Trophies.png" RenderOptions.BitmapScalingMode="Fant" Opacity="0.75"/>
                                         </StackPanel.Background>
+                                        <StackPanel.CacheMode>
+                                            <BitmapCache EnableClearType="True" 
+                                                 RenderAtScale="1" 
+                                                 SnapsToDevicePixels="True"/>
+                                        </StackPanel.CacheMode>
                                         <StackPanel>
                                             <Grid Margin="0,10,0,15">
                                                 <Grid.ColumnDefinitions>
@@ -736,15 +775,33 @@
                                                     <ColumnDefinition Width="60"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Image Grid.Column="0" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Gold.png'}" />
+                                                       Source="{ThemeFile 'Images/Trophy_Gold.png'}"  >
+                                                    <Image.CacheMode>
+                                                        <BitmapCache EnableClearType="True" 
+                                                                                 RenderAtScale="1" 
+                                                                                 SnapsToDevicePixels="True"/>
+                                                    </Image.CacheMode>
+                                                </Image>
                                                 <TextBlock Grid.Column="1" Text="0" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
 
                                                 <Image Grid.Column="2" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Silver.png'}" />
+                                                       Source="{ThemeFile 'Images/Trophy_Silver.png'}"  >
+                                                    <Image.CacheMode>
+                                                        <BitmapCache EnableClearType="True" 
+                                                                                 RenderAtScale="1" 
+                                                                                 SnapsToDevicePixels="True"/>
+                                                    </Image.CacheMode>
+                                                </Image>
                                                 <TextBlock Grid.Column="3" Text="0" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
 
                                                 <Image Grid.Column="4" RenderOptions.BitmapScalingMode="Fant" Width="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,0"
-                                                       Source="{ThemeFile 'Images/Trophy_Bronze.png'}" />
+                                                       Source="{ThemeFile 'Images/Trophy_Bronze.png'}"  >
+                                                    <Image.CacheMode>
+                                                        <BitmapCache EnableClearType="True" 
+                                                                                 RenderAtScale="1" 
+                                                                                 SnapsToDevicePixels="True"/>
+                                                    </Image.CacheMode>
+                                                </Image>
                                                 <TextBlock Grid.Column="5" Text="0" Style="{DynamicResource TextBlockBaseStyle}" FontSize="28" VerticalAlignment="Bottom" Margin="0,0,0,-5"/>
                                             </Grid>
                                         </StackPanel>
@@ -873,47 +930,25 @@
                                 </Grid.Style>
                                 <!--Extra Metadata Tools Logo-->
                                 <StackPanel Name="Icon" Orientation="Vertical" Margin="175,0,0,200" HorizontalAlignment="Left" Grid.RowSpan="1" Grid.Row="1" VerticalAlignment="Bottom" Focusable="False">
-                                    <TextBlock Name="LogoPath" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Text">
-                                                    <Setter.Value>
-                                                        <MultiBinding StringFormat="{}{0}{1}{2}{3}">
-                                                            <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
-                                                            <Binding Source="\ExtraMetadata\games\"/>
-                                                            <Binding Path="SelectedGame.Id"/>
-                                                            <Binding Source="\logo.png" />
-                                                        </MultiBinding>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
                                     <StackPanel HorizontalAlignment="Left" Margin="0,0,0,15" Tag="{DynamicResource LeftIconTrueFalse}" Style="{DynamicResource LeftIcon}">
-                                        <Image Name="LogoImage" Grid.ZIndex="1" MaxWidth="550" MaxHeight="220" 
-                                           Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant" 
-                                           VerticalAlignment="Bottom" HorizontalAlignment="Left" 
-                                           Tag="{DynamicResource UseAbsoluteExtraMetadataPath}">
-                                            <Image.Style>
-                                                <Style TargetType="Image">
-                                                    <Setter Property="Source" Value="{Binding ElementName=LogoPath, Path=Text}"/>
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="">
-                                                            <Setter Property="Source" Value="{Binding ElementName=LogoPath, Path=Text, Converter={StaticResource ImageStringToImageConverter}}"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
-                                                            <Setter Property="Visibility" Value="Collapsed"/>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Image.Style>
-                                        </Image>
+                                        <ContentControl x:Name="ExtraMetadataLoader_LogoLoaderControl" MaxWidth="550" MaxHeight="220" />
                                     </StackPanel>
                                 </StackPanel>
                                 <!--Play and Options-->
                                 <StackPanel Orientation="Horizontal" Margin="170,0,0,45" HorizontalAlignment="Left" Grid.RowSpan="1" Grid.Row="1" VerticalAlignment="Bottom">
                                     <!--Play-->
                                     <ButtonEx x:Name="PART_ButtonPlay" Height="100" MinWidth="300" Padding="12,0,12,0"
+                                    Style="{DynamicResource ButtonPlayOptions}">
+                                        <Button.Content>
+                                            <StackPanel Orientation="Horizontal" Margin="55,5,55,0">
+                                                <TextBlock Style="{DynamicResource PlayLabel}"/>
+                                                <TextBlock Text=" " FontSize="30" VerticalAlignment="Center" FontFamily="Lato" FontWeight="Bold" />
+                                                <TextBlock Text="{DynamicResource PlayGameLabelString}" FontSize="30" VerticalAlignment="Center" FontFamily="Lato" FontWeight="Bold" />
+                                            </StackPanel>
+                                        </Button.Content>
+                                    </ButtonEx>
+                                    <!--Install-->
+                                    <ButtonEx x:Name="PART_ButtonInstall" Height="100" MinWidth="300" Padding="12,0,12,0"
                                     Style="{DynamicResource ButtonPlayOptions}">
                                         <Button.Content>
                                             <StackPanel Orientation="Horizontal" Margin="55,5,55,0">
@@ -1811,11 +1846,22 @@
                                                         </Style>
                                                     </Grid.Style>
                                                     <StackPanel Orientation="Horizontal" Visibility="{Settings Fullscreen.ShowGameTitles}">
-                                                        <Image Name="PlatformSource" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Left" Height="35" Margin="0,0,0,0"
-                                                                           Source="{Binding SelectedGame.Platforms[0].Icon, Converter={StaticResource ImageStringToImageConverter}}"/>
+                                                        <Image x:Name="PlatformSource" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Left" Height="35"
+                                                                           Source="{Binding SelectedGame.Platforms[0].Icon, Converter={StaticResource ImageStringToImageConverter}}">
+                                                            <Image.Style>
+                                                                <Style TargetType="Image">
+                                                                    <Setter Property="Margin" Value="0,0,20,0"/>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding ElementName=PlatformSource, Path=ActualWidth}" Value="0">
+                                                                            <Setter Property="Margin" Value="0,0,0,0"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Image.Style>
+                                                        </Image>
 
                                                         <TextBlock x:Name="DisplayName" Style="{DynamicResource Title}" 
-											                        Text="{Binding SelectedGame.DisplayName}" FontSize="32" FontWeight="Light" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="20,0,0,10">
+											                        Text="{Binding SelectedGame.DisplayName}" FontSize="32" FontWeight="Light" HorizontalAlignment="Right"  VerticalAlignment="Bottom" Margin="0,0,0,10">
                                                         </TextBlock>
                                                     </StackPanel>
                                                 </Grid>
@@ -1889,10 +1935,21 @@
                                                     <Setter Property="Margin" Value="200,30,0,0" />
                                                 </DataTrigger>
 
-                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False">
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="False"/>
+                                                        <Condition  Binding="{Binding ElementName=MoreGames, Path=IsFocused}" Value="False"/>
+                                                    </MultiDataTrigger.Conditions>
                                                     <Setter Property="Width" Value="1000000"/>
+                                                </MultiDataTrigger>
+
+                                                <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsFocused}" Value="True">
+                                                    <Setter Property="Opacity" Value="1"/>
+                                                    <Setter Property="Height" Value="825"/>
+                                                    <Setter Property="Margin" Value="120,260,120,-100" />
+                                                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible"/>
                                                 </DataTrigger>
-                                                
+
                                                 <DataTrigger Binding="{Binding ElementName=MoreGames, Path=IsChecked}" Value="True">
                                                     <Setter Property="Opacity" Value="1"/>
                                                     <Setter Property="Height" Value="825"/>
@@ -2279,32 +2336,6 @@
                                     </Style>
                                 </Grid.Style>
 
-                                <!--StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
-                                    <ButtonEx x:Name="PART_ButtonInstall"
-                                              Style="{DynamicResource ButtonBottomMenu}"
-                                              Content="{DynamicResource LOCInstallGame}" />
-
-                                    <ButtonEx x:Name="PART_ButtonPlayy"
-                                              Style="{DynamicResource ButtonBottomMenu}"
-                                              Content="{DynamicResource LOCPlayGame}" />
-
-                                    <ButtonEx x:Name="PART_ButtonDetails"
-                                              Style="{DynamicResource ButtonBottomMenu}"
-                                              Content="{DynamicResource LOCGameDetails}" />
-
-                                    <ButtonEx x:Name="PART_ButtonGameOptionss"
-                                              Style="{DynamicResource ButtonBottomMenu}"
-                                              Content="{DynamicResource LOCGameOptions}" />
-
-                                    <ButtonEx x:Name="PART_ButtonSearchh"
-                                              Style="{DynamicResource ButtonBottomMenu}"
-                                              Content="{DynamicResource LOCSearchLabel}" />
-
-                                    <ButtonEx x:Name="PART_ButtonFilterr"
-                                              Style="{DynamicResource ButtonBottomMenu}"
-                                              Content="{DynamicResource LOCFilter}" />
-                                </StackPanel-->
-
                                 <StackPanel Grid.Column="1" x:Name="PART_ElemSearchActive" Margin="0,50,0,0"
                                             VerticalAlignment="Top" HorizontalAlignment="Stretch">
                                     <TextBlock  FontSize="18"                                                
@@ -2469,7 +2500,7 @@
                                         </Storyboard>
                                     </Canvas.Resources>
                                     <Grid>
-                                        <Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Background_All.jpg'}"/>
+                                        <!--Image Stretch="Fill" Source="{ThemeFile 'Images/PS5Background_All.jpg'}"/-->
                                     </Grid>
 
                                     <Grid>
@@ -2506,7 +2537,13 @@
                                         <Border x:Name="AnimIntroBorder1" BorderThickness="5" BorderBrush="White" CornerRadius="250" Width="0" Height="0" Opacity="0"/>
                                         <Border x:Name="AnimIntroBorder2" BorderThickness="5" BorderBrush="White" CornerRadius="250" Width="0" Height="0" Opacity="0"/>
                                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <Image Stretch="UniformToFill" Source="{ThemeFile 'Images/IntroLogo.png'}" Width="80" Height="80"/>
+                                            <Image Stretch="UniformToFill" Source="{ThemeFile 'Images/IntroLogo.png'}" Width="80" Height="80" >
+                                                <Image.CacheMode>
+                                                    <BitmapCache EnableClearType="True" 
+                                                                 RenderAtScale="1" 
+                                                                 SnapsToDevicePixels="True"/>
+                                                </Image.CacheMode>
+                                            </Image>
                                         </StackPanel>
                                     </Grid>
                                     <Canvas.Triggers>

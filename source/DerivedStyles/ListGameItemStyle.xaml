@@ -69,19 +69,27 @@
                             <Grid x:Name="Title" Visibility="Collapsed" Height="120" HorizontalAlignment="Stretch">
                                 <Border Background="{DynamicResource OverlayTitle}"/>
                                 <StackPanel VerticalAlignment="Bottom">
-                                    <StackPanel Margin="20,0,0,0">
-                                        <StackPanel.Style>
-                                            <Style TargetType="StackPanel">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Platforms[0]}" Value="">
-                                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </StackPanel.Style>
-                                        <Image Name="PlatformSource" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Left" Height="35" Margin="0,0,0,0"
+                                    <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                                        <StackPanel>
+                                            <StackPanel.Style>
+                                                <Style TargetType="StackPanel">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Setter Property="Margin" Value="0,0,10,0"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=PlatformSource, Path=ActualWidth}" Value="0">
+                                                            <Setter Property="Margin" Value="0,0,0,0"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+                                            <Image x:Name="PlatformSource" RenderOptions.BitmapScalingMode="Fant" HorizontalAlignment="Left" Height="35" Margin="0,0,0,0"
                                                Source="{Binding Platforms[0].Icon, Converter={StaticResource ImageStringToImageConverter}}"/>
+                                        </StackPanel>
+                                        <Border Background="#80000000" BorderThickness="2" BorderBrush="White" HorizontalAlignment="Left" Margin="0,0,0,0">
+                                            <TextBlock Text="{Binding Library}" 
+                                                   Style="{DynamicResource TextBlockBaseStyle}" FontSize="14" FontFamily="Segoe UI Semibold"
+                                                   Padding="10,5,10,5" HorizontalAlignment="Left"/>
+                                        </Border>
                                     </StackPanel>
                                     <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis"
                                    Style="{DynamicResource TextBlockBaseStyle}" FontFamily="Segoe UI Semibold" FontSize="22"
@@ -91,6 +99,17 @@
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
+
+                        <Border x:Name="InstallIcon" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="15" Width="20" Height="20" Visibility="Collapsed">
+                            <Image RenderOptions.BitmapScalingMode="Fant"
+                                           Source="{ThemeFile 'Images/install.png'}" >
+                                <Image.CacheMode>
+                                    <BitmapCache EnableClearType="True" 
+                                                 RenderAtScale="1" 
+                                                 SnapsToDevicePixels="True"/>
+                                </Image.CacheMode>
+                            </Image>
+                        </Border>
 
                         <Border x:Name="MainBorder" Margin="-2" Opacity="0" BorderThickness="3" CornerRadius="3" Style="{DynamicResource AnimatedCoverBrush}" Visibility="Collapsed" Tag="False">
                         </Border>
@@ -158,6 +177,17 @@
                             <Setter Property="Focusable" Value="False"/>
                             <Setter Property="Visibility" Value="Collapsed"/>
                         </Trigger>
+
+                        <DataTrigger Binding="{Binding IsInstalled}" Value="False">
+                            <Setter Property="Visibility" Value="Visible" TargetName="InstallIcon" />
+                        </DataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding ElementName=MoreGames, Path=IsFocused}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </MultiDataTrigger>
 
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
@@ -244,14 +274,14 @@
                         <Storyboard x:Key="FocusedOn">
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleX"
-                                             From="0.625" To="1" Duration="0:0:0.15">
+                                             From="0.625" To="1" Duration="0:0:0.1">
                                 <DoubleAnimation.EasingFunction>
                                     <SineEase EasingMode="EaseInOut"/>
                                 </DoubleAnimation.EasingFunction>
                             </DoubleAnimation>
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleY"
-                                             From="0.625" To="1" Duration="0:0:0.15">
+                                             From="0.625" To="1" Duration="0:0:0.1">
                                 <DoubleAnimation.EasingFunction>
                                     <SineEase EasingMode="EaseInOut"/>
                                 </DoubleAnimation.EasingFunction>
@@ -260,14 +290,14 @@
                         <Storyboard x:Key="FocusedOff">
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleX"
-                                             From="1" To="0.625" Duration="0:0:0.15">
+                                             From="1" To="0.625" Duration="0:0:0.1">
                                 <DoubleAnimation.EasingFunction>
                                     <SineEase EasingMode="EaseInOut"/>
                                 </DoubleAnimation.EasingFunction>
                             </DoubleAnimation>
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleY"
-                                             From="1" To="0.625" Duration="0:0:0.15">
+                                             From="1" To="0.625" Duration="0:0:0.1">
                                 <DoubleAnimation.EasingFunction>
                                     <SineEase EasingMode="EaseInOut"/>
                                 </DoubleAnimation.EasingFunction>
@@ -556,16 +586,38 @@
                             <Image x:Name="CoverImage" Source="Blank.png" Width="168"
                                    RenderOptions.BitmapScalingMode="Fant" StretchDirection="Both"
                                    VerticalAlignment="Center" HorizontalAlignment="Center"
-                                   Stretch="{Settings CoverArtStretch}" />
+                                   Stretch="{Settings CoverArtStretch}" >
+                                <!--Image.CacheMode>
+                                    <BitmapCache EnableClearType="True" 
+                                                 RenderAtScale="1" 
+                                                 SnapsToDevicePixels="True"/>
+                                </Image.CacheMode-->
+                            </Image>
 
                         </Grid>
-                        <Border Background="#AA000000" x:Name="BorderDarken" Style="{DynamicResource CornerRadius}" Visibility="Collapsed" Width="168"/>
+                        <Border Background="#AA000000" x:Name="BorderDarken" Style="{DynamicResource CornerRadius}" Visibility="Collapsed" Width="168">
+                            <Border.CacheMode>
+                                <BitmapCache EnableClearType="False" 
+                                             RenderAtScale="0.5" 
+                                             SnapsToDevicePixels="False"/>
+                            </Border.CacheMode>
+                        </Border>
 
                         <Grid x:Name="IsFocused" Opacity="0">
                             <Border x:Name="MainBorder" Opacity="1" BorderThickness="3" CornerRadius="28" Margin="-6" Style="{DynamicResource AnimatedCoverBrush}" Visibility="Hidden" Tag="False">
+                                <Border.CacheMode>
+                                    <BitmapCache EnableClearType="False" 
+                                                 RenderAtScale="1" 
+                                                 SnapsToDevicePixels="False"/>
+                                </Border.CacheMode>
                             </Border>
 
                             <Border x:Name="FlashBorder" CornerRadius="28" Opacity="1" Margin="0" Style="{DynamicResource AnimatedFlashCover}"  Visibility="Hidden" Tag="False">
+                                <Border.CacheMode>
+                                    <BitmapCache EnableClearType="False" 
+                                                 RenderAtScale="1" 
+                                                 SnapsToDevicePixels="False"/>
+                                </Border.CacheMode>
                             </Border>
                         </Grid>
                         
