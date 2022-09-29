@@ -17,9 +17,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid Background="{TemplateBinding Background}">
-						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
+						<Border x:Name="MainBorder" Margin="0" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
 							</Border>
-						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
+						<Border x:Name="FlashMenuBorder" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
 							</Border>							
 						<TextBlock Style="{DynamicResource TextBlockBaseStyle}"
                                        Margin="0,0,25,0" DockPanel.Dock="Left"
@@ -47,8 +47,7 @@
 
     <DataTemplate x:Key="MainMenuHeaderTemplate">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,30">
-            <TextBlock Text="Playnite" FontSize="24" Style="{DynamicResource TextBlockBaseStyle}"
-                       Margin="0"/>
+            <TextBlock Text="Playnite" FontSize="24" Style="{DynamicResource TextBlockBaseStyle}" Margin="0" FontWeight="SemiBold" />
 <!-- 			<Image Source="{ThemeFile 'Images/logo-psplaynite.png'}" Height="30"
                    RenderOptions.BitmapScalingMode="Fant" /> -->
         </StackPanel>
@@ -134,11 +133,11 @@
         </StackPanel>
     </DataTemplate>
     
-    <DataTemplate x:Key="MainMenuFeedbackButtonTemplate">
+    <DataTemplate x:Key="MainMenuHelpButtonTemplate">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="&#xe939;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24"
+            <TextBlock Text="&#xe897;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24"
                        VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>
-            <TextBlock Text="{DynamicResource LOCMenuIssues}" VerticalAlignment="Center" />
+            <TextBlock Text="{DynamicResource LOCMenuHelpTitle}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>
     

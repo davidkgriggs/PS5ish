@@ -9,9 +9,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid Background="{TemplateBinding Background}">                            
-						<Border x:Name="MainBorder" Margin="0" BorderThickness="3" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
+						<Border x:Name="MainBorder" Margin="0" Opacity="0" CornerRadius="2" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
 							</Border>
-						<Border x:Name="FlashMenuBorder" Margin="5" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
+						<Border x:Name="FlashMenuBorder" Style="{DynamicResource AnimatedFlashMenu}" Tag="False" Visibility="Collapsed">
 							</Border>							
 						<TextBlock Style="{DynamicResource TextBlockBaseStyle}"
                                        Margin="0,0,25,0" DockPanel.Dock="Left"
@@ -48,11 +48,12 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="Padding" Value="15,15,15,15" />
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="{DynamicResource MainBackgourndBrush}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
 
     <DataTemplate x:Key="GameMenuHeaderTemplate">
-        <TextBlock Text="{Binding DisplayName}"
+        <TextBlock Text="{Binding Name}"
                    Style="{DynamicResource GameMenuHeaderText}" />
     </DataTemplate>
 
@@ -107,7 +108,23 @@
     <DataTemplate x:Key="GameMenuCustomActionButtonTemplate">
         <StackPanel Orientation="Horizontal">
             <TextBlock Width="25" Margin="20,0,20,0"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" />
+                       VerticalAlignment="Center" HorizontalAlignment="Center" />					   
+		<TextBlock Text="{Binding}" VerticalAlignment="Center" />
+	   </StackPanel>
+   </DataTemplate>
+ 		 
+   <DataTemplate x:Key="GameMenuCompletionStatusTemplate">
+	   <StackPanel Orientation="Horizontal">
+		   <TextBlock Width="25" Margin="0,0,10,0"
+					  VerticalAlignment="Center" HorizontalAlignment="Center" />
+		   <TextBlock Text="{Binding}" VerticalAlignment="Center" />
+	   </StackPanel>
+   </DataTemplate>
+ 		 
+ 	<DataTemplate x:Key="GameMenuSetFieldsTemplate">
+	    <StackPanel Orientation="Horizontal">
+		   <TextBlock Text="&#xe70f;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="24" Width="25"
+					  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0,20,0"/>			   
             <TextBlock Text="{Binding}" VerticalAlignment="Center" />
         </StackPanel>
     </DataTemplate>

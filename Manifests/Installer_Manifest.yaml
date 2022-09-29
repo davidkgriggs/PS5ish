@@ -100,3 +100,11 @@ Packages:
       - UI Changes throughout to bring closer to the PS5 UI
       - Changed Game Details to use the Extra Metadata Loader video player, trailers can now stream in via it
       - Loads of changes throughout
+  - Version: 5.0.1
+    RequiredApiVersion: 2.3.0
+    ReleaseDate: 2022-09-29
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v5.0.1/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_5_0_1.pthm
+    Changelog:
+      - Fixes bug with Profile Picture not showing
+      - Few other bug fixes
+      - Updated Store Background

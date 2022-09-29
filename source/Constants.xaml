@@ -6,6 +6,10 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     mc:Ignorable="d">
 
+    <sys:Boolean x:Key="UseAbsoluteExtraMetadataPath">false</sys:Boolean>
+    <sys:String x:Key="ExtraMetadataPath">..\..\..\..</sys:String>
+    <!--sys:String x:Key="ExtraMetadataPath">C:\Users\david\AppData\Roaming\Playnite</sys:String-->
+
     <!--Single Row Mode-->
     <sys:Boolean x:Key="SingleRowMode">false</sys:Boolean>
     
