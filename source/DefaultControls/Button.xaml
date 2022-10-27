@@ -646,6 +646,79 @@
         </Setter>
     </Style>
 
+    <Style x:Key="PlayPauseButton" TargetType="ToggleButton">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="{DynamicResource SelectionLightBrush}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="IsChecked" Value="True"/>
+        <Setter Property="Width" Value="75"/>
+        <Setter Property="Height" Value="75"/>
+        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Background="Transparent">
+                        <Border x:Name="Background" Background="#40808080" CornerRadius="75"/>
+                        <Border x:Name="BorderFocus" BorderThickness="3" Margin="-5" CornerRadius="80" Visibility="Hidden" Style="{DynamicResource AnimatedCoverBrush}" Tag="False" />
+                        <StackPanel x:Name="ON" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE769;" FontFamily="Segoe MDL2 Assets" FontSize="48" Foreground="{TemplateBinding Foreground}"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel x:Name="OFF" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE768;" FontFamily="Segoe MDL2 Assets" FontSize="48" Foreground="{TemplateBinding Foreground}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+                            <Setter Property="Background" Value="#F2F2F2" TargetName="Background" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}" />
+                            <Setter Property="Tag" Value="True" TargetName="BorderFocus" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderFocus" />
+                            <Setter Property="Background" Value="#F2F2F2" TargetName="Background" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}" />
+                            <Setter Property="Tag" Value="True" TargetName="BorderFocus" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource TextBrushDark}" />
+                        </Trigger>
+
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Visibility" TargetName="OFF" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="Visibility" TargetName="ON" Value="Collapsed"/>
+                        </Trigger>
+
+                        <DataTrigger Binding="{Binding ElementName=TrailerContainer1, Path=IsKeyboardFocusWithin}" Value="True">
+                            <Setter Property="IsChecked" Value="False"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Collapsed">
+                            <Setter Property="IsChecked" Value="True"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameStatus, Path=Visibility}" Value="Visible">
+                            <Setter Property="IsChecked" Value="True"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="ButtonFilterMenu" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />

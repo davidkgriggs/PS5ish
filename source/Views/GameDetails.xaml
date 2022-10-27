@@ -631,6 +631,11 @@
                                                         </Border>
                                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom">
                                                             <StackPanel Margin="20,0,10,20">
+                                                                <ToggleButtonEx x:Name="PlayPauseButton" Style="{DynamicResource PlayPauseButton}"
+                                                                IsChecked="{Binding ElementName=ExtraMetadataLoader_VideoLoaderControl_NoControls_Sound, Path=Content.SettingsModel.Settings.IsVideoPlaying, Mode=OneWay, FallbackValue={StaticResource False}}"
+                                                                Command="{Binding ElementName=ExtraMetadataLoader_VideoLoaderControl_NoControls_Sound, Path=Content.VideoPlayCommand}"/>
+                                                            </StackPanel>
+                                                            <StackPanel Margin="0,0,10,20">
                                                                 <CheckBoxEx x:Name="StopPlayButton" Style="{DynamicResource StopPlayButton}"/>
                                                             </StackPanel>
                                                             <StackPanel Margin="0,0,10,20">
@@ -888,6 +893,11 @@
                             </Grid>
                         </Grid>
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=ExtraMetadataLoader_VideoLoaderControl_NoControls_Sound, Path=Content.SettingsModel.Settings.IsVideoPlaying}" Value="{StaticResource True}">
+                            <Setter Property="Command" Value="{Binding ElementName=ExtraMetadataLoader_VideoLoaderControl_NoControls_Sound, Path=Content.VideoPauseCommand}" TargetName="PlayPauseButton"/>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

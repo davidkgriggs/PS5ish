@@ -509,6 +509,8 @@
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
+		<Setter Property="Margin" Value="-6"/>
+        <Setter Property="BorderThickness" Value="3"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
                 <DataTrigger.EnterActions>

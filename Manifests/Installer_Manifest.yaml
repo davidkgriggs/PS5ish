@@ -108,3 +108,11 @@ Packages:
       - Fixes bug with Profile Picture not showing
       - Few other bug fixes
       - Updated Store Background
+  - Version: 5.0.3
+    RequiredApiVersion: 2.3.0
+    ReleaseDate: 2022-10-27
+    PackageUrl: https://github.com/davidkgriggs/PS5ish/releases/download/v5.0.3/PS5ish_676e10ec-adfe-48d8-a1bd-4d5771b5a2ca_5_0_3.pthm
+    Changelog:
+      - Fixes mute button
+      - Fixes animations
+      - Fixes other issues
