@@ -16,6 +16,12 @@ PS5ish is a Theme for Playnite that emulates the PS5 UI.
 ### Playnite Fullscreen Settings:
 ![](https://i.imgur.com/QztQ2zQ.jpeg)
 
+### Plugins Supported:
+* DKG Theme Modifier
+* Extra Metadata Loader
+* Extra Metadata Fullscreen Mode Helper
+* SuccessStory
+
 See the Playnite Forum thread at: https://playnite.link/forum/thread-492.html
 
 Please support the Main Playnite Project: https://www.patreon.com/playnite
